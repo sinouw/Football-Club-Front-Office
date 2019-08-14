@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AccountService } from '../../Service/account.service';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-Account',
   templateUrl: './Account.component.html',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  User 
+ constructor(private http: HttpClient,private service: AccountService) { }
 
   ngOnInit() {
+  
+    this.getUser()
+     
   }
-
+  getUser(){
+    var paylaod = this.service.getPayload()
+    this.http.get(this.service.BaseURI+'/User/'+paylaod.UserID).subscribe(
+      res=>this.User=res,
+      err=>console.log(err))
+   }
 }

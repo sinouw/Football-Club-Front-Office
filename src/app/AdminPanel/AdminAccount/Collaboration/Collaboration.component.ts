@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminPanelServiceService } from '../../Service/AdminPanelService.service';
 import { MatTableDataSource } from '@angular/material';
+import { AccountService } from '../../Service/account.service';
+import { HttpClient } from '@angular/common/http';
+import { ToastaService, ToastaConfig, ToastOptions, ToastData} from 'ngx-toasta';
 
 @Component({
 	selector: 'app-collaboration',
@@ -12,39 +15,66 @@ export class CollaborationComponent implements OnInit {
 	
 	popUpDeleteUserResponse : any;
 	popUpNewUserResponse    : any; 
-	collaborationData		: any [];
+   collaborationData		: any [];
+   toastOptionDelete  : ToastOptions = {
+      title     : "Account Deleted",
+      msg       : "An account was deleted successfully!",
+      showClose : true,
+      timeout   : 3000,
+      theme     : "material"
+   };
+   
 
-	displayedColumns : string[] = ['image', 'name', 'email', 'access', 'action'];
+	// displayedColumns : string[] = ['image', 'name', 'email', 'access', 'action'];
+	displayedColumns : string[] = ['FullName', 'Email','PhoneNumber', 'Role' , 'action'];
 
 	dataSource = new MatTableDataSource<any>(this.collaborationData);
 
-	constructor(public service : AdminPanelServiceService) { }
+   constructor(public service : AdminPanelServiceService,
+      private accountService : AccountService,
+      private http : HttpClient,
+      private toastyService: ToastaService) { }
 
 	ngOnInit() {
-		this.service.getCollaborationContent().valueChanges().subscribe(res => this.getCollaborationData(res));	
-	}
+      this.getUsersInfo()
+   }
+   
+   getUsersInfo(){
+      this.accountService.GetUsers()
+		this.service.getCollaborationContent().valueChanges().subscribe(res => this.getCollaborationData(res));
+   }
 
    //getCollaborationData method is used to get the collaboration data.
    getCollaborationData(response){
-      this.collaborationData = response;
+      
+      // this.collaborationData = response;
+      this.collaborationData = this.accountService.Users;
       this.dataSource = new MatTableDataSource<any>(this.collaborationData);
    }
 	/** 
      *onDelete method is used to open a delete dialog.
      */
-   onDelete(i){
+   onDelete(Id,i){     
       this.service.deleteDialog("Are you sure you want to delete this user permanently?").
-         subscribe( res => {this.popUpDeleteUserResponse = res},
+         subscribe( res => 
+            {
+               this.popUpDeleteUserResponse = res
+            },
                     err => console.log(err),
-                    ()  => this.getDeleteResponse(this.popUpDeleteUserResponse,i))
+                    ()  => {this.getDeleteResponse(Id,this.popUpDeleteUserResponse,i)})
    }
 
    /**
      * getDeleteResponse method is used to delete a user from the user list.
      */
-   getDeleteResponse(response : string,i){
+   getDeleteResponse(Id : string,response : string,i){
       if(response == "yes"){
          this.dataSource.data.splice(i,1);
+         console.log(i)
+         this.accountService.DeleteUser(Id)
+         this.toastyService.success(this.toastOptionDelete);
+
+         // this.getUsersInfo()
          this.dataSource = new MatTableDataSource(this.dataSource.data);
       }
    }
@@ -54,26 +84,41 @@ export class CollaborationComponent implements OnInit {
      */   
    addNewUserDialog() {
       this.service.addNewUserDialog().
-         subscribe( res => {this.popUpNewUserResponse = res},
+         subscribe( res => {this.popUpNewUserResponse = res;
+            // this.getUsersInfo()
+         },
                     err => console.log(err),
-                    ()  => this.getAddUserPopupResponse(this.popUpNewUserResponse))
+                     ()  => this.getAddUserPopupResponse(this.popUpNewUserResponse))
+                
    }
-
-   /**
-     *getAddUserPopupResponse method is used to get a new client dialog response.
-     *if response will be get then add new client into client list.
-     */
-   getAddUserPopupResponse(response: any){
+getAddUserPopupResponse(response: any){
       if(response){
          let addUser = {
-            image : "assets/images/user-edit.png",
-            name : response.name,
-            email : response.email,
-	        access : response.accessType
+            FullName : response.FullName,
+            Email : response.Email,
+            PhoneNumber : response.PhoneNumber,
+            Role : response.Role,
+            IsActive : response.IsActive
          }
          this.collaborationData.push(addUser);
          this.dataSource = new MatTableDataSource<any>(this.collaborationData);     
       }
    }
 
+   ChangeStatus(Id : string,i : number){
+   this.http.put(this.accountService.BaseURI+'/User/ToggleStatus/'+Id,null)
+     .subscribe(res=>{
+      console.log(res)  
+      this.dataSource.data.splice(i,1);
+      this.collaborationData.push(res);
+      this.dataSource = new MatTableDataSource<any>(this.collaborationData);
+   },
+     err=>{
+      console.log(err)  
+     })
+      }
+     
+
+     
+   
 }
