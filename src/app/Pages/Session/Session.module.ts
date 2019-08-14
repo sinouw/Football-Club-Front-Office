@@ -5,7 +5,7 @@ import { NgAisModule } from 'angular-instantsearch';
 import { SessionRoutes } from './Session.routing';
 import { GlobalModule } from '../../Global/Global.module';
 import { TemplatesModule } from '../../Templates/Templates.module';
-
+import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule, 
    MatCardModule, 
@@ -69,7 +69,9 @@ import { ThankYouComponent } from './ThankYou/ThankYou.component';
       MatGridListModule,
       GlobalModule,
       TemplatesModule,
-      NgAisModule
+      NgAisModule,
+      FormsModule,
+      ReactiveFormsModule
    ],
    declarations: [
       RegisterComponent,

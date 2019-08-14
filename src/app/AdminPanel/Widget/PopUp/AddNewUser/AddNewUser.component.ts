@@ -12,22 +12,22 @@ import { ToastaService, ToastaConfig, ToastOptions, ToastData} from 'ngx-toasta'
   styleUrls: ['./AddNewUser.component.scss']
 })
 export class AddNewUserComponent implements OnInit {
-	registerBody : RegisterBody
-	addNewUserForm    : FormGroup;
+	registerBody 		: RegisterBody
+	addNewUserForm    	: FormGroup;
 	emailPattern 		: string = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
-	toastOptionAdding  : ToastOptions = {
-		title     : "Adding Account",
-		msg       : "Account Added Successfully!",
-		showClose : true,
-		timeout   : 3000,
-		theme     : "material"
+	toastOptionAdding 	: ToastOptions = {
+		title     		: "Adding Account",
+		msg       		: "Account Added Successfully!",
+		showClose 		: true,
+		timeout   		: 3000,
+		theme     		: "material"
 	 };
 	 toastOptionAddingError  : ToastOptions = {
-		title     : "Adding Account ",
-		msg       : "Error! Account Was Not Added Successfully!!!!!!",
-		showClose : true,
-		timeout   : 3000,
-		theme     : "material"
+		title     		: "Adding Account ",
+		msg       		: "Error! Account Was Not Added Successfully!!!!!!",
+		showClose 		: true,
+		timeout   		: 3000,
+		theme     		: "material"
 	 };
 
 	constructor( private formBuilder : FormBuilder,
