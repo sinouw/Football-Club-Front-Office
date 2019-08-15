@@ -4,6 +4,8 @@ import { MatTableDataSource, MatPaginator} from '@angular/material';
 import { AdminGenericService } from '../../Service/AdminGeneric.service';
 import { baseurl } from '../../Models/basurl.data';
 import { Reservation } from '../../Models/Reservation.model';
+import { ReservationService } from '../../Service/reservation.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-invoices',
@@ -14,41 +16,61 @@ import { Reservation } from '../../Models/Reservation.model';
 export class InvoicesComponent implements OnInit {
 
 	popUpDeleteUserResponse : any;
-	ReservationList         : Reservation [] = [];
-
+   invoiceList             : any[]=[] ;
+   reservations            
    @ViewChild(MatPaginator,{static: false}) paginator : MatPaginator;
 
-   dataSource = new MatTableDataSource<any>(this.ReservationList);
+   dataSource = new MatTableDataSource<any>(this.invoiceList);
 
-   displayedColumns : string[] = ['position', 'invoiceId', 'name', 'date','price', 'payment','status','action'];
+   // displayedColumns : string[] = ['position', 'invoiceId', 'name','Price', 'payment','status','action'];
+   // displayedColumns : string[] = ['ClubName', 'Name','Type', 'FullName', 'StartRes','EndRes', 'Price','status','action'];
+   displayedColumns : string[] = ['Name','Type', 'FullName','Day', 'StartRes','EndRes', 'Price','status','action'];
 
    constructor(public service : AdminPanelServiceService,
-      private genericservice: AdminGenericService) { }
+      private genericservice: AdminGenericService,
+      private reservationservice :ReservationService) { }
 
 	ngOnInit() {
-      this.getReservationInfo()
+      
+      this.getDataInfo()
+   
    }
 
-
-   getReservationInfo(){
-      this.genericservice.get(baseurl+'/Reservations')
-      .subscribe(
-         res=>{
-            this.ReservationList=res as Reservation[]
-            console.log(res)
-            this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
-         },
-         err=>
-            console.log(err)
-      )
-      
-		
+   getDataInfo(){
+      this.reservationservice.getReservationInfo()
+      this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
    }
 
    //getInvoiceData method is used to get the invoice list data.
    getInvoiceData(response){
       // this.invoiceList = response;
-      this.dataSource = new MatTableDataSource<any>(this.ReservationList);
+      console.log(this.reservationservice.reservations);
+
+
+      this.reservationservice.reservations.forEach(el => {
+         let invoice = {
+            FullName : el.Client.FullName,
+            Name: el.Terrain.Name,
+            Type: el.Terrain.Type,
+            Price: el.Terrain.Price,
+            IdClub: el.Terrain.IdClub,
+            status : el.status,
+            Day : ((JSON.stringify(el.StartRes)).split("T")[0]).substring(1,11),
+            StartRes :(((JSON.stringify(el.StartRes)).split("T")[1])).split('"')[0],
+            EndRes : (((JSON.stringify(el.EndRes)).split("T")[1])).split('"')[0],
+         }
+         this.invoiceList.push(invoice);
+      });
+
+      
+
+      // let body ={
+      //    FullName : this.reservationservice.reservations.Client.FullName
+      // }
+
+      // this.invoiceList = this.reservationservice.reservations
+      // this.invoiceList.values.
+      this.dataSource = new MatTableDataSource<any>(this.invoiceList);
       setTimeout(()=>{
          this.dataSource.paginator = this.paginator;
       },0)
