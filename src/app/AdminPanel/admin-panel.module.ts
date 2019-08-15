@@ -45,7 +45,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GlobalModule } from '../Global/Global.module';
 import { AccountService } from './Service/account.service';
-import { GenericService } from './Service/generic.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -108,7 +107,6 @@ export function createTranslateLoader(http: HttpClient) {
 	providers : [
 		AdminMenuItems,
 		AccountService,
-		GenericService
 	],
 	exports : [
 		RouterModule,

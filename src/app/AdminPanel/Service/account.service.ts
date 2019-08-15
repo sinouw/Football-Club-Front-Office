@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/Models/User.model';
 import { log } from 'util';
+import { baseurl } from '../Models/basurl.data';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AccountService {
   userRole
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'http://localhost:54277/api';
+  readonly BaseURI = baseurl;
 
   login(formData) {
     return this.http.post(this.BaseURI + '/Login', formData)

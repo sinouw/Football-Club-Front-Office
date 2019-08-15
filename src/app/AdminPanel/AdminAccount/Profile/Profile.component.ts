@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AccountService } from '../../Service/account.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProfileComponent implements OnInit {
   userDetails
 
-  constructor(private router: Router, private service: AccountService,private http : HttpClient) { }
+  constructor(private service: AccountService) { }
 
   ngOnInit() {
   
