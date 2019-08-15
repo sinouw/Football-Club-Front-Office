@@ -72,9 +72,9 @@ export class AdminGenericService {
     let dataString = this.getURI(data);
     let headers = new  HttpHeaders().set("Content-Type", "application/json");
     console.log("PUT : "+url,dataString,body,data);
-    return this.http.put( url,body, {headers})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.put( url,body, {headers});
+      // .map(this.extractData)
+      // .catch(this.handleError);
   }
 
   delete(url:string,body:any={},data:any[]=[]):Observable<any> | any{

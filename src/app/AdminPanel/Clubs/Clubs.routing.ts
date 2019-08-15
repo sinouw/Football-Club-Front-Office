@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ClubsComponent } from './Clubs/Clubs.component';
+import { EditClubComponent } from './EditClub/EditClub.component';
 
 export const ClubsRoutes: Routes = [
     {
@@ -13,7 +14,11 @@ export const ClubsRoutes: Routes = [
             {
                 path: 'clubs',
                 component: ClubsComponent
-            }
+            },
+            {
+                path: 'club-edit/:id',
+                component: EditClubComponent
+            },
         ]
     }
 ];
