@@ -14,7 +14,7 @@ import { Club } from '../../Models/Club.model';
 export class EditClubComponent implements OnInit {
 
   private baseUrl: string = "https://localhost:44358/api";
-
+  s = 3
   emailPattern: string = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
 
   editClubDetail: any;
