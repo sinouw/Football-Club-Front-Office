@@ -39,11 +39,11 @@ export class ClubsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.list().subscribe(res => this.getProductResponse(res));
+    this.list().subscribe(res => this.getClubResponse(res));
   }
 
   //getProductResponse method is used to get the response of all products.
-  public getProductResponse(response) {
+  public getClubResponse(response) {
     console.log(response);
     this.clubsGrid = null;
     this.clubsGrid = response;
@@ -119,7 +119,7 @@ export class ClubsComponent implements OnInit {
 	onEditProduct(data,id){
     console.log(data);
     console.log(id);
-   
+    this.router.navigate(['/admin-panel/club-edit',id]);
 	}
 
   read(id: string): Observable<Club> {

@@ -16,7 +16,7 @@ export class AccountService {
   userRole
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'http://localhost:54277/api';
+  readonly BaseURI = 'http://localhost:44358/api';
 
   login(formData) {
     return this.http.post(this.BaseURI + '/Login', formData)
