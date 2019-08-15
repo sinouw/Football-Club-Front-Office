@@ -10,7 +10,7 @@ reservations : any
   constructor(private http : HttpClient) { }
 
   getReservationInfo(){
-    this.http.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes')
+    this.http.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes,IdReservation')
     // this.genericservice.get(baseurl+'/Reservations')
     .subscribe(
        res=>{
@@ -19,9 +19,20 @@ reservations : any
           console.log(res)
        },
        err=>
-          console.log(err)
-    )
-    
-  
- }
+          console.log(err))
+   }
+
+   DeleteReservation(id){
+      this.http.delete(baseurl+'/Reservations/'+id).subscribe(
+        res=>{
+          this.getReservationInfo()
+        },err=>{
+          console.log(err);
+        })
+    }
+
+
+
+
+
 }

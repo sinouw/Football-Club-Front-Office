@@ -57,9 +57,7 @@ export class CollaborationComponent implements OnInit {
    onDelete(Id,i){     
       this.service.deleteDialog("Are you sure you want to delete this user permanently?").
          subscribe( res => 
-            {
-               this.popUpDeleteUserResponse = res
-            },
+            {this.popUpDeleteUserResponse = res},
                     err => console.log(err),
                     ()  => {this.getDeleteResponse(Id,this.popUpDeleteUserResponse,i)})
    }
@@ -73,8 +71,6 @@ export class CollaborationComponent implements OnInit {
          console.log(i)
          this.accountService.DeleteUser(Id)
          this.toastyService.success(this.toastOptionDelete);
-
-         // this.getUsersInfo()
          this.dataSource = new MatTableDataSource(this.dataSource.data);
       }
    }
