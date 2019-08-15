@@ -107,8 +107,10 @@ export function createTranslateLoader(http: HttpClient) {
 	],
 	providers : [
 		AdminMenuItems,
+
 		AccountService,
 		ReservationService
+
 	],
 	exports : [
 		RouterModule,
