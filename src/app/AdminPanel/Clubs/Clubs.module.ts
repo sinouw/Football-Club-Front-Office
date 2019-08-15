@@ -20,16 +20,14 @@ import { MatSidenavModule,
          MatPaginatorModule,
          MatSortModule,         
 			MatCheckboxModule,
-         MatGridListModule,
-         MatDatepickerModule
+         MatGridListModule
 		 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from '@ngx-translate/core';
 import { GlobalModule} from '../../Global/Global.module';
-import { EditClubComponent } from './EditClub/EditClub.component';
 
 @NgModule({
-  declarations: [ClubsComponent, EditClubComponent],
+  declarations: [ClubsComponent],
   imports: [
     CommonModule,
 
@@ -48,7 +46,6 @@ import { EditClubComponent } from './EditClub/EditClub.component';
     MatDividerModule,
     MatListModule,
     RouterModule.forChild(ClubsRoutes),
-    MatDatepickerModule,
 
     TranslateModule,
     MatPaginatorModule,
