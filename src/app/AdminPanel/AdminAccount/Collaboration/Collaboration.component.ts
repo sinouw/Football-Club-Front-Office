@@ -108,9 +108,7 @@ getAddUserPopupResponse(response: any){
    ChangeStatus(Id : string,i : number){
    this.http.put(this.accountService.BaseURI+'/User/ToggleStatus/'+Id,null)
      .subscribe(res=>{
-      console.log(res)  
-      this.dataSource.data.splice(i,1);
-      this.collaborationData.push(res);
+      this.collaborationData[i]=res
       this.dataSource = new MatTableDataSource<any>(this.collaborationData);
    },
      err=>{
