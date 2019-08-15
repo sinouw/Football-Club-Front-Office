@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdminPanelServiceService } from '../../Service/AdminPanelService.service';
 import { MatTableDataSource, MatPaginator} from '@angular/material';
+import { AdminGenericService } from '../../Service/AdminGeneric.service';
+import { baseurl } from '../../Models/basurl.data';
+import { Reservation } from '../../Models/Reservation.model';
 
 @Component({
   selector: 'app-invoices',
@@ -11,24 +14,41 @@ import { MatTableDataSource, MatPaginator} from '@angular/material';
 export class InvoicesComponent implements OnInit {
 
 	popUpDeleteUserResponse : any;
-	invoiceList             : any [] = [];
+	ReservationList         : Reservation [] = [];
 
    @ViewChild(MatPaginator,{static: false}) paginator : MatPaginator;
 
-   dataSource = new MatTableDataSource<any>(this.invoiceList);
+   dataSource = new MatTableDataSource<any>(this.ReservationList);
 
    displayedColumns : string[] = ['position', 'invoiceId', 'name', 'date','price', 'payment','status','action'];
 
-	constructor(public service : AdminPanelServiceService) { }
+   constructor(public service : AdminPanelServiceService,
+      private genericservice: AdminGenericService) { }
 
 	ngOnInit() {
-      this.service.getInvoiceContent().valueChanges().subscribe(res => this.getInvoiceData(res));
-	}
+      this.getReservationInfo()
+   }
+
+
+   getReservationInfo(){
+      this.genericservice.get(baseurl+'/Reservations')
+      .subscribe(
+         res=>{
+            this.ReservationList=res as Reservation[]
+            console.log(res)
+            this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
+         },
+         err=>
+            console.log(err)
+      )
+      
+		
+   }
 
    //getInvoiceData method is used to get the invoice list data.
    getInvoiceData(response){
-      this.invoiceList = response;
-      this.dataSource = new MatTableDataSource<any>(this.invoiceList);
+      // this.invoiceList = response;
+      this.dataSource = new MatTableDataSource<any>(this.ReservationList);
       setTimeout(()=>{
          this.dataSource.paginator = this.paginator;
       },0)

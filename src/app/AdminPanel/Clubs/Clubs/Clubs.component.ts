@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastaService } from 'ngx-toasta';
+import { baseurl } from '../../Models/basurl.data';
 
 @Component({
   selector: 'app-clubs',
@@ -15,7 +16,7 @@ import { ToastaService } from 'ngx-toasta';
 })
 export class ClubsComponent implements OnInit {
 
-  private baseUrl: string = "https://localhost:44358/api";
+  private baseUrl: string = baseurl;
 
   popUpNewClubResponse: any;
   popUpEditClubResponse: any;
