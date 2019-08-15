@@ -1,4 +1,5 @@
 export class Club {
+    Id: string;
     Name: string;
 	Address: string;
 	Phone: string;
