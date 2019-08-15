@@ -81,7 +81,7 @@ export class EditClubComponent implements OnInit {
 
   updateClub() {
     let addclub  = {
-      IdClub : this.form.value.IdClub,
+      IdClub : this.form.value.IdClub, 
       Name : this.form.value.Name,
       Address : this.form.value.Address,
       Phone : this.form.value.Phone,
