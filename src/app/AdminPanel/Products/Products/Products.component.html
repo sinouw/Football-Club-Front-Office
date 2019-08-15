@@ -22,6 +22,7 @@
       </div>
    </div>			
 </mat-card>	
+
 <div class="m-3" fxLayoutAlign="space-between center">
    <div class="title">
       <h5 class="mb-0">{{'Product' | translate }} {{showType | translate}}</h5>
@@ -69,6 +70,7 @@
       </mat-form-field>
    </div>
 </div>
+
 <ng-container *ngIf="productsGrid && productsGrid.length >= 0; else elseBlock">
    <ng-container *ngIf="showType == 'list';else gridtype">
       <div fxLayout="row wrap">
@@ -78,6 +80,7 @@
                   <div class="overflow-hidden">
                      <div class="table-responsive-x product-list-table">         
                         <table class="w-100 table-scroll-wrap" mat-table [dataSource]="productsList" matSort>
+                           
                            <ng-container matColumnDef="id">
                               <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
                               <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.id}}</td>
@@ -124,6 +127,7 @@
                                  </button>
                               </td>
                            </ng-container>     
+
                            <tr mat-header-row *matHeaderRowDef="displayedProductColumns"></tr>
                            <tr mat-row *matRowDef="let row; columns: displayedProductColumns"></tr>
                         </table>  
