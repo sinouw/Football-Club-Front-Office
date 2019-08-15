@@ -5,7 +5,7 @@ import "rxjs/add/operator/catch";
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { DUMP_DATA } from "./dump.data";
+import { DUMP_DATA } from "../Models/dump.data";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { DeleteListDialogComponent} from '../Widget/PopUp/DeleteListDialog/DeleteListDialog.component';
