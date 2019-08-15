@@ -56,9 +56,9 @@
                     <ng-container matColumnDef="action">
                         <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Action </th>
                         <td class="px-3 text-nowrap" mat-cell *matCellDef="let element;let i = index;">
-                            <button mat-icon-button (click)="onSeeDialog()" color="primary">
+                            <!-- <button mat-icon-button (click)="onSeeDialog()" color="primary">
                      <i class="material-icons">remove_red_eye</i>
-                  </button>
+                  </button> -->
                             <button color="warn" mat-icon-button (click)="onDelete(element.IdReservation,i)">
                      <mat-icon class="">delete</mat-icon>
                   </button>
