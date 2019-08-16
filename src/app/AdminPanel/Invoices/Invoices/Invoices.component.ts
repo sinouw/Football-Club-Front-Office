@@ -15,7 +15,9 @@ import { ToastOptions, ToastaService } from 'ngx-toasta';
 })
 
 export class InvoicesComponent implements OnInit {
-
+   clubs
+   collaborationData
+   popUpNewResResponse    : any;
 	popUpDeleteUserResponse : any;
    invoiceList             : any[]=[] ;
    reservations            
@@ -37,7 +39,8 @@ export class InvoicesComponent implements OnInit {
    constructor(public service : AdminPanelServiceService,
       private genericservice: AdminGenericService,
       private reservationservice :ReservationService,
-      private toastyService: ToastaService) { }
+      private toastyService: ToastaService,
+      ) { }
 
 	ngOnInit() {
       
@@ -65,9 +68,9 @@ export class InvoicesComponent implements OnInit {
             Price: el.Terrain.Price,
             IdClub: el.Terrain.IdClub,
             status : el.status,
-            Day : ((JSON.stringify(el.StartRes)).split("T")[0]).substring(1,11),
-            StartRes :(((JSON.stringify(el.StartRes)).split("T")[1])).split('"')[0],
-            EndRes : (((JSON.stringify(el.EndRes)).split("T")[1])).split('"')[0],
+            Day : el.resDay,
+            StartRes :el.StartRes,
+            EndRes : el.EndRes
          }
          this.invoiceList.push(invoice);
       });
@@ -122,6 +125,35 @@ export class InvoicesComponent implements OnInit {
 
       if (this.dataSource.paginator) {
          this.dataSource.paginator.firstPage();
+      }
+   }
+
+   
+      /** 
+     * addNewUserDialog method is used to open a add new client dialog.
+     */   
+    addNewUserDialog() {
+      //  this.reservationservice.getClubs()
+      this.service.addNewReservationDialog().
+         subscribe( res => {this.popUpNewResResponse = res;
+            
+         },
+                    err => console.log(err),
+                     ()  => this.getAddResPopupResponse(this.popUpNewResResponse))
+                
+   }
+
+   getAddResPopupResponse(response: any){
+      if(response){
+         let addUser = {
+            FullName : response.FullName,
+            Email : response.Email,
+            PhoneNumber : response.PhoneNumber,
+            Role : response.Role,
+            IsActive : response.IsActive
+         }
+         this.collaborationData.push(addUser);
+         this.dataSource = new MatTableDataSource<any>(this.collaborationData);     
       }
    }
 }

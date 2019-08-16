@@ -1,0 +1,88 @@
+<form [formGroup]="addReservationForm" class="popup-card-width add-new-user">
+    <div>
+        <h2 mat-dialog-title>Add New Reservation</h2>
+    </div>
+    <mat-dialog-content class="mb-4">
+        <div>
+            <div>
+                <!-- <mat-form-field class="w-100">
+                    <input matInput type="text" formControlName="ClubName" class="form-control" placeholder="club Name" autocomplete="off">
+                    <mat-error *ngIf="addReservationForm.controls['ClubName'].touched && !addReservationForm.controls['ClubName'].valid">
+                        <mat-error *ngIf="addReservationForm.controls['ClubName'].hasError('required')" class="required alert-error">
+                            You must include a Club Name
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field> -->
+                <mat-form-field class="w-100">
+                    <select matNativeControl formControlName="IdClub" placeholder="Club Name">
+                        <option *ngFor="let club of clubs" [value]="club.IdClub" (click)="getTerrains()">{{ club?.Name }}</option>
+                    </select >
+                    <mat-error *ngIf="addReservationForm.controls['IdClub'].touched && !addReservationForm.controls['IdClub'].valid">
+                        <mat-error *ngIf="addReservationForm.controls['IdClub'].hasError('required')" class="required alert-error">
+                            You must Select a Club Name.
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100">
+                        <select matNativeControl formControlName="IdTerrrain" placeholder="Terrain Name">
+                            <option *ngFor="let terrain of terrains" [value]="terrain.IdTerrain">{{ terrain?.Name }}</option>
+                        </select >
+                        <mat-error *ngIf="addReservationForm.controls['IdTerrrain'].touched && !addReservationForm.controls['IdTerrrain'].valid">
+                            <mat-error *ngIf="addReservationForm.controls['IdTerrrain'].hasError('required')" class="required alert-error">
+                                You must Select a Terrain Name.
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                
+
+                <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker" placeholder="Reservation Day" formControlName="resDay">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="addReservationForm.get('resDay').hasError('required') && addReservationForm.get('resDay').touched">This field should not be empty.</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <input matInput type="time" placeholder="Starting Time" formControlName="StartRes">
+                    <mat-error *ngIf="addReservationForm.get('StartRes').hasError('required') && addReservationForm.get('StartRes').touched">This field should not be empty.</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <input matInput type="time" placeholder="Ending Time" formControlName="EndRes">
+                    <mat-error *ngIf="addReservationForm.get('EndRes').hasError('required') && addReservationForm.get('EndRes').touched">This field should not be empty.</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <select matNativeControl formControlName="status" placeholder="Reservation Status">
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Waiting For Confirmation">Waiting For Confirmation</option>
+                        <option value="Reported">Reported</option>
+                    </select>
+                    <mat-error *ngIf="addReservationForm.controls['status'].touched && !addReservationForm.controls['status'].valid">
+                        <mat-error *ngIf="addReservationForm.controls['status'].hasError('required')" class="required alert-error">
+                            You must Select a Reservation Status.
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- <mat-form-field class="w-100">
+                    <select matNativeControl formControlName="accessType" placeholder="Access Type">
+                        <option value="Admin">Admin</option>
+                        <option value="Write">Write</option>
+                        <option value="Read">Read</option>
+                    </select>
+                    <mat-error
+                        *ngIf="addNewUserForm.controls['accessType'].touched && !addNewUserForm.controls['accessType'].valid">
+                        <mat-error *ngIf="addNewUserForm.controls['accessType'].hasError('required')"
+                            class="required alert-error">
+                            You must Select a Access Type.
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field> -->
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0">
+        <button type="button" mat-raised-button (click)="dialogRef.close()" color="primary">CLOSE</button>
+        <button (click)="onFormSubmit()" type="submit" [disabled]="!addReservationForm.valid" mat-raised-button color="warn">SUBMIT</button>
+    </mat-dialog-actions>
+</form>
+<!-- add-new-Reservation -->
