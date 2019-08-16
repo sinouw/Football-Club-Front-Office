@@ -15,7 +15,8 @@ export class EditProfileComponent implements OnInit {
    info         : FormGroup;
    address      : FormGroup;
    card         : FormGroup;
-   UserNamePattern:any =/[A-Za-z0-9]/
+   
+   UserNamePattern:any =/^[A-Za-z0-9_]*$/
    emailPattern : any = /\S+@\S+\.\S+/;
    NumberPattern: any = /^-?(0|[1-9]\d*)?$/
    toastOption  : ToastOptions = {
@@ -56,7 +57,7 @@ export class EditProfileComponent implements OnInit {
            this.userDetails = res;
            this.roles=this.userDetails.role
            this.info = this.formGroup.group({
-            UserName   : ['', [Validators.required,Validators.pattern(this.UserNamePattern)]],
+            UserName   : [this.userDetails.UserName, [Validators.required,Validators.pattern(this.UserNamePattern)]],
             FullName    : [this.userDetails.FullName, [Validators.required]],
             Gender       : [this.userDetails.Gender,[Validators.required]],
             PhoneNumber : [this.userDetails.PhoneNumber, [Validators.required,Validators.pattern(this.NumberPattern)]],
