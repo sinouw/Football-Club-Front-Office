@@ -15,7 +15,9 @@ export class EditProfileComponent implements OnInit {
    info         : FormGroup;
    address      : FormGroup;
    card         : FormGroup;
+   UserNamePattern:any =/[A-Za-z0-9]/
    emailPattern : any = /\S+@\S+\.\S+/;
+   NumberPattern: any = /^-?(0|[1-9]\d*)?$/
    toastOption  : ToastOptions = {
       title     : "Account Information",
       msg       : "Your account information updated successfully!",
@@ -41,10 +43,10 @@ export class EditProfileComponent implements OnInit {
    ngOnInit() {
       
            this.info = this.formGroup.group({
-            UserName   : ['', [Validators.required]],
+            UserName   : ['', [Validators.required,Validators.pattern(this.UserNamePattern)]],
             FullName    : ['', [Validators.required]],
             Gender       : ['',[Validators.required]],
-            PhoneNumber : ['', [Validators.required]],
+            PhoneNumber : ['', [Validators.required,Validators.pattern(this.NumberPattern)]],
             Email        : ['', [Validators.required, Validators.pattern(this.emailPattern)]]
          });   
 
@@ -54,10 +56,10 @@ export class EditProfileComponent implements OnInit {
            this.userDetails = res;
            this.roles=this.userDetails.role
            this.info = this.formGroup.group({
-            UserName   : [this.userDetails.UserName, [Validators.required]],
+            UserName   : ['', [Validators.required,Validators.pattern(this.UserNamePattern)]],
             FullName    : [this.userDetails.FullName, [Validators.required]],
             Gender       : [this.userDetails.Gender,[Validators.required]],
-            PhoneNumber : [this.userDetails.PhoneNumber, [Validators.required]],
+            PhoneNumber : [this.userDetails.PhoneNumber, [Validators.required,Validators.pattern(this.NumberPattern)]],
             Email        : [this.userDetails.Email, [Validators.required, Validators.pattern(this.emailPattern)]]
          });   
          },

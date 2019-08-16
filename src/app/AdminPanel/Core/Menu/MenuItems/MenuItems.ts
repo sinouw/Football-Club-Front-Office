@@ -15,15 +15,15 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  {
-    state: 'admin-panel/reports',
-    name: 'Reports',
-    type: 'link',
-    icon: 'poll'
-  },
+  // {
+  //   state: 'admin-panel/reports',
+  //   name: 'Reports',
+  //   type: 'link',
+  //   icon: 'poll'
+  // },
   {
     state: 'admin-panel/invoices',
-    name: 'Invoices',
+    name: 'Reservations',
     type: 'link',
     icon: 'recent_actors'
   },
@@ -34,15 +34,21 @@ const MENUITEMS = [
     icon: 'recent_actors'
   },
   {
-    state: 'admin-panel',
-    name: 'Products',
-    type: 'sub',
-    icon: 'shopping_cart',
-    children: [
-      {state: 'products', name: 'Products',type : 'link'},
-      {state: 'product-add', name: 'Product Add',type : 'link'}
-    ]
+    state: 'admin-panel/terrains',
+    name: 'Terrains',
+    type: 'link',
+    icon: 'recent_actors'
   },
+  // {
+  //   state: 'admin-panel',
+  //   name: 'Products',
+  //   type: 'sub',
+  //   icon: 'shopping_cart',
+  //   children: [
+  //     {state: 'products', name: 'Products',type : 'link'},
+  //     {state: 'product-add', name: 'Product Add',type : 'link'}
+  //   ]
+  // },
   {
     state: 'admin-panel/account/profile',
     name: 'Profile',

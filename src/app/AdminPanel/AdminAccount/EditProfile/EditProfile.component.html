@@ -7,6 +7,7 @@
                     <mat-form-field class="w-100 mb-3">
                         <input matInput placeholder="User Name" formControlName="UserName">
                         <mat-error *ngIf="info.get('UserName').hasError('required') && info.get('UserName').touched">This field should not be empty.</mat-error>
+                        <mat-error *ngIf="info.get('UserName').hasError('pattern') && info.get('UserName').touched">Please enter a valid UserName.</mat-error>
                     </mat-form-field>
                     <mat-form-field class="w-100 mb-3">
                         <input matInput placeholder="Full Name" formControlName="FullName">
@@ -21,7 +22,9 @@
                     <mat-form-field class="w-100 mb-3">
                         <input matInput placeholder="Mobile No." formControlName="PhoneNumber">
                         <mat-error *ngIf="info.get('PhoneNumber').hasError('required') && info.get('PhoneNumber').touched">This field should not be empty.</mat-error>
+                        <mat-error *ngIf="info.get('PhoneNumber').hasError('pattern') && info.get('PhoneNumber').touched">Please enter a valid Phone Number.</mat-error>
                     </mat-form-field>
+
                     <mat-form-field class="w-100 mb-3">
                         <input matInput type="email" placeholder="Email" formControlName="Email">
                         <mat-error *ngIf="info.get('Email').hasError('required') && info.get('Email').touched">This field should not be empty.</mat-error>
