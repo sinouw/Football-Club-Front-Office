@@ -28,7 +28,11 @@ import { AddNewUserComponent } from './PopUp/AddNewUser/AddNewUser.component';
 import { HeaderUserProfileDropdownComponent } from './HeaderUserProfileDropdown/HeaderUserProfileDropdown.component';
 import { RouterModule } from '@angular/router';
 import { AddClubComponent } from './PopUp/AddClub/AddClub.component';
+
 import { AddReservationComponent } from './PopUp/add-reservation/add-reservation.component';
+
+import { AddNewTerrainComponent } from './PopUp/AddNewTerrain/AddNewTerrain.component';
+
 
 @NgModule({
 	declarations: [
@@ -40,7 +44,10 @@ import { AddReservationComponent } from './PopUp/add-reservation/add-reservation
 		AddNewUserComponent,
 		HeaderUserProfileDropdownComponent,
 		AddClubComponent,
-		AddReservationComponent
+
+		AddReservationComponent,
+		AddNewTerrainComponent
+
 	],
 	imports: [
 		CommonModule,
@@ -75,7 +82,9 @@ import { AddReservationComponent } from './PopUp/add-reservation/add-reservation
       SeeListDialogComponent,
 	  AddNewUserComponent,
 	  AddClubComponent,
-	  AddReservationComponent
+	  AddReservationComponent,
+	  AddNewTerrainComponent
+
    ]
 })
 export class WidgetModule { }

@@ -28,6 +28,12 @@ const MENUITEMS = [
     icon: 'recent_actors'
   },
   {
+    state: 'admin-panel/clubs',
+    name: 'Clubs',
+    type: 'link',
+    icon: 'recent_actors'
+  },
+  {
     state: 'admin-panel',
     name: 'Products',
     type: 'sub',
