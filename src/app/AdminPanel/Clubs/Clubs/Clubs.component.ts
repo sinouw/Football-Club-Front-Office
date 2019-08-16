@@ -23,7 +23,7 @@ export class ClubsComponent implements OnInit {
 
   clubsList: any;
   clubsGrid: any;
-  popUpDeleteUserResponse: any;
+  popUpDeleteClubResponse: any;
   showType: string = 'list';
   displayedClubColumns: string[] = ['Name', 'Address', 'Phone', 'Email', 'OpeningTime', 'ClosingTime', 'IsActive', 'action'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -40,7 +40,9 @@ export class ClubsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.list().subscribe(res => this.getClubResponse(res));
+    this.list().subscribe(res => { 
+      this.getClubResponse(res) 
+    });
   }
 
   //getProductResponse method is used to get the response of all products.
@@ -91,7 +93,6 @@ export class ClubsComponent implements OnInit {
       subscribe(res => { this.popUpNewClubResponse = res },
         err => console.log(err),
         () => this.getAddClubPopupResponse(this.popUpNewClubResponse))
-    // return this.clubService.post(this.baseUrl + '/clubs', club);
   }
 
   getAddClubPopupResponse(response: any) {
@@ -116,7 +117,6 @@ export class ClubsComponent implements OnInit {
     return this.clubService.put(this.baseUrl + '/clubs/' + id, club);
   }
 
-
 	onEditProduct(data,id){
     console.log(data);
     console.log(id);
@@ -132,9 +132,9 @@ export class ClubsComponent implements OnInit {
   }
 
   delete(id: string, i: number) {
-    this.clubService.deleteDialog("Are you sure you want to delete this product permanently?").subscribe(res => { this.popUpDeleteUserResponse = res },
+    this.clubService.deleteDialog("Are you sure you want to delete this product permanently?").subscribe(res => { this.popUpDeleteClubResponse = res },
       err => console.log(err),
-      () => this.getDeleteResponse(this.popUpDeleteUserResponse, i, id))
+      () => this.getDeleteResponse(this.popUpDeleteClubResponse, i, id))
 
   }
 
@@ -177,6 +177,11 @@ export class ClubsComponent implements OnInit {
 
       }
     }
+  }
+
+
+  listTerrains(id) {
+    this.router.navigate(['/admin-panel/terrains',id]);
   }
 
 }

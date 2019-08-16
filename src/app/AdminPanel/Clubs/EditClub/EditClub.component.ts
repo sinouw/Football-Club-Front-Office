@@ -13,7 +13,7 @@ import { Club } from '../../Models/Club.model';
 })
 export class EditClubComponent implements OnInit {
 
-  private baseUrl: string = "https://localhost:44358/api";
+  private baseUrl: string = "https://localhost:44309/api";
 
   emailPattern: string = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
 
