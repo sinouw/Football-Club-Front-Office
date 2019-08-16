@@ -27,7 +27,7 @@ export class AddNewTerrainComponent implements OnInit {
       Type: ['', [Validators.required]],
       Free: ['', [Validators.required]],
       Price: ['', [Validators.required]],
-      Club: ['', [Validators.required]],
+      IdClub: ['', [Validators.required]],
     })
 
     this.list().subscribe(result => {
