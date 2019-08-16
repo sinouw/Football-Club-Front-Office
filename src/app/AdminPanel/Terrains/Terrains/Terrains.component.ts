@@ -49,6 +49,11 @@ export class TerrainsComponent implements OnInit {
       console.log(this.clubId);
     });
 
+    this.getTerrainBaseOnIdOrOnList();
+    
+  }
+
+  public getTerrainBaseOnIdOrOnList() {
     if(this.clubId) {
       this.list("?$expand=club&$filter=IdClub eq "+this.clubId).subscribe( res => {
         if(res.length != 0) {
@@ -62,7 +67,6 @@ export class TerrainsComponent implements OnInit {
         console.log(res);
       });
     }
-    
   }
 
   // getTerrainResponse method is used to get the response of all Terrains.
@@ -82,6 +86,21 @@ export class TerrainsComponent implements OnInit {
       document.getElementById('list').classList.add("active");
       document.getElementById('grid').classList.remove('active');
       this.terrainsList = new MatTableDataSource(this.terrainsGrid);
+      setTimeout(() => {
+        this.terrainsList.paginator = this.paginator;
+        this.terrainsList.sort = this.sort;
+      }, 0)
+
+    }
+    else {
+      document.getElementById('grid').classList.add("active");
+      document.getElementById('list').classList.remove('active');
+    }
+    this.showType = type;
+    if (type == 'list') {
+      document.getElementById('list').classList.add("active");
+      document.getElementById('grid').classList.remove('active');
+      this.terrainsList = new MatTableDataSource(this.terrainsGrid);
       console.log(this.terrainsList);
       setTimeout(() => {
         this.terrainsList.paginator = this.paginator;
@@ -96,6 +115,11 @@ export class TerrainsComponent implements OnInit {
 
   // applyFilter function can be set which takes a data object and filter string and returns true if the data object is considered a match.
   applyFilter(filterValue: string) {
+    this.terrainsList.filter = filterValue.trim().toLowerCase();
+
+    if (this.terrainsList.paginator) {
+      this.terrainsList.paginator.firstPage();
+    }
     this.terrainsList.filter = filterValue.trim().toLowerCase();
 
     if (this.terrainsList.paginator) {
@@ -121,12 +145,18 @@ export class TerrainsComponent implements OnInit {
       console.log(response);
       let addTerrain;
 
-      // this.terrainService.post(this.baseUrl + '/terrains', response).subscribe(
-      //   result => {
-      //     console.log(result);
-      //   }, error => {
-
-      //   });
+      this.terrainService.post(this.baseUrl + '/terrains', response).subscribe(
+        result => {
+          
+          addTerrain = result;
+          console.log(result);
+          // this.terrainsGrid.push(addTerrain);
+          this.getTerrainBaseOnIdOrOnList();
+          this.terrainShowType(this.showType);
+          
+        }, error => {
+          console.log(error);
+        });
     }
   }
 

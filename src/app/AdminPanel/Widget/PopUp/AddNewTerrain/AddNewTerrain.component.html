@@ -51,13 +51,13 @@
                     </mat-form-field>
 
                     <mat-form-field class="w-100">
-                        <select matNativeControl formControlName="Club"  placeholder="Club List">
-                            <option *ngFor="let club of clubs" >{{ club.Name }}</option>
+                        <select matNativeControl formControlName="IdClub"  placeholder="Club List">
+                            <option *ngFor="let club of clubs"  [value]="club.IdClub">{{ club.Name }}</option>
                             
                         </select>
                         <mat-error
-                            *ngIf="addTerrainForm.controls['Club'].touched && !addTerrainForm.controls['Club'].valid">
-                            <mat-error *ngIf="addTerrainForm.controls['Club'].hasError('required')"
+                            *ngIf="addTerrainForm.controls['IdClub'].touched && !addTerrainForm.controls['IdClub'].valid">
+                            <mat-error *ngIf="addTerrainForm.controls['IdClub'].hasError('required')"
                                 class="required alert-error">
                                 You must Select a Club.
                             </mat-error>
