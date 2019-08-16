@@ -17,8 +17,8 @@ export class CommonSignInComponent implements OnInit {
 
   ngOnInit() {
     
-    //  if (localStorage.getItem('token') != null)
-    //    this.router.navigateByUrl('/home');
+      if (localStorage.getItem('token') != null)
+        this.router.navigateByUrl('/home');
   }
 
 
@@ -28,10 +28,11 @@ export class CommonSignInComponent implements OnInit {
         localStorage.setItem('token', res.token);
         var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
         var role = payLoad.role
+        
         if(role == "SuperAdmin")
         this.router.navigateByUrl('/admin-panel/account/profile');
-        if(role =="Admin")
-        this.router.navigateByUrl('/account/profile');
+        // if(role =="Admin")
+        // this.router.navigateByUrl('/account/profile');
       },
       err => {
         if (err.status == 400)

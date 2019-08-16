@@ -72,6 +72,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AdminPanelModule } from './AdminPanel/admin-panel.module';
+import { UserMapService } from './Services/user-map.service';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -158,6 +159,7 @@ export function createTranslateLoader(http: HttpClient) {
    providers: [
       MenuItems,
       EmbryoService,
+      UserMapService,
       {
          provide: PERFECT_SCROLLBAR_CONFIG,
          useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

@@ -8,6 +8,8 @@ import { DeleteListDialogComponent} from '../Widget/PopUp/DeleteListDialog/Delet
 import { SeeListDialogComponent } from '../Widget/PopUp/SeeListDialog/SeeListDialog.component';
 import { AddNewUserComponent } from '../Widget/PopUp/AddNewUser/AddNewUser.component';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from "@angular/fire/database";
+import { AddReservationComponent } from '../Widget/PopUp/add-reservation/add-reservation.component';
+import { AddressComponent } from 'src/app/Pages/UserAccount/Address/Address.component';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +84,13 @@ export class AdminPanelServiceService {
 	addNewUserDialog(){
 		let dialogRef : MatDialogRef<AddNewUserComponent>;
 		dialogRef = this.dialog.open(AddNewUserComponent);
+		
+		return dialogRef.afterClosed();
+	}
+
+	addNewReservationDialog(){
+		let dialogRef : MatDialogRef<AddReservationComponent>;
+		dialogRef = this.dialog.open(AddReservationComponent);
 		
 		return dialogRef.afterClosed();
 	}

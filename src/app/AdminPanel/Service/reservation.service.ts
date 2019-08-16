@@ -7,14 +7,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ReservationService {
 reservations : any
+clubs : any
   constructor(private http : HttpClient) { }
 
   getReservationInfo(){
-    this.http.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes,IdReservation')
-    // this.genericservice.get(baseurl+'/Reservations')
+    this.http.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes,resDay,IdReservation')
     .subscribe(
        res=>{
-          // this.reservations=res as Reservation[]
           this.reservations =res 
           console.log(res)
        },
@@ -32,7 +31,9 @@ reservations : any
     }
 
 
-
+    getClubs(){
+     return this.http.get(baseurl + '/Clubs?$select=Name,IdClub') 
+    }
 
 
 }
