@@ -30,6 +30,10 @@ export class AddReservationComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+
+    
+ 
+
     this.addReservationForm = this.formBuilder.group({
       IdClub: ['', [Validators.required]],
       IdTerrrain: ['', [Validators.required]],
@@ -47,22 +51,34 @@ export class AddReservationComponent implements OnInit {
       });
 
     }
- 
+
+    
+         	
+      myFilter = (d: Date): boolean => {
+        const day = d.getDay();
+        // Prevent Saturday and Sunday from being selected.
+        return day>d.getDate() 
+      }
+    
 
     getTerrains(){
       this.listTerrain()
       .subscribe(res=>{
         this.terrains = res
-        this.terrains=this.terrains.filter(t=>t.IdClub==this.addReservationForm.value.IdClub)
+         this.terrains=this.terrains.filter(t=>t.IdClub==this.addReservationForm.value.IdClub)
         console.log(res);
       }
       ,err=>console.log(err))
     }
  
 
+
   // onFormSubmit method is submit a add new user form.
-  onFormSubmit() {
-    this.dialogRef.close(this.addReservationForm.value);
+  onFormSubmit() {  
+    
+    
+    console.log(this.addReservationForm.value)
+    // this.dialogRef.close(this.addReservationForm.value);
   }
 
   list(): any {

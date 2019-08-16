@@ -35,7 +35,7 @@ const MENUITEMS = [
   },
   {
     state: 'admin-panel/terrains',
-    name: 'Terrains',
+    name: 'Stadiums',
     type: 'link',
     icon: 'recent_actors'
   },

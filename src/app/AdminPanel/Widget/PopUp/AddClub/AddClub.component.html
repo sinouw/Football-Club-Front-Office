@@ -41,15 +41,11 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Opening Time" formControlName="OpeningTime">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <input matInput type="time" placeholder="Opening Time" formControlName="OpeningTime">
                     <mat-error *ngIf="addClubForm.get('OpeningTime').hasError('required') && addClubForm.get('OpeningTime').touched">This field should not be empty.</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker1" placeholder="Closing Time" formControlName="ClosingTime">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
+                    <input matInput type="time" placeholder="Closing Time" formControlName="ClosingTime">
                     <mat-error *ngIf="addClubForm.get('ClosingTime').hasError('required') && addClubForm.get('ClosingTime').touched">This field should not be empty.</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100">

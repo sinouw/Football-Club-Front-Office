@@ -6,7 +6,7 @@ import { MainAdminPanelComponent } from './Main/Main.component';
 export const AdminPanelRoutes : Routes = [
    {
       path : 'admin-panel',
-      redirectTo: 'admin-panel/reports',
+      redirectTo: 'admin-panel/account/profile',
       pathMatch: 'full',
    }, 
    {

@@ -8,15 +8,13 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="70" fxFlex.lg="70" fxFlex.xl="70">
             <div fxLayout="row wrap">
-                <div class="form-group pr-3" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="calc(100% - 300px)"
-                    fxFlex.lg="calc(100% - 300px)" fxFlex.xl="calc(100% - 300px)">
+                <div class="form-group pr-3" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="calc(100% - 300px)" fxFlex.lg="calc(100% - 300px)" fxFlex.xl="calc(100% - 300px)">
                     <mat-form-field class="w-100" floatLabel="never">
                         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Clubs">
                     </mat-form-field>
                 </div>
                 <!-- form-group -->
-                <div class="contact-btn" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="300px" fxFlex.lg="300px"
-                    fxFlex.xl="300px">
+                <div class="contact-btn" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="300px" fxFlex.lg="300px" fxFlex.xl="300px">
                     <!-- <button class="mr-2 mb-2" mat-raised-button color="primary">Search</button> -->
                     <button mat-raised-button color="primary" (click)="create()">Add Club<mat-icon class="ml-2">add
                         </mat-icon></button>
@@ -109,12 +107,10 @@
                                     <ng-container matColumnDef="action">
                                         <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Action </th>
                                         <td class="px-3 text-nowrap" mat-cell *matCellDef="let element;let i = index;">
-                                            <button mat-icon-button (click)="listTerrains(element.IdClub)"
-                                                color="primary">
+                                            <button mat-icon-button (click)="listTerrains(element.IdClub)" color="primary">
                                                 <i class="material-icons">list</i>
                                             </button>
-                                            <button mat-icon-button (click)="onEditProduct(element,element.IdClub)"
-                                                color="primary">
+                                            <button mat-icon-button (click)="onEditProduct(element,element.IdClub)" color="primary">
                                                 <i class="material-icons">edit</i>
                                             </button>
                                             <button color="warn" mat-icon-button (click)="delete(element.IdClub,i)">
@@ -138,13 +134,10 @@
     </ng-container>
     <ng-template #gridtype>
         <div fxLayout="row wrap" fxLayoutAlign="start stretch" *ngIf="clubsGrid && clubsGrid.length>0">
-            <div fxFlex.gt-md="25" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100"
-                *ngFor="let club of clubsGrid; let i=index;">
+            <div fxFlex.gt-md="25" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" *ngFor="let club of clubsGrid; let i=index;">
                 <mat-card class="product-card">
                     <a class="p-link">
-                        <img width="626" height="800" mat-card-image
-                            src="https://t4.ftcdn.net/jpg/01/82/35/11/240_F_182351193_5mOBsDX7ntLaGixDlIFIJ8LeaJemGLAC.jpg"
-                            alt="Photo of a Shiba Inu">
+                        <img width="626" height="800" mat-card-image src="https://t4.ftcdn.net/jpg/01/82/35/11/240_F_182351193_5mOBsDX7ntLaGixDlIFIJ8LeaJemGLAC.jpg" alt="Photo of a Shiba Inu">
                     </a>
                     <div class="wishlist-icon">
                         <a (click)="delete(club.IdClub,i)">
@@ -157,7 +150,7 @@
                         <p class="category-wrap mb-2">{{club?.Address}}</p>
                         <p class="category-wrap mb-2">{{club?.Email}}</p>
                         <p class="category-wrap mb-2">{{club?.Phone}}</p>
-                        <p class="category-wrap mb-2">{{club?.OpeningTime | date}} - {{club?.ClosingTime | date}}</p>
+                        <p class="category-wrap mb-2">{{club?.OpeningTime}} - {{club?.ClosingTime}}</p>
 
                         <!-- <div class="product-price">
                             <div fxFlex fxLayoutAlign="space-between">

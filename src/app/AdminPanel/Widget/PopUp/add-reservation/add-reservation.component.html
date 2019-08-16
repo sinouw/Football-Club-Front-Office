@@ -14,8 +14,8 @@
                     </mat-error>
                 </mat-form-field> -->
                 <mat-form-field class="w-100">
-                    <select matNativeControl formControlName="IdClub" placeholder="Club Name">
-                        <option *ngFor="let club of clubs" [value]="club.IdClub" (click)="getTerrains()">{{ club?.Name }}</option>
+                    <select matNativeControl formControlName="IdClub" placeholder="Club Name" (change)="getTerrains()">
+                        <option *ngFor="let club of clubs" [value]="club.IdClub" >{{ club?.Name }}</option>
                     </select >
                     <mat-error *ngIf="addReservationForm.controls['IdClub'].touched && !addReservationForm.controls['IdClub'].valid">
                         <mat-error *ngIf="addReservationForm.controls['IdClub'].hasError('required')" class="required alert-error">
@@ -37,7 +37,7 @@
                 
 
                 <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Reservation Day" formControlName="resDay">
+                    <input matInput [matDatepicker]="picker" placeholder="Reservation Day"  formControlName="resDay" autocomplete="off">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="addReservationForm.get('resDay').hasError('required') && addReservationForm.get('resDay').touched">This field should not be empty.</mat-error>
@@ -62,21 +62,6 @@
                         </mat-error>
                     </mat-error>
                 </mat-form-field>
-
-                <!-- <mat-form-field class="w-100">
-                    <select matNativeControl formControlName="accessType" placeholder="Access Type">
-                        <option value="Admin">Admin</option>
-                        <option value="Write">Write</option>
-                        <option value="Read">Read</option>
-                    </select>
-                    <mat-error
-                        *ngIf="addNewUserForm.controls['accessType'].touched && !addNewUserForm.controls['accessType'].valid">
-                        <mat-error *ngIf="addNewUserForm.controls['accessType'].hasError('required')"
-                            class="required alert-error">
-                            You must Select a Access Type.
-                        </mat-error>
-                    </mat-error>
-                </mat-form-field> -->
             </div>
         </div>
     </mat-dialog-content>

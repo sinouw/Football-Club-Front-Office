@@ -8,15 +8,13 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="70" fxFlex.lg="70" fxFlex.xl="70">
             <div fxLayout="row wrap">
-                <div class="form-group pr-3" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="calc(100% - 300px)"
-                    fxFlex.lg="calc(100% - 300px)" fxFlex.xl="calc(100% - 300px)">
+                <div class="form-group pr-3" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="calc(100% - 300px)" fxFlex.lg="calc(100% - 300px)" fxFlex.xl="calc(100% - 300px)">
                     <mat-form-field class="w-100" floatLabel="never">
                         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Terrains">
                     </mat-form-field>
                 </div>
                 <!-- form-group -->
-                <div class="contact-btn" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="300px" fxFlex.lg="300px"
-                    fxFlex.xl="300px">
+                <div class="contact-btn" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="300px" fxFlex.lg="300px" fxFlex.xl="300px">
                     <!-- <button class="mr-2 mb-2" mat-raised-button color="primary">Search</button> -->
                     <button mat-raised-button color="primary" (click)="create()">Add Terrain<mat-icon class="ml-2">add
                         </mat-icon></button>
@@ -31,7 +29,7 @@
 <!-- Grid OR List Start -->
 <div class="m-3" fxLayoutAlign="space-between center">
     <div class="title">
-        <h5 class="mb-0">{{'Terrains' | translate }} {{showType | translate}}</h5>
+        <h5 class="mb-0">{{'Stadiums' | translate }} {{showType | translate}}</h5>
     </div>
     <!-- title -->
     <div class="product-icon">
@@ -82,7 +80,7 @@
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
                                             <span>{{element.Price}}</span></td>
                                     </ng-container>
-                                    
+
                                     <ng-container matColumnDef="ClubName">
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             Club Name</th>

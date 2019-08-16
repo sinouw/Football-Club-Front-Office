@@ -47,19 +47,28 @@ export class InvoicesComponent implements OnInit {
       this.getDataInfo()
    
    }
+   
 
    getDataInfo(){
       this.reservationservice.getReservationInfo()
+      .subscribe(
+         res=>{
+            this.reservations =res 
+            console.log(res)
+         },
+         err=>
+            console.log(err))
+
       this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
    }
 
    //getInvoiceData method is used to get the invoice list data.
    getInvoiceData(response){
       // this.invoiceList = response;
-      console.log(this.reservationservice.reservations);
+      console.log(this.reservations);
 
 
-      this.reservationservice.reservations.forEach(el => {
+      this.reservations.forEach(el => {
          let invoice = {
             IdReservation:el.IdReservation,
             FullName : el.Client.FullName,
@@ -75,14 +84,7 @@ export class InvoicesComponent implements OnInit {
          this.invoiceList.push(invoice);
       });
 
-      
 
-      // let body ={
-      //    FullName : this.reservationservice.reservations.Client.FullName
-      // }
-
-      // this.invoiceList = this.reservationservice.reservations
-      // this.invoiceList.values.
       this.dataSource = new MatTableDataSource<any>(this.invoiceList);
       setTimeout(()=>{
          this.dataSource.paginator = this.paginator;
