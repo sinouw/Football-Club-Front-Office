@@ -18,8 +18,8 @@
                 <div class="contact-btn" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="300px" fxFlex.lg="300px"
                     fxFlex.xl="300px">
                     <!-- <button class="mr-2 mb-2" mat-raised-button color="primary">Search</button> -->
-                    <button mat-raised-button color="primary" (click)="create()">Add Club<mat-icon
-                            class="ml-2">add</mat-icon></button>
+                    <button mat-raised-button color="primary" (click)="create()">Add Club<mat-icon class="ml-2">add
+                        </mat-icon></button>
                 </div>
                 <!-- contact-btn -->
             </div>
@@ -75,7 +75,7 @@
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
                                             <span>{{element.Phone}}</span></td>
                                     </ng-container>
-                                    
+
                                     <ng-container matColumnDef="Email">
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             Email</th>
@@ -105,11 +105,16 @@
                                     </ng-container>
 
 
-                                    
+
                                     <ng-container matColumnDef="action">
                                         <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Action </th>
                                         <td class="px-3 text-nowrap" mat-cell *matCellDef="let element;let i = index;">
-                                            <button mat-icon-button (click)="onEditProduct(element,element.IdClub)" color="primary">
+                                            <button mat-icon-button (click)="listTerrains(element.IdClub)"
+                                                color="primary">
+                                                <i class="material-icons">list</i>
+                                            </button>
+                                            <button mat-icon-button (click)="onEditProduct(element,element.IdClub)"
+                                                color="primary">
                                                 <i class="material-icons">edit</i>
                                             </button>
                                             <button color="warn" mat-icon-button (click)="delete(element.IdClub,i)">
@@ -137,7 +142,9 @@
                 *ngFor="let club of clubsGrid; let i=index;">
                 <mat-card class="product-card">
                     <a class="p-link">
-                        <img width="626" height="800" mat-card-image src="https://t4.ftcdn.net/jpg/01/82/35/11/240_F_182351193_5mOBsDX7ntLaGixDlIFIJ8LeaJemGLAC.jpg" alt="Photo of a Shiba Inu">
+                        <img width="626" height="800" mat-card-image
+                            src="https://t4.ftcdn.net/jpg/01/82/35/11/240_F_182351193_5mOBsDX7ntLaGixDlIFIJ8LeaJemGLAC.jpg"
+                            alt="Photo of a Shiba Inu">
                     </a>
                     <div class="wishlist-icon">
                         <a (click)="delete(club.IdClub,i)">
@@ -157,9 +164,13 @@
                                 <h6 class="accent-color">{{product?.price | currency}}</h6>
                             </div>
                         </div> -->
+
                         <!--product-price-->
                         <div class="m-icon">
-                            <button mat-fab (click)="onEditProduct(club,club.IdClub)"><i class="material-icons">edit</i></button>
+                            <button mat-fab (click)="listTerrains(club.IdClub)"><i
+                                    class="material-icons">list</i></button>
+                            <button mat-fab (click)="onEditProduct(club,club.IdClub)"><i
+                                    class="material-icons">edit</i></button>
                         </div>
                         <!-- m-icon -->
                     </mat-card-content>

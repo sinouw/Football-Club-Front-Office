@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { DeleteListDialogComponent} from '../Widget/PopUp/DeleteListDialog/DeleteListDialog.component';
 import { AddClubComponent } from '../Widget/PopUp/AddClub/AddClub.component';
+import { AddNewTerrainComponent } from '../Widget/PopUp/AddNewTerrain/AddNewTerrain.component';
 
 @Injectable({
   providedIn: 'root'
@@ -111,6 +112,14 @@ export class AdminGenericService {
 	addNewClubDialog(){
 		let dialogRef : MatDialogRef<AddClubComponent>;
 		dialogRef = this.dialog.open(AddClubComponent);
+		
+		return dialogRef.afterClosed();
+  }
+
+  //addNewTerrainDialog function is used to open Add new club Dialog Component. 
+	addNewTerrainDialog(){
+		let dialogRef : MatDialogRef<AddNewTerrainComponent>;
+		dialogRef = this.dialog.open(AddNewTerrainComponent);
 		
 		return dialogRef.afterClosed();
   }
