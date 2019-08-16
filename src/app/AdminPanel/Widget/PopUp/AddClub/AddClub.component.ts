@@ -9,7 +9,11 @@ import { MatDialogRef } from '@angular/material';
 })
 export class AddClubComponent implements OnInit {
   addClubForm: FormGroup;
+
+  // Patterns List
   emailPattern: string = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+  namePattern: any = /^[A-Za-z0-9_]*$/;
+  numberPattern: any = /^-?(0|[1-9]\d*)?$/;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -18,9 +22,9 @@ export class AddClubComponent implements OnInit {
 
   ngOnInit() {
     this.addClubForm = this.formBuilder.group({
-      Name: ['', [Validators.required]],
+      Name: ['', [Validators.required, Validators.pattern(this.namePattern)]],
       Address: ['', [Validators.required]],
-      Phone: ['', [Validators.required]],
+      Phone: ['', [Validators.required,Validators.pattern(this.numberPattern)]],
       Email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       OpeningTime: [''],
       ClosingTime: [''],
