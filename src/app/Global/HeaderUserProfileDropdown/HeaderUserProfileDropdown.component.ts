@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/AdminPanel/Service/account.service';
 
 @Component({
   selector: 'embryo-HeaderUserProfileDropdown',
@@ -8,14 +9,24 @@ import { Router } from '@angular/router';
 })
 export class HeaderUserProfileDropdownComponent implements OnInit {
 
-   constructor(public router : Router) { }
+  loginStatus: boolean = false;
 
-   ngOnInit() {
-   }
+  constructor(
+    public router: Router,
+    private accountService: AccountService
+  ) { }
 
-   logOut(){
-		localStorage.removeItem('token');
-		document.getElementById('html').classList.remove("admin-panel");
-		this.router.navigate(['/session/signin']);
-	}
+  ngOnInit() {
+    this.loginStatus = this.getLoginStatus();
+  }
+
+  getLoginStatus() {
+    return localStorage.getItem('token') != null ;
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
+    document.getElementById('html').classList.remove("admin-panel");
+    this.router.navigate(['/session/signin']);
+  }
 }

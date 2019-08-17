@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient} from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { MainAdminPanelComponent } from './Main/Main.component';
 import { MenuToggleModule } from './Core/Menu/MenuToggle.module';
 import { AdminMenuItems } from './Core/Menu/MenuItems/MenuItems';
@@ -46,6 +46,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GlobalModule } from '../Global/Global.module';
 import { AccountService } from './Service/account.service';
 import { ReservationService } from './Service/reservation.service';
+import { JwtInterceptor } from '../helpers/jwt.interceptor';
+import { ErrorInterceptor } from '../helpers/error.interceptor';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -106,6 +108,8 @@ export function createTranslateLoader(http: HttpClient) {
 		ToastaModule.forRoot()
 	],
 	providers : [
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 		AdminMenuItems,
 
 		AccountService,
