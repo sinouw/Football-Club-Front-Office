@@ -33,6 +33,7 @@ import { AgmCoreModule } from '@agm/core';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
+
 import { BrandslogoComponent } from './BrandsLogo/BrandsLogo.component';
 import { SalesComponent } from './Sales/Sales.component';
 import { FeaturesComponent } from './Features/Features.component';

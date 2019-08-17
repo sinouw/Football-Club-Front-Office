@@ -8,6 +8,7 @@ import { AccountService } from 'src/app/AdminPanel/Service/account.service';
   styleUrls: ['./CommonSignIn.component.scss']
 })
 export class CommonSignInComponent implements OnInit {
+
   userDetails
   formModel = {
     UserName: '',
@@ -16,27 +17,27 @@ export class CommonSignInComponent implements OnInit {
   constructor(private service: AccountService, private router: Router) { }
 
   ngOnInit() {
-    
-      if (localStorage.getItem('token') != null)
-        this.router.navigateByUrl('/home');
+
+    if (localStorage.getItem('token') != null)
+      this.router.navigateByUrl('/home');
   }
 
 
   onSubmit(form: NgForm) {
     this.service.login(form.value).subscribe(
       (res: any) => {
+        console.log(res);
         localStorage.setItem('token', res.token);
         var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
         var role = payLoad.role
-        
-        if(role == "SuperAdmin")
-        this.router.navigateByUrl('/admin-panel/account/profile');
-        // if(role =="Admin")
-        // this.router.navigateByUrl('/account/profile');
+
+        if (role == "SuperAdmin")
+          this.router.navigateByUrl('/admin-panel/account/profile');
+        else (role =="ClubAdmin")
+          this.router.navigateByUrl('/home');
       },
       err => {
-        if (err.status == 400)
-        {
+        if (err.status == 400) {
           console.log('Incorrect username or password.', 'Authentication failed.');
         }
         else

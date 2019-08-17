@@ -40,12 +40,12 @@ export const AppRoutes : Routes = [
             component: CartComponent
          },
          {
-          path: 'not-found',
-          component: NotFoundComponent
-         },
-         {
             path: 'session',loadChildren: ()=>
             import('./Pages/Session/Session.module').then (m => m.SessionModule)
+         },
+         {
+          path: 'not-found',
+          component: NotFoundComponent
          },
          {
             path: 'checkout',loadChildren: ()=>
