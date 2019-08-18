@@ -1,6 +1,6 @@
 import { BrowserModule} from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
-import { HttpClientModule, HttpClient} from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -73,6 +73,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AdminPanelModule } from './AdminPanel/admin-panel.module';
 import { UserMapService } from './Services/user-map.service';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -157,6 +158,7 @@ export function createTranslateLoader(http: HttpClient) {
       AdminPanelModule
   ],
    providers: [
+      
       MenuItems,
       EmbryoService,
       UserMapService,

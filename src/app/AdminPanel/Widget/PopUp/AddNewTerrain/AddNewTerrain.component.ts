@@ -12,6 +12,8 @@ import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
 export class AddNewTerrainComponent implements OnInit {
   addTerrainForm: FormGroup;
   emailPattern: string = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+  namePattern: any = /^[A-Za-z0-9_]*$/;
+  floatPattern: any = /^-?(0|[1-9]\d*)?.-?(0|[1-9]\d*)?$/;
 
   clubs: any;
 
@@ -23,11 +25,11 @@ export class AddNewTerrainComponent implements OnInit {
 
   ngOnInit() {
     this.addTerrainForm = this.formBuilder.group({
-      Name: ['', [Validators.required]],
+      Name: ['', [Validators.required, Validators.pattern(this.namePattern)]],
       Type: ['', [Validators.required]],
       Free: ['', [Validators.required]],
-      Price: ['', [Validators.required]],
-      Club: ['', [Validators.required]],
+      Price: ['', [Validators.required, Validators.pattern(this.floatPattern)]],
+      IdClub: ['', [Validators.required]],
     })
 
     this.list().subscribe(result => {
