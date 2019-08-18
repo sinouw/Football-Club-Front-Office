@@ -27,7 +27,7 @@ export class AccountService {
       icon: 'home'
     },
     {
-      state: 'Clubs',
+      state: 'client/clubs',
       name: 'CLUBS',
       type: 'link',
       icon: 'home'
@@ -142,7 +142,7 @@ export class AccountService {
       icon: 'home'
     },
     {
-      state: 'Clubs',
+      state: 'client/clubs',
       name: 'CLUBS',
       type: 'link',
       icon: 'home'
@@ -274,7 +274,9 @@ export class AccountService {
   putClientUser() {
     let payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
     this.http.put(this.BaseURI + '/Client/Edit/' + payLoad.UserID, this.Userbody).subscribe(res => {
-      console.log(res)
+      console.log(res);
+    }, error => {
+      console.log(error);
     })
   }
 

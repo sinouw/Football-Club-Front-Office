@@ -32,12 +32,16 @@ export const AppRoutes : Routes = [
             component : HomeThreeComponent
          },
          {
-            path: 'products',loadChildren: ()=>
-            import('./Pages/Products/Products.module').then (m => m.ProductsModule)
-         },
-         {
             path: 'cart',
             component: CartComponent
+         },
+         {
+            path: 'client',loadChildren: ()=>
+            import('./Pages/Clubs/Clubs.module').then (m => m.ClubsModule)
+         },
+         {
+            path: 'products',loadChildren: ()=>
+            import('./Pages/Products/Products.module').then (m => m.ProductsModule)
          },
          {
             path: 'session',loadChildren: ()=>

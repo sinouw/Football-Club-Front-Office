@@ -43,6 +43,8 @@ export class ClubsComponent implements OnInit {
     this.list().subscribe(res => { 
       this.getClubResponse(res) 
     });
+    console.log(this.clubsGrid);
+    
   }
 
   //getProductResponse method is used to get the response of all products.
