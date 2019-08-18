@@ -11,11 +11,13 @@ import { HttpClient } from '@angular/common/http';
 export class AccountComponent implements OnInit {
 
   User 
- constructor(private http: HttpClient,private service: AccountService) { }
+ constructor(private http: HttpClient,private service: AccountService) {
+  this.getUser()
+  }
 
   ngOnInit() {
   
-    this.getUser()
+    
      
   }
   getUser(){

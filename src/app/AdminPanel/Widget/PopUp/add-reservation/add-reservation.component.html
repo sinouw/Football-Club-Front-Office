@@ -5,14 +5,17 @@
     <mat-dialog-content class="mb-4">
         <div>
             <div>
-                <!-- <mat-form-field class="w-100">
-                    <input matInput type="text" formControlName="ClubName" class="form-control" placeholder="club Name" autocomplete="off">
-                    <mat-error *ngIf="addReservationForm.controls['ClubName'].touched && !addReservationForm.controls['ClubName'].valid">
-                        <mat-error *ngIf="addReservationForm.controls['ClubName'].hasError('required')" class="required alert-error">
-                            You must include a Club Name
+                <mat-form-field class="w-100">
+                    <select matNativeControl formControlName="IdClient" placeholder="Client UserName">
+                        <option *ngFor="let client of clients" [value]="client.Id" >{{ client?.UserName }}</option>
+                    </select >
+                    <mat-error *ngIf="addReservationForm.controls['IdClient'].touched && !addReservationForm.controls['IdClient'].valid">
+                        <mat-error *ngIf="addReservationForm.controls['IdClient'].hasError('required')" class="required alert-error">
+                            You must Select a Client Name.
                         </mat-error>
                     </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
+
                 <mat-form-field class="w-100">
                     <select matNativeControl formControlName="IdClub" placeholder="Club Name" (change)="getTerrains()">
                         <option *ngFor="let club of clubs" [value]="club.IdClub" >{{ club?.Name }}</option>
@@ -25,11 +28,11 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-100">
-                        <select matNativeControl formControlName="IdTerrrain" placeholder="Terrain Name">
+                        <select matNativeControl formControlName="IdTerrain" placeholder="Terrain Name">
                             <option *ngFor="let terrain of terrains" [value]="terrain.IdTerrain">{{ terrain?.Name }}</option>
                         </select >
-                        <mat-error *ngIf="addReservationForm.controls['IdTerrrain'].touched && !addReservationForm.controls['IdTerrrain'].valid">
-                            <mat-error *ngIf="addReservationForm.controls['IdTerrrain'].hasError('required')" class="required alert-error">
+                        <mat-error *ngIf="addReservationForm.controls['IdTerrain'].touched && !addReservationForm.controls['IdTerrain'].valid">
+                            <mat-error *ngIf="addReservationForm.controls['IdTerrain'].hasError('required')" class="required alert-error">
                                 You must Select a Terrain Name.
                             </mat-error>
                         </mat-error>
@@ -37,7 +40,7 @@
                 
 
                 <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Reservation Day"  formControlName="resDay" autocomplete="off">
+                    <input matInput  [matDatepicker]="picker" placeholder="Reservation Day"  formControlName="resDay" autocomplete="off">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="addReservationForm.get('resDay').hasError('required') && addReservationForm.get('resDay').touched">This field should not be empty.</mat-error>

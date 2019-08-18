@@ -20,7 +20,7 @@ export class InvoicesComponent implements OnInit {
    popUpNewResResponse    : any;
 	popUpDeleteUserResponse : any;
    invoiceList             : any[]=[] ;
-   reservations            
+   reservations            : any[]=[] ;   
    toastOptionDelete  : ToastOptions = {
       title     : "Account Deleted",
       msg       : "An account was deleted successfully!",
@@ -40,17 +40,16 @@ export class InvoicesComponent implements OnInit {
       private genericservice: AdminGenericService,
       private reservationservice :ReservationService,
       private toastyService: ToastaService,
-      ) { }
+      ) {
+         this.getDataInfo()
+       }
 
 	ngOnInit() {
-      
-      this.getDataInfo()
-   
    }
    
 
    getDataInfo(){
-      this.reservationservice.getReservationInfo()
+      this.genericservice.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes,resDay,IdReservation')
       .subscribe(
          res=>{
             this.reservations =res 
@@ -77,7 +76,7 @@ export class InvoicesComponent implements OnInit {
             Price: el.Terrain.Price,
             IdClub: el.Terrain.IdClub,
             status : el.status,
-            Day : el.resDay,
+            Day : (el.resDay).split("T")[0],
             StartRes :el.StartRes,
             EndRes : el.EndRes
          }
@@ -138,7 +137,6 @@ export class InvoicesComponent implements OnInit {
       //  this.reservationservice.getClubs()
       this.service.addNewReservationDialog().
          subscribe( res => {this.popUpNewResResponse = res;
-            
          },
                     err => console.log(err),
                      ()  => this.getAddResPopupResponse(this.popUpNewResResponse))
@@ -147,15 +145,8 @@ export class InvoicesComponent implements OnInit {
 
    getAddResPopupResponse(response: any){
       if(response){
-         let addUser = {
-            FullName : response.FullName,
-            Email : response.Email,
-            PhoneNumber : response.PhoneNumber,
-            Role : response.Role,
-            IsActive : response.IsActive
-         }
-         this.collaborationData.push(addUser);
-         this.dataSource = new MatTableDataSource<any>(this.collaborationData);     
+      this.invoiceList = []
+      this.getDataInfo()
       }
    }
 }

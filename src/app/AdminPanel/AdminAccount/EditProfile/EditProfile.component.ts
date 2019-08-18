@@ -38,18 +38,14 @@ export class EditProfileComponent implements OnInit {
             this.type = queryParams['type'];
          });   
       });
-   }
-   userDetails : any
-   roles
-   ngOnInit() {
-      
-           this.info = this.formGroup.group({
+
+     this.info = this.formGroup.group({
             UserName   : ['', [Validators.required,Validators.pattern(this.UserNamePattern)]],
             FullName    : ['', [Validators.required]],
             Gender       : ['',[Validators.required]],
             PhoneNumber : ['', [Validators.required,Validators.pattern(this.NumberPattern)]],
             Email        : ['', [Validators.required, Validators.pattern(this.emailPattern)]]
-         });   
+         });  
 
       this.payload=this.service.getPayload()
       this.service.getUserProfile().subscribe(
@@ -68,6 +64,10 @@ export class EditProfileComponent implements OnInit {
            console.log(err);
          },
        );
+   }
+   userDetails : any
+   roles
+   ngOnInit() {
    }
    /**
     * Function is used to submit the profile info.

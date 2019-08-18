@@ -33,10 +33,12 @@ export class CollaborationComponent implements OnInit {
    constructor(public service : AdminPanelServiceService,
       private accountService : AccountService,
       private http : HttpClient,
-      private toastyService: ToastaService) { }
+      private toastyService: ToastaService) {
+         this.getUsersInfo()
+       }
 
 	ngOnInit() {
-      this.getUsersInfo()
+      // this.getUsersInfo()
    }
    
    getUsersInfo(){
