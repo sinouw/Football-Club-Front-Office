@@ -7,11 +7,15 @@ import { CardsComponent } from './Cards/Cards.component';
 import { AddressComponent } from './Address/Address.component';
 import { OrderHistoryComponent } from './OrderHistory/OrderHistory.component';
 import { GridProductComponent } from './GridProduct/GridProduct.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { Role } from 'src/app/Models/role';
 
 export const UserAccountRoutes : Routes = [
    {
       path : '',
       component : AccountComponent,
+      canActivate: [AuthGuard],
+      data: { roles: [Role.Client] },
       children: [ 
          {
             path: 'profile',

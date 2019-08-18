@@ -44,7 +44,7 @@ export class EditProfileComponent implements OnInit {
    ngOnInit() {
       
            this.info = this.formGroup.group({
-            UserName   : ['', [Validators.required,Validators.pattern(this.UserNamePattern)]],
+            UserName   : [{value:'',disabled: true}, [Validators.required,Validators.pattern(this.UserNamePattern)]],
             FullName    : ['', [Validators.required]],
             Gender       : ['',[Validators.required]],
             PhoneNumber : ['', [Validators.required,Validators.pattern(this.NumberPattern)]],
@@ -57,12 +57,13 @@ export class EditProfileComponent implements OnInit {
            this.userDetails = res;
            this.roles=this.userDetails.role
            this.info = this.formGroup.group({
-            UserName   : [this.userDetails.UserName, [Validators.required,Validators.pattern(this.UserNamePattern)]],
+            UserName   : [{value:this.userDetails.UserName,disabled: true}, [Validators.required,Validators.pattern(this.UserNamePattern)]],
             FullName    : [this.userDetails.FullName, [Validators.required]],
             Gender       : [this.userDetails.Gender,[Validators.required]],
             PhoneNumber : [this.userDetails.PhoneNumber, [Validators.required,Validators.pattern(this.NumberPattern)]],
             Email        : [this.userDetails.Email, [Validators.required, Validators.pattern(this.emailPattern)]]
-         });   
+         });  
+
          },
          err => {
            console.log(err);
@@ -75,7 +76,15 @@ export class EditProfileComponent implements OnInit {
     */
    submitProfileInfo() {
       if(this.info.valid){
-         this.service.Userbody=this.info.value
+         console.log(this.info.value);
+         
+         this.service.Userbody={
+            UserName: this.userDetails.UserName,
+            FullName:this.info.value.FullName,
+            Gender:this.info.value.Gender,
+            PhoneNumber:this.info.value.PhoneNumber,
+            Email:this.info.value.Email
+         };
          this.service.putClientUser()
          this.toastyService.success(this.toastOption);
       } 

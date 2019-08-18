@@ -5,7 +5,7 @@
             <form [formGroup]="info">
                 <div class="example-container">
                     <mat-form-field class="w-100 mb-3">
-                        <input matInput placeholder="User Name" formControlName="UserName" disabled>
+                        <input matInput placeholder="User Name" formControlName="UserName" >
                         <mat-error *ngIf="info.get('UserName').hasError('required') && info.get('UserName').touched">This field should not be empty.</mat-error>
                         <mat-error *ngIf="info.get('UserName').hasError('pattern') && info.get('UserName').touched">Please enter a valid UserName without space.</mat-error>
                     </mat-form-field>
