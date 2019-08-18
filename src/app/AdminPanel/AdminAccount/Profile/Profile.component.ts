@@ -9,11 +9,13 @@ import { AccountService } from '../../Service/account.service';
 export class ProfileComponent implements OnInit {
   userDetails
 
-  constructor(private service: AccountService) { }
+  constructor(private service: AccountService) { 
+    this.getUser()
+
+  }
 
   ngOnInit() {
   
-    this.getUser()
      
   }
   getUser(){

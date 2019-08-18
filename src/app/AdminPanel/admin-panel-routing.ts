@@ -8,7 +8,8 @@ import { Role } from '../Models/role';
 export const AdminPanelRoutes : Routes = [
    {
       path : 'admin-panel',
-      redirectTo: 'admin-panel/clubs',
+
+      redirectTo: 'admin-panel/account/profile',
       pathMatch: 'full',
    }, 
    {

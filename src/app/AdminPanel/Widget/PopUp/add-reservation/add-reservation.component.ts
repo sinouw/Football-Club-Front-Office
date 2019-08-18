@@ -19,6 +19,7 @@ export class AddReservationComponent implements OnInit {
   clubsname : any 
   clubs:any;
   terrains:any[]=[]
+  clients
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddReservationComponent>,
@@ -26,43 +27,84 @@ export class AddReservationComponent implements OnInit {
     private clubService: AdminGenericService,
     private http: HttpClient,
     private toastyService: ToastaService,
-    private reservationservice : ReservationService
-    ) { }
+    private reservationservice : ReservationService,
+    private genericservice : AdminGenericService
+    ) {
+     }
 
   ngOnInit() {
+
     this.addReservationForm = this.formBuilder.group({
+      IdClient: ['', [Validators.required]],
       IdClub: ['', [Validators.required]],
-      IdTerrrain: ['', [Validators.required]],
+      IdTerrain: ['', [Validators.required]],
       resDay: ['', [Validators.required]],
       StartRes: ['', [Validators.required]],
       EndRes: ['', [Validators.required]],
       status: ['', [Validators.required]],
     })
 
-    this.list()
+      
+
+    this.getClients()
+    this.getClubs()
+    this.getTerrains()
+    }
+
+    getClubs(){
+      this.list()
       .subscribe(result => {
         this.clubs = result;
         console.log(this.clubs);
-
       });
-
     }
- 
+
+    getClients(){
+      this.genericservice.get(baseurl+'/client?$select=UserName,Id')
+        .subscribe(res=>{
+          console.log(res)
+          this.clients=res
+        },
+        err=>{
+          console.log(err);
+        })
+    }
+         	
+      myFilter = (d: Date): boolean => {
+        const day = d.getDay();
+        // Prevent Saturday and Sunday from being selected.
+        return day>d.getDate() 
+      }
+    
 
     getTerrains(){
       this.listTerrain()
       .subscribe(res=>{
         this.terrains = res
-        this.terrains=this.terrains.filter(t=>t.IdClub==this.addReservationForm.value.IdClub)
+         this.terrains=this.terrains.filter(t=>t.IdClub==this.addReservationForm.value.IdClub)
         console.log(res);
       }
       ,err=>console.log(err))
     }
  
 
+
   // onFormSubmit method is submit a add new user form.
-  onFormSubmit() {
-    this.dialogRef.close(this.addReservationForm.value);
+  onFormSubmit() {  
+    const body = {
+      IdClient: this.addReservationForm.value.IdClient,
+      IdTerrain: this.addReservationForm.value.IdTerrain,
+      resDay: this.addReservationForm.value.resDay,
+      StartRes: this.addReservationForm.value.StartRes,
+      EndRes: this.addReservationForm.value.EndRes,
+      status: this.addReservationForm.value.status
+    }
+
+    this.genericservice.post(baseurl+'/Reservations',body)
+    .subscribe(res=>console.log('Added Successfully'),
+    err=>console.log(err)
+    )
+     this.dialogRef.close(this.addReservationForm.value);
   }
 
   list(): any {

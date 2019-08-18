@@ -53,6 +53,7 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100">
+
                     <input matInput [matDatepicker]="picker" placeholder="Opening Time" formControlName="OpeningTime">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -67,6 +68,7 @@
                     <mat-error
                         *ngIf="addClubForm.get('ClosingTime').hasError('required') && addClubForm.get('ClosingTime').touched">
                         This field should not be empty.</mat-error>
+
                 </mat-form-field>
                 <mat-form-field class="w-100">
                     <select matNativeControl formControlName="IsActive" placeholder="Club Status">

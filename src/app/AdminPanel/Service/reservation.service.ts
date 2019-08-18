@@ -11,14 +11,7 @@ clubs : any
   constructor(private http : HttpClient) { }
 
   getReservationInfo(){
-    this.http.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes,resDay,IdReservation')
-    .subscribe(
-       res=>{
-          this.reservations =res 
-          console.log(res)
-       },
-       err=>
-          console.log(err))
+   return this.http.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes,resDay,IdReservation')
    }
 
    DeleteReservation(id){
