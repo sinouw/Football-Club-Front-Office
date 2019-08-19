@@ -33,6 +33,7 @@ import { ProductGridComponent } from './Grid/ProductGrid/ProductGrid.component';
 import { Grid3Component } from './Grid/Grid3/Grid3.component';
 import { ReviewComponent } from './Review/Review.component';
 import { ShopDetailsComponent } from './ShopDetails/ShopDetails.component';
+import { ClubGridComponent } from './Grid/ClubGrid/ClubGrid.component';
 
 @NgModule({
    imports: [
@@ -69,13 +70,15 @@ import { ShopDetailsComponent } from './ShopDetails/ShopDetails.component';
       ProductGridComponent,
       Grid3Component,
       ReviewComponent,
-      ShopDetailsComponent
+      ShopDetailsComponent,
+      ClubGridComponent
    ],
    exports: [
       ProductGridComponent,
       Grid3Component,
       ReviewComponent,
-      ShopDetailsComponent
+      ShopDetailsComponent,
+      ClubGridComponent
    ]
 })
 export class TemplatesModule {}
