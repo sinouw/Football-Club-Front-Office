@@ -1,0 +1,44 @@
+<!-- edit-Reservation -->
+<form [formGroup]="EditReservationForm" class="popup-card-width add-new-user">
+    <div>
+        <h2 mat-dialog-title>Edit Reservation</h2>
+    </div>
+    <mat-dialog-content class="mb-4">
+        <div>
+            <div>
+
+                <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker" placeholder="Reservation Day" formControlName="resDay" autocomplete="off">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="EditReservationForm.get('resDay').hasError('required') && EditReservationForm.get('resDay').touched">This field should not be empty.</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <input matInput type="time" placeholder="Starting Time" formControlName="StartRes">
+                    <mat-error *ngIf="EditReservationForm.get('StartRes').hasError('required') && EditReservationForm.get('StartRes').touched">This field should not be empty.</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <input matInput type="time" placeholder="Ending Time" formControlName="EndRes">
+                    <mat-error *ngIf="EditReservationForm.get('EndRes').hasError('required') && EditReservationForm.get('EndRes').touched">This field should not be empty.</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <select matNativeControl formControlName="status" placeholder="Reservation Status">
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Waiting For Confirmation">Waiting For Confirmation</option>
+                        <option value="Reported">Reported</option>
+                    </select>
+                    <mat-error *ngIf="EditReservationForm.controls['status'].touched && !EditReservationForm.controls['status'].valid">
+                        <mat-error *ngIf="EditReservationForm.controls['status'].hasError('required')" class="required alert-error">
+                            You must Select a Reservation Status.
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0">
+        <button type="button" mat-raised-button (click)="dialogRef.close()" color="primary">CLOSE</button>
+        <button (click)="onFormSubmit()" type="submit" [disabled]="!EditReservationForm.valid" mat-raised-button color="warn">SUBMIT</button>
+    </mat-dialog-actions>
+</form>
+<!-- edit-Reservation -->

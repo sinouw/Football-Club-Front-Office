@@ -48,27 +48,28 @@ export class InvoicesComponent implements OnInit {
    }
    
 
-   getDataInfo(){
+   getReservations(){
       this.genericservice.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes,resDay,IdReservation')
       .subscribe(
          res=>{
             this.reservations =res 
-            console.log(res)
          },
          err=>
             console.log(err))
-
-      this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
+   }
+   getDataInfo(){
+     
+      this.getReservations()
+      setTimeout(() => { 
+         this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
+      }, 500);
    }
 
    //getInvoiceData method is used to get the invoice list data.
    getInvoiceData(response){
       // this.invoiceList = response;
-      console.log(this.reservations);
-
-
       this.reservations.forEach(el => {
-         let invoice = {
+            let  invoice = {
             IdReservation:el.IdReservation,
             FullName : el.Client.FullName,
             Name: el.Terrain.Name,
@@ -80,15 +81,15 @@ export class InvoicesComponent implements OnInit {
             StartRes :el.StartRes,
             EndRes : el.EndRes
          }
+   
          this.invoiceList.push(invoice);
       });
+   this.dataSource = new MatTableDataSource<any>(this.invoiceList);
 
-
-      this.dataSource = new MatTableDataSource<any>(this.invoiceList);
       setTimeout(()=>{
          this.dataSource.paginator = this.paginator;
       },0)
-    
+ 
    }
 	/** 
      *onDelete method is used to open a delete dialog.
@@ -131,10 +132,9 @@ export class InvoicesComponent implements OnInit {
 
    
       /** 
-     * addNewUserDialog method is used to open a add new client dialog.
+     * addNewUserDialog method is used to open a add new Reservation dialog.
      */   
-    addNewUserDialog() {
-      //  this.reservationservice.getClubs()
+   addNewReservationDialog() {
       this.service.addNewReservationDialog().
          subscribe( res => {this.popUpNewResResponse = res;
          },
@@ -147,6 +147,29 @@ export class InvoicesComponent implements OnInit {
       if(response){
       this.invoiceList = []
       this.getDataInfo()
+      }
+   }
+ 
+   EditReservationDialog(reservation) {
+
+      this.service.putreservation(reservation.IdReservation)
+      
+
+      this.service.EditReservationDialog().
+         subscribe( res => {this.popUpNewResResponse = res;
+         },
+                    err => console.log(err),
+                     ()  => this.getResPopupResponse(this.popUpNewResResponse))
+                
+   }
+   getResPopupResponse(response: any){
+      if(response){
+
+         
+            this.invoiceList = []
+            this.getDataInfo()
+            
+      
       }
    }
 }
