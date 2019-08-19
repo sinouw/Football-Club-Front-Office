@@ -10,7 +10,7 @@ import { AccountService } from 'src/app/AdminPanel/Service/account.service';
 export class HeaderUserProfileDropdownComponent implements OnInit {
 
   loginStatus: boolean = false;
-
+Route
   constructor(
     public router: Router,
     private accountService: AccountService
@@ -18,6 +18,25 @@ export class HeaderUserProfileDropdownComponent implements OnInit {
 
   ngOnInit() {
     this.loginStatus = this.getLoginStatus();
+  }
+
+  redirectuser(){
+    var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+    var role = payLoad.role
+
+    console.log(role);
+    
+    if(role=="Client"){
+      this.router.navigateByUrl('/account/profile');
+    }
+    if (role == "SuperAdmin")
+    this.router.navigateByUrl('/admin-panel/account/profile');
+    
+  if (role =="ClubAdmin")
+    this.router.navigateByUrl('/admin-panel/account/profile');
+    
+  
+
   }
 
   getLoginStatus() {
