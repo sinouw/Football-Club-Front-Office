@@ -23,14 +23,10 @@ export class AddReservationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddReservationComponent>,
-    private router: Router,
     private clubService: AdminGenericService,
-    private http: HttpClient,
     private toastyService: ToastaService,
-    private reservationservice : ReservationService,
     private genericservice : AdminGenericService
-    ) {
-     }
+    ) {}
 
   ngOnInit() {
 

@@ -10,18 +10,21 @@ import { AddNewUserComponent } from '../Widget/PopUp/AddNewUser/AddNewUser.compo
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from "@angular/fire/database";
 import { AddReservationComponent } from '../Widget/PopUp/add-reservation/add-reservation.component';
 import { AddressComponent } from 'src/app/Pages/UserAccount/Address/Address.component';
+import { EditReservationComponent } from '../Widget/PopUp/edit-reservation/edit-reservation.component';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AdminPanelServiceService {
-
+	
 	sidenavOpen 	 : boolean = true;
 	sidenavMode 	 : string = "side";
 	chatSideBarOpen : boolean = true;
 	editProductData : any;
 	products  : AngularFireObject<any>;
+
+	IdReservation : any
 
 	constructor(private http:HttpClient,
 					private dialog: MatDialog,
@@ -40,6 +43,9 @@ export class AdminPanelServiceService {
 		return dialogRef.afterClosed();
 	}
 
+	putreservation(res){
+		this.IdReservation = res
+	}
 	//getProducts method is used to get the products.
    public getProducts() {
       this.products = this.db.object("products");
@@ -91,6 +97,13 @@ export class AdminPanelServiceService {
 	addNewReservationDialog(){
 		let dialogRef : MatDialogRef<AddReservationComponent>;
 		dialogRef = this.dialog.open(AddReservationComponent);
+		
+		return dialogRef.afterClosed();
+	}
+
+	EditReservationDialog(){
+		let dialogRef : MatDialogRef<EditReservationComponent>;
+		dialogRef = this.dialog.open(EditReservationComponent);
 		
 		return dialogRef.afterClosed();
 	}
