@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastaService } from 'ngx-toasta';
 import { baseurl } from '../../Models/basurl.data';
+import { AccountService } from '../../Service/account.service';
 
 @Component({
   selector: 'app-clubs',
@@ -33,6 +34,7 @@ export class ClubsComponent implements OnInit {
     public translate: TranslateService,
     private router: Router,
     private clubService: AdminGenericService,
+    private accountService: AccountService,
     private http: HttpClient,
     private toastyService: ToastaService
   ) {
@@ -130,7 +132,12 @@ export class ClubsComponent implements OnInit {
   }
 
   list(): any {
-    return this.clubService.get(this.baseUrl + '/clubs');
+    if(this.accountService.getPayload().role == "SuperAdmin") {
+      return this.clubService.get(this.baseUrl + '/clubs');
+    } else {
+      return this.clubService.get(this.baseUrl + '/clubs/GetClubsByClubAdmin/' + this.accountService.getPayload().UserID);
+    }
+    // return this.clubService.get(this.baseUrl + '/clubs');
   }
 
   delete(id: string, i: number) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
+import { AccountService } from 'src/app/AdminPanel/Service/account.service';
 
 @Component({
   selector: 'app-add-club',
@@ -17,14 +18,15 @@ export class AddClubComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddClubComponent>
-    ) { }
+    public dialogRef: MatDialogRef<AddClubComponent>,
+    private accountService: AccountService
+  ) { }
 
   ngOnInit() {
     this.addClubForm = this.formBuilder.group({
       Name: ['', [Validators.required, Validators.pattern(this.namePattern)]],
       Address: ['', [Validators.required]],
-      Phone: ['', [Validators.required,Validators.pattern(this.numberPattern)]],
+      Phone: ['', [Validators.required, Validators.pattern(this.numberPattern)]],
       Email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       OpeningTime: [''],
       ClosingTime: [''],
@@ -34,6 +36,33 @@ export class AddClubComponent implements OnInit {
 
   // onFormSubmit method is submit a add new user form.
   onFormSubmit() {
-    this.dialogRef.close(this.addClubForm.value);
+    let body: any;
+    if (this.accountService.getPayload().role == "ClubAdmin") {
+      body = {
+        Name: this.addClubForm.value.Name,
+        Address: this.addClubForm.value.Address,
+        Phone: this.addClubForm.value.Phone,
+        Email: this.addClubForm.value.Email,
+        OpeningTime: this.addClubForm.value.OpeningTime,
+        ClosingTime: this.addClubForm.value.ClosingTime,
+        IsActive: this.addClubForm.value.IsActive,
+        ClubAdminId: this.accountService.getPayload().UserID,
+      };
+
+    }
+    if (this.accountService.getPayload().role == "SuperAdmin") {
+      body = {
+        Name: this.addClubForm.value.Name,
+        Address: this.addClubForm.value.Address,
+        Phone: this.addClubForm.value.Phone,
+        Email: this.addClubForm.value.Email,
+        OpeningTime: this.addClubForm.value.OpeningTime,
+        ClosingTime: this.addClubForm.value.ClosingTime,
+        IsActive: this.addClubForm.value.IsActive,
+        SuperAdminId: this.accountService.getPayload().UserID,
+      };
+
+    }
+    this.dialogRef.close(body);
   }
 }
