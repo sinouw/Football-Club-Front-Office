@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdminPanelServiceService } from '../../Service/AdminPanelService.service';
-import { MatTableDataSource, MatPaginator} from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
 import { AdminGenericService } from '../../Service/AdminGeneric.service';
 import { baseurl } from '../../Models/basurl.data';
 import { Reservation } from '../../Models/Reservation.model';
@@ -29,6 +29,7 @@ export class InvoicesComponent implements OnInit {
       theme     : "material"
    };
    @ViewChild(MatPaginator,{static: false}) paginator : MatPaginator;
+   @ViewChild(MatSort,{static: false}) sort: MatSort;
 
    dataSource = new MatTableDataSource<any>(this.invoiceList);
 
@@ -88,6 +89,7 @@ export class InvoicesComponent implements OnInit {
 
       setTimeout(()=>{
          this.dataSource.paginator = this.paginator;
+         this.dataSource.sort = this.sort;
       },0)
  
    }

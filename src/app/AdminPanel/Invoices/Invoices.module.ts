@@ -7,7 +7,8 @@ import { MatTableModule,
          MatInputModule,
 			MatIconModule,
          MatButtonModule,
-         MatPaginatorModule} from '@angular/material';
+         MatPaginatorModule,
+         MatSortModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { InvoicesComponent } from './Invoices/Invoices.component';
@@ -25,6 +26,7 @@ import { InvoicesRoutes} from './Invoices.routing';
       MatInputModule,
       FlexLayoutModule,
       MatPaginatorModule,
+      MatSortModule,
 		RouterModule.forChild(InvoicesRoutes)
 	]
 })

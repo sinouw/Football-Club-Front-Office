@@ -22,30 +22,30 @@
         <div fxLayout="column">
             <mat-card>
                 <div class="table-responsive-x">
-                    <table mat-table [dataSource]="dataSource" class="w-100 table-scroll-wrap">
+                    <table mat-table [dataSource]="dataSource" class="w-100 table-scroll-wrap" matSort>
                         <ng-container matColumnDef="Name">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Stadium Name </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Stadium Name </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element">{{element?.Name}} </td>
                             <!-- <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> <a href="javascript:void(0)" (click)="onSeeDialog()"> {{element?.Name}}</a> </td> -->
                         </ng-container>
                         <ng-container matColumnDef="Type">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Stadium Type </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Stadium Type </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.Type}} </td>
                         </ng-container>
                         <ng-container matColumnDef="FullName">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef>Client Full Name </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header>Client Full Name </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.FullName}} </td>
                         </ng-container>
                         <ng-container matColumnDef="Day">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Reservation Day </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation Day </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.Day}} </td>
                         </ng-container>
                         <ng-container matColumnDef="StartRes">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Reservation Start </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation Start </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.StartRes}} </td>
                         </ng-container>
                         <ng-container matColumnDef="EndRes">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Reservation End </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation End </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.EndRes}} </td>
                         </ng-container>
                         <ng-container matColumnDef="Price">
@@ -53,11 +53,11 @@
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> ${{element.Price}} </td>
                         </ng-container>
                         <ng-container matColumnDef="status">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Reservation Status </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation Status </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element.status}} </td>
                         </ng-container>
                         <ng-container matColumnDef="action">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Action </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element;let i = index;">
                                 <button mat-icon-button (click)="EditReservationDialog(element,i)" color="primary">
                                     <i class="fas fa-edit    "></i>
