@@ -33,8 +33,10 @@ export class CommonSignInComponent implements OnInit {
 
         if (role == "SuperAdmin")
           this.router.navigateByUrl('/admin-panel/account/profile');
-        else (role =="ClubAdmin")
+        if (role =="ClubAdmin")
           this.router.navigateByUrl('/admin-panel/account/profile');
+          if (role =="Client")
+          this.router.navigateByUrl('/account/profile');
       },
       err => {
         if (err.status == 400) {

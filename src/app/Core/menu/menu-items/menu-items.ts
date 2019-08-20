@@ -609,44 +609,44 @@ const HeaderOneItems = [
 ];
 
 const FooterOneItems = [
-  {
-    state: '',
-    name: "ABOUT",
-    type: "sub",
-    icon: '',
-    children: [
-      {
-        state: 'about',
-        name: 'ABOUT',
-        type: 'link',
-        icon: 'arrow_right_alt',
-      },
-      {
-        state: 'term-condition',
-        name: 'TERM AND CONDITION',
-        type: 'link',
-        icon: 'arrow_right_alt',
-      },
-      {
-        state: 'privacy-policy',
-        name: 'PRIVACY POLICY',
-        type: 'link',
-        icon: 'arrow_right_alt',
-      },
-      {
-        state: 'faq',
-        name: 'FAQ',
-        type: 'link',
-        icon: 'arrow_right_alt',
-      },
-      {
-        state: 'contact',
-        name: "CONTACT US",
-        type: "link",
-        icon: 'perm_contact_calendar',
-      }
-    ]
-  },
+  // {
+  //   state: '',
+  //   name: "ABOUT",
+  //   type: "sub",
+  //   icon: '',
+  //   children: [
+  //     {
+  //       state: 'about',
+  //       name: 'ABOUT',
+  //       type: 'link',
+  //       icon: 'arrow_right_alt',
+  //     },
+  //     {
+  //       state: 'term-condition',
+  //       name: 'TERM AND CONDITION',
+  //       type: 'link',
+  //       icon: 'arrow_right_alt',
+  //     },
+  //     {
+  //       state: 'privacy-policy',
+  //       name: 'PRIVACY POLICY',
+  //       type: 'link',
+  //       icon: 'arrow_right_alt',
+  //     },
+  //     {
+  //       state: 'faq',
+  //       name: 'FAQ',
+  //       type: 'link',
+  //       icon: 'arrow_right_alt',
+  //     },
+  //     {
+  //       state: 'contact',
+  //       name: "CONTACT US",
+  //       type: "link",
+  //       icon: 'perm_contact_calendar',
+  //     }
+  //   ]
+  // },
   {
     state: '',
     name: "SESSION",
@@ -679,38 +679,38 @@ const FooterOneItems = [
       }
     ]
   },
-  {
-    state: '',
-    name: "CATEGORIES",
-    type: "sub",
-    icon: '',
-    children: [
-      {
-        state: 'products/women',
-        name: 'WOMEN',
-        type: 'link',
-        icon: 'arrow_right_alt',
-      },
-      {
-        state: 'products/men',
-        name: 'MEN',
-        type: 'link',
-        icon: 'arrow_right_alt',
-      },
-      {
-        state: 'products/accesories',
-        name: 'ACCESSORIES',
-        type: 'link',
-        icon: 'arrow_right_alt',
-      },
-      {
-        state: 'products/gadgets',
-        name: 'GADGETS',
-        type: 'link',
-        icon: 'arrow_right_alt',
-      }
-    ]
-  },
+  // {
+  //   state: '',
+  //   name: "CATEGORIES",
+  //   type: "sub",
+  //   icon: '',
+  //   children: [
+  //     {
+  //       state: 'products/women',
+  //       name: 'WOMEN',
+  //       type: 'link',
+  //       icon: 'arrow_right_alt',
+  //     },
+  //     {
+  //       state: 'products/men',
+  //       name: 'MEN',
+  //       type: 'link',
+  //       icon: 'arrow_right_alt',
+  //     },
+  //     {
+  //       state: 'products/accesories',
+  //       name: 'ACCESSORIES',
+  //       type: 'link',
+  //       icon: 'arrow_right_alt',
+  //     },
+  //     {
+  //       state: 'products/gadgets',
+  //       name: 'GADGETS',
+  //       type: 'link',
+  //       icon: 'arrow_right_alt',
+  //     }
+  //   ]
+  // },
   {
     state: '',
     name: "SOCIAL",

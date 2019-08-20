@@ -18,6 +18,6 @@ export class HeaderUserProfileDropdownComponent implements OnInit {
 	logOut(){
 		localStorage.removeItem('token');
 		// document.getElementById('html').classList.remove("admin-panel");
-		this.router.navigate(['/home']);
+		this.router.navigate(['/session/signin']);
 	}
 }
