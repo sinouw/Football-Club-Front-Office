@@ -37,21 +37,14 @@
                             </mat-error>
                         </mat-error>
                     </mat-form-field>
-                
 
                 <mat-form-field class="w-100">
-                    <input matInput  [matDatepicker]="picker" placeholder="Reservation Day"  formControlName="resDay" autocomplete="off">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="addReservationForm.get('resDay').hasError('required') && addReservationForm.get('resDay').touched">This field should not be empty.</mat-error>
+                    <input matInput type="datetime-local" placeholder="Starting Time" formControlName="StartReservation">
+                    <mat-error *ngIf="addReservationForm.get('StartReservation').hasError('required') && addReservationForm.get('StartReservation').touched">This field should not be empty.</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100">
-                    <input matInput type="time" placeholder="Starting Time" formControlName="StartRes">
-                    <mat-error *ngIf="addReservationForm.get('StartRes').hasError('required') && addReservationForm.get('StartRes').touched">This field should not be empty.</mat-error>
-                </mat-form-field>
-                <mat-form-field class="w-100">
-                    <input matInput type="time" placeholder="Ending Time" formControlName="EndRes">
-                    <mat-error *ngIf="addReservationForm.get('EndRes').hasError('required') && addReservationForm.get('EndRes').touched">This field should not be empty.</mat-error>
+                    <input matInput type="datetime-local" placeholder="Ending Time" formControlName="EndReservation">
+                    <mat-error *ngIf="addReservationForm.get('EndReservation').hasError('required') && addReservationForm.get('EndReservation').touched">This field should not be empty.</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100">
                     <select matNativeControl formControlName="status" placeholder="Reservation Status">

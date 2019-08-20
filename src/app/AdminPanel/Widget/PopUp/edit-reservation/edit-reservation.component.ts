@@ -30,10 +30,8 @@ export class EditReservationComponent implements OnInit {
     ) {
 
       this.EditReservationForm = this.formBuilder.group({
-        IdReservation: ['', [Validators.required]],
-        resDay: ['', [Validators.required]],
-        StartRes: ['', [Validators.required]],
-        EndRes: ['', [Validators.required]],
+        StartReservation: ['', [Validators.required]],
+        EndReservation: ['', [Validators.required]],
         status: ['', [Validators.required]],
       })
 
@@ -44,9 +42,8 @@ export class EditReservationComponent implements OnInit {
         res=>{
           this.Reservation=res
           this.EditReservationForm = this.formBuilder.group({
-            resDay: [this.Reservation.resDay, [Validators.required]],
-            StartRes: [this.Reservation.StartRes, [Validators.required]],
-            EndRes: [this.Reservation.EndRes, [Validators.required]],
+            StartReservation: [this.Reservation.StartReservation, [Validators.required]],
+            EndReservation: [this.Reservation.EndReservation, [Validators.required]],
             status: [this.Reservation.status, [Validators.required]],
 
           })

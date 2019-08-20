@@ -36,10 +36,7 @@
                             <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header>Client Full Name </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.FullName}} </td>
                         </ng-container>
-                        <ng-container matColumnDef="Day">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation Day </th>
-                            <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.Day}} </td>
-                        </ng-container>
+
                         <ng-container matColumnDef="StartRes">
                             <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation Start </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.StartRes}} </td>

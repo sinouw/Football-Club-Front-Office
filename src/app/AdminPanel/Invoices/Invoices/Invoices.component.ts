@@ -26,7 +26,7 @@ export class InvoicesComponent implements OnInit {
       msg       : "An account was deleted successfully!",
       showClose : true,
       timeout   : 3000,
-      theme     : "material"
+      theme     : "material"  
    };
    @ViewChild(MatPaginator,{static: false}) paginator : MatPaginator;
    @ViewChild(MatSort,{static: false}) sort: MatSort;
@@ -35,7 +35,7 @@ export class InvoicesComponent implements OnInit {
 
    // displayedColumns : string[] = ['position', 'invoiceId', 'name','Price', 'payment','status','action'];
    // displayedColumns : string[] = ['ClubName', 'Name','Type', 'FullName', 'StartRes','EndRes', 'Price','status','action'];
-   displayedColumns : string[] = ['Name','Type', 'FullName','Day', 'StartRes','EndRes', 'Price','status','action'];
+   displayedColumns : string[] = ['Name','Type', 'FullName','StartRes','EndRes', 'Price','status','action'];
 
    constructor(public service : AdminPanelServiceService,
       private genericservice: AdminGenericService,
@@ -50,7 +50,7 @@ export class InvoicesComponent implements OnInit {
    
 
    getReservations(){
-      this.genericservice.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartRes,EndRes,resDay,IdReservation')
+      this.genericservice.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartReservation,EndReservation,IdReservation')
       .subscribe(
          res=>{
             this.reservations =res 
@@ -63,7 +63,7 @@ export class InvoicesComponent implements OnInit {
       this.getReservations()
       setTimeout(() => { 
          this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
-      }, 500);
+      }, 2000);
    }
 
    //getInvoiceData method is used to get the invoice list data.
@@ -78,9 +78,8 @@ export class InvoicesComponent implements OnInit {
             Price: el.Terrain.Price,
             IdClub: el.Terrain.IdClub,
             status : el.status,
-            Day : (el.resDay).split("T")[0],
-            StartRes :el.StartRes,
-            EndRes : el.EndRes
+            StartRes :el.StartReservation,
+            EndRes : el.EndReservation
          }
    
          this.invoiceList.push(invoice);
