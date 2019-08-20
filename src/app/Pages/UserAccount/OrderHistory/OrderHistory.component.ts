@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/app/AdminPanel/Service/account.service';
+import { HttpClient } from '@angular/common/http';
+import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
 
 const order_history = [
    {position: 1, orderid:1801, name: 'LEGITIM', price: 1.0079, status: 'Sent',action:''},
@@ -15,12 +18,33 @@ const order_history = [
 })
 export class OrderHistoryComponent implements OnInit {
 
-   displayedColumns: string[] = ['position', 'orderid', 'name', 'price', 'status','action'];
-   dataSource = order_history;
+   ReservationHistory : any[]=[]
+   i : number = 0
+   // displayedColumns: string[] = ['position', 'orderid', 'name', 'price', 'status','action'];
+   displayedColumns: string[] = ['position','StartReservation', 'EndReservation', 'Price', 'status'];
+   dataSource
 
-   constructor() { }
+   constructor(private accountService : AccountService,private http : HttpClient) { }
 
    ngOnInit() {
+      this.list().subscribe(
+         res => { 
+         this.ReservationHistory=res.Reservations 
+         console.log(this.ReservationHistory);
+         this.dataSource =this.ReservationHistory;
+         
+       },
+       err=>{
+          console.log(err);
+          
+       });
+       
    }
+
+
+   list(): any {
+      let payload = this.accountService.getPayload();
+        return this.http.get(baseurl + '/client/'+payload.UserID);
+    }
 
 }
