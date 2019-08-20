@@ -34,9 +34,8 @@ export class AddReservationComponent implements OnInit {
       IdClient: ['', [Validators.required]],
       IdClub: ['', [Validators.required]],
       IdTerrain: ['', [Validators.required]],
-      resDay: ['', [Validators.required]],
-      StartRes: ['', [Validators.required]],
-      EndRes: ['', [Validators.required]],
+      StartReservation: ['', [Validators.required]],
+      EndReservation: ['', [Validators.required]],
       status: ['', [Validators.required]],
     })
 
@@ -90,9 +89,8 @@ export class AddReservationComponent implements OnInit {
     const body = {
       IdClient: this.addReservationForm.value.IdClient,
       IdTerrain: this.addReservationForm.value.IdTerrain,
-      resDay: this.addReservationForm.value.resDay,
-      StartRes: this.addReservationForm.value.StartRes,
-      EndRes: this.addReservationForm.value.EndRes,
+      StartReservation: this.addReservationForm.value.StartReservation,
+      EndReservation: this.addReservationForm.value.EndReservation,
       status: this.addReservationForm.value.status
     }
 
