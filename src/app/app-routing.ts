@@ -40,6 +40,10 @@ export const AppRoutes : Routes = [
             import('./Pages/Clubs/Clubs.module').then (m => m.ClubsModule)
          },
          {
+            path: 'client',loadChildren: ()=>
+            import('./Pages/terrains/terrains.module').then (m => m.TerrainsModule)
+         },
+         {
             path: 'products',loadChildren: ()=>
             import('./Pages/Products/Products.module').then (m => m.ProductsModule)
          },
