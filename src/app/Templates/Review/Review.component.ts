@@ -11,7 +11,10 @@ export class ReviewComponent implements OnInit {
 
    userReviews : any = [];
 
-   constructor() { }
+   constructor() { 
+      console.log(this.reviews);
+      
+   }
 
    ngOnInit() {
       this.getReviews();

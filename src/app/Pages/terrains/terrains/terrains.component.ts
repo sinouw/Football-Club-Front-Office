@@ -136,7 +136,8 @@ export class TerrainsComponent implements OnInit {
     return this.terrainService.get(this.baseUrl + '/terrains' + request);
   }
 
-  reservation(terrain,i) {
+  TerrainDetail(terrain,i) {
+    this.router.navigate(['/client/terrainsDetail/',terrain.IdTerrain]);
     console.log(terrain,i);
   }
 

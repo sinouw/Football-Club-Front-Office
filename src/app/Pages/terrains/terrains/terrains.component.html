@@ -65,7 +65,7 @@
                                     <ng-container matColumnDef="Action">
                                         <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Action </th>
                                         <td class="px-3 text-nowrap" mat-cell *matCellDef="let element;let i = index;">
-                                            <button mat-icon-button (click)="reservation(element,i)" color="primary">
+                                            <button mat-icon-button (click)="TerrainDetail(element,i)" color="primary">
                                                 <i class="material-icons">bookmark</i>
                                             </button>
                                         </td>
@@ -115,7 +115,7 @@
                         </div>
                         <!--product-price-->
                         <div class="m-icon">
-                            <button mat-fab><i class="material-icons">bookmark</i></button>
+                            <button mat-fab (click)="TerrainDetail(terrain,i)"><i class="material-icons">bookmark</i></button>
                         </div>
                         <!-- m-icon -->
                     </mat-card-content>

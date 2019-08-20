@@ -8,6 +8,7 @@ import 'rxjs/Rx';
 
 import { ReviewPopupComponent } from '../Global/ReviewPopup/ReviewPopup.component';
 import { ConfirmationPopupComponent } from '../Global/ConfirmationPopup/ConfirmationPopup.component';
+import { AddReservationClientComponent } from '../AdminPanel/Widget/PopUp/add-reservation-client/add-reservation-client.component';
 
 interface Response {
   data     : any;
@@ -65,6 +66,16 @@ export class EmbryoService {
       localStorage.setItem("cart_item", JSON.stringify(products));
       this.calculateLocalCartProdCounts();
    }
+
+   addNewReservationDialog(id){
+		let dialogRef : MatDialogRef<AddReservationClientComponent>;
+      dialogRef = this.dialog.open(AddReservationClientComponent);
+      
+      dialogRef.componentInstance.IdTerrain = id;
+		
+		return dialogRef.afterClosed();
+	}
+
 
    public reviewPopup(singleProductDetails, reviews)
    {

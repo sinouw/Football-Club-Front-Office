@@ -33,6 +33,7 @@ import { AddReservationComponent } from './PopUp/add-reservation/add-reservation
 
 import { AddNewTerrainComponent } from './PopUp/AddNewTerrain/AddNewTerrain.component';
 import { EditReservationComponent } from './PopUp/edit-reservation/edit-reservation.component';
+import { AddReservationClientComponent } from './PopUp/add-reservation-client/add-reservation-client.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { EditReservationComponent } from './PopUp/edit-reservation/edit-reservat
 
 		AddReservationComponent,
 		AddNewTerrainComponent,
-		EditReservationComponent
+		EditReservationComponent,
+		AddReservationClientComponent
 
 	],
 	imports: [
@@ -83,6 +85,7 @@ import { EditReservationComponent } from './PopUp/edit-reservation/edit-reservat
       DeleteListDialogComponent,
       SeeListDialogComponent,
 	  AddNewUserComponent,
+	  AddReservationClientComponent,
 	  EditReservationComponent,
 	  AddClubComponent,
 	  AddReservationComponent,
