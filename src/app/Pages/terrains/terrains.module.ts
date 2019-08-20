@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TerrainsComponent } from './Terrains/Terrains.component';
-import { TerrainsRoutes } from './Terrains.routing';
-import { RouterModule } from '@angular/router';
+import { TerrainsComponent } from './terrains/terrains.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSidenavModule,
   MatIconModule,	
@@ -22,17 +20,16 @@ import { MatSidenavModule,
     MatGridListModule,
     MatDatepickerModule
 } from '@angular/material';
-import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { TerrainsRoutes } from './terrains.routing';
+import { TerrainDetailComponent } from './terrain-detail/terrain-detail.component';
 import { GlobalModule } from 'src/app/Global/Global.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 
 
 @NgModule({
-  declarations: [TerrainsComponent],
+  declarations: [TerrainsComponent, TerrainDetailComponent],
   imports: [
     CommonModule,
-    
     FlexLayoutModule,
     MatSidenavModule,
     MatIconModule,
@@ -49,15 +46,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatListModule,
     RouterModule.forChild(TerrainsRoutes),
 
-    MatDatepickerModule,
-
-    TranslateModule,
     MatPaginatorModule,
     MatSortModule,
     MatGridListModule,
     GlobalModule,
-    FormsModule,
-    ReactiveFormsModule
   ]
 })
 export class TerrainsModule { }

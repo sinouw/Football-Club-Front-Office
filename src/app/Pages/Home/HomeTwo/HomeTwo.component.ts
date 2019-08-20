@@ -11,7 +11,10 @@ export class HomeTwoComponent implements OnInit {
    topProducts             : any;
    lighteningDealsProducts : any;
    
-   constructor(public embryoService : EmbryoService) { }
+   
+   constructor(public embryoService : EmbryoService) { 
+      
+   }
 
    ngOnInit() {
       this.lighteningDeals();

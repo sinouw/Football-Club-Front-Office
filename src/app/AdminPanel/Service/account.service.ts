@@ -33,7 +33,7 @@ export class AccountService {
       icon: 'home'
     },
     {
-      state: 'Terrains',
+      state: 'client/terrains',
       name: 'TERRAINS',
       type: 'link',
       icon: 'home'
@@ -148,7 +148,7 @@ export class AccountService {
       icon: 'home'
     },
     {
-      state: 'Terrains',
+      state: 'client/terrains',
       name: 'TERRAINS',
       type: 'link',
       icon: 'home'

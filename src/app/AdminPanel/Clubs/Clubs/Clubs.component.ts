@@ -137,7 +137,6 @@ export class ClubsComponent implements OnInit {
     } else {
       return this.clubService.get(this.baseUrl + '/clubs/GetClubsByClubAdmin/' + this.accountService.getPayload().UserID);
     }
-    // return this.clubService.get(this.baseUrl + '/clubs');
   }
 
   delete(id: string, i: number) {
