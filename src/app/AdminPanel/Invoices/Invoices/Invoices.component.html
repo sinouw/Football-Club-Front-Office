@@ -46,7 +46,7 @@
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.EndRes}} </td>
                         </ng-container>
                         <ng-container matColumnDef="Price">
-                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Stadium Price </th>
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation Price </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> ${{element.Price}} </td>
                         </ng-container>
                         <ng-container matColumnDef="status">
@@ -74,7 +74,7 @@
         </div>
     </ng-container>
     <ng-template #elseBlock>
-        <button color="primary" mat-raised-button (click)="addNewUserDialog()">
+        <button color="primary" mat-raised-button (click)="addNewReservationDialog()">
                     Add Reservation
                  </button>
         <h5 class="ml-5">No data found</h5>

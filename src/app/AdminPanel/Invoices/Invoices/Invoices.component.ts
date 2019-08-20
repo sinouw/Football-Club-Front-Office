@@ -50,7 +50,7 @@ export class InvoicesComponent implements OnInit {
    
 
    getReservations(){
-      this.genericservice.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=status,StartReservation,EndReservation,IdReservation')
+      this.genericservice.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=Price,status,StartReservation,EndReservation,IdReservation')
       .subscribe(
          res=>{
             this.reservations =res 
@@ -75,11 +75,12 @@ export class InvoicesComponent implements OnInit {
             FullName : el.Client.FullName,
             Name: el.Terrain.Name,
             Type: el.Terrain.Type,
-            Price: el.Terrain.Price,
+            // Price: el.Terrain.Price,
             IdClub: el.Terrain.IdClub,
             status : el.status,
             StartRes :el.StartReservation,
-            EndRes : el.EndReservation
+            EndRes : el.EndReservation,
+            Price : el.Price
          }
    
          this.invoiceList.push(invoice);
