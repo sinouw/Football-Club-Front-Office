@@ -161,6 +161,9 @@ export class HomePageOneSliderComponent implements OnInit, OnChanges {
            }
        );
 
+        // Add a resize listener to make sure that the map occupies the whole container
+        window.addEventListener('resize', () => this.map.getViewPort().resize());
+
        //map Events 
        let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
 

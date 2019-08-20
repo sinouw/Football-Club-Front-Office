@@ -64,7 +64,8 @@ export class UserMapService {
   }
 
   public getClubLocations() {
-      return this.http.get<any>(this.BaseUrl + "clubs?$select=Name,Address,lat,lng");
+      this.http.get(this.BaseUrl + "clubs/algolia");
+      return this.http.get<any>(this.BaseUrl + "clubs?$select=Name,Address,IdClub,lat,lng");
   }
 }
 

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { TerrainsComponent } from './Terrains/Terrains.component';
+import { TerrainsComponent } from './terrains/terrains.component';
+import { TerrainDetailComponent } from './terrain-detail/terrain-detail.component';
 
 
 export const TerrainsRoutes: Routes = [
@@ -18,6 +19,10 @@ export const TerrainsRoutes: Routes = [
             {
                 path: 'terrains/:id',
                 component: TerrainsComponent
+            },
+            {
+                path: 'terrainsDetail/:id',
+                component: TerrainDetailComponent
             }
         ]
     }
