@@ -72,6 +72,8 @@ export class EmbryoService {
       dialogRef = this.dialog.open(AddReservationClientComponent);
       
       dialogRef.componentInstance.IdTerrain = id;
+      console.log(id);
+      
 		
 		return dialogRef.afterClosed();
 	}

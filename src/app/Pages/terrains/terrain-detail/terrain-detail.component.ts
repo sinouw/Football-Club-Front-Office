@@ -25,13 +25,14 @@ export class TerrainDetailComponent implements OnInit {
 
 
   terrainDetails: any;
+  IdTerrain;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     public embryoService: EmbryoService,
     public service: AdminGenericService
   ) {
-    console.log(this.IdTerrain);
+    // console.log(this.IdTerrain);
     
     this.embryoService.getProductReviews().valueChanges().subscribe(res => { this.productReviews = res });
   }
@@ -82,7 +83,7 @@ export class TerrainDetailComponent implements OnInit {
   }
 
   public AddReservationPopup() {
-    this.embryoService.addNewReservationDialog();
+    this.embryoService.addNewReservationDialog(this.IdTerrain);
   }
 
   public reviewPopup(detailData) {
