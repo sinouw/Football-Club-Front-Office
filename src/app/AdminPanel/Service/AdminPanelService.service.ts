@@ -43,6 +43,25 @@ export class AdminPanelServiceService {
 		return dialogRef.afterClosed();
 	}
 
+	//confirmDialog function is used to open the Delete Dialog Component. 
+	confirmDialog(data:string){
+		let dialogRef : MatDialogRef<DeleteListDialogComponent>;
+		dialogRef = this.dialog.open(DeleteListDialogComponent);
+		dialogRef.componentInstance.data = data;
+		
+		return dialogRef.afterClosed();
+	}
+
+	//cancelDialog function is used to open the Delete Dialog Component. 
+	cancelDialog(data:string){
+		let dialogRef : MatDialogRef<DeleteListDialogComponent>;
+		dialogRef = this.dialog.open(DeleteListDialogComponent);
+		dialogRef.componentInstance.data = data;
+		
+		return dialogRef.afterClosed();
+	}
+	
+
 	putreservation(res){
 		this.IdReservation = res
 	}

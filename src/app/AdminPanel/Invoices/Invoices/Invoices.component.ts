@@ -59,8 +59,7 @@ export class InvoicesComponent implements OnInit {
             console.log(err))
    }
    getDataInfo(){
-     
-      this.getReservations()
+      this.getReservations();
       setTimeout(() => { 
          this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
       }, 2000);
