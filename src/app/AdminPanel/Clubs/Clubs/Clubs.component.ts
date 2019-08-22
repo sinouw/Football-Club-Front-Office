@@ -140,7 +140,7 @@ export class ClubsComponent implements OnInit {
   }
 
   delete(id: string, i: number) {
-    this.clubService.deleteDialog("Are you sure you want to delete this product permanently?").subscribe(res => { this.popUpDeleteClubResponse = res },
+    this.clubService.deleteDialog("Are you sure you want to delete this club permanently?").subscribe(res => { this.popUpDeleteClubResponse = res },
       err => console.log(err),
       () => this.getDeleteResponse(this.popUpDeleteClubResponse, i, id))
 

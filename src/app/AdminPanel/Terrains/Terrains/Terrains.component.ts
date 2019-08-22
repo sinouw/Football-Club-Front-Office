@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { baseurl } from '../../Models/basurl.data';
 import { ToastaService } from 'ngx-toasta';
+import { AccountService } from '../../Service/account.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class TerrainsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private terrainService: AdminGenericService,
+    private accountService: AccountService,
     private http: HttpClient,
     private toastyService: ToastaService
   ) { 
@@ -170,7 +172,11 @@ export class TerrainsComponent implements OnInit {
 
   public list(request: string): any {
     console.log(request);
-    return this.terrainService.get(this.baseUrl + '/terrains' + request);
+    // if(this.accountService.getPayload().role == "SuperAdmin") {
+      return this.terrainService.get(this.baseUrl + '/terrains' + request);
+    // } else {
+    //   return this.terrainService.get(this.baseUrl + '/ClubAdmin/' + this.accountService.getPayload().UserID);
+    // }
   }
 
   /**

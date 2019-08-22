@@ -37,6 +37,8 @@ export class EmbryoService {
    navbarCartCount : number = 0;
    navbarWishlistProdCount = 0;
    buyUserCartProducts : any;
+
+   IdTerrain: any;
    
    constructor(private http:HttpClient, 
                private dialog: MatDialog, 
@@ -71,8 +73,9 @@ export class EmbryoService {
 		let dialogRef : MatDialogRef<AddReservationClientComponent>;
       dialogRef = this.dialog.open(AddReservationClientComponent);
       
-      dialogRef.componentInstance.IdTerrain = id;
-      console.log(id);
+      this.IdTerrain = id;
+      // dialogRef.componentInstance.IdTerrain = id;
+      // console.log(id);
       
 		
 		return dialogRef.afterClosed();
