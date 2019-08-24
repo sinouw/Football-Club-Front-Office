@@ -1,113 +1,125 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdminPanelServiceService } from '../../Service/AdminPanelService.service';
-import { MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { AdminGenericService } from '../../Service/AdminGeneric.service';
 import { baseurl } from '../../Models/basurl.data';
 import { Reservation } from '../../Models/Reservation.model';
 import { ReservationService } from '../../Service/reservation.service';
 import { JsonPipe } from '@angular/common';
 import { ToastOptions, ToastaService } from 'ngx-toasta';
+import { AccountService } from '../../Service/account.service';
 
 @Component({
-  selector: 'app-invoices',
-  templateUrl: './Invoices.component.html',
-  styleUrls: ['./Invoices.component.scss']
+   selector: 'app-invoices',
+   templateUrl: './Invoices.component.html',
+   styleUrls: ['./Invoices.component.scss']
 })
 
 export class InvoicesComponent implements OnInit {
    clubs
    collaborationData
-   popUpNewResResponse    : any;
-	popUpDeleteUserResponse : any;
-   invoiceList             : any[]=[] ;
-   reservations            : any[]=[] ;   
-   toastOptionDelete  : ToastOptions = {
-      title     : "Account Deleted",
-      msg       : "An account was deleted successfully!",
-      showClose : true,
-      timeout   : 3000,
-      theme     : "material"  
+   popUpNewResResponse: any;
+   popUpDeleteUserResponse: any;
+   invoiceList: any[] = [];
+   reservations: any[] = [];
+   toastOptionDelete: ToastOptions = {
+      title: "Account Deleted",
+      msg: "An account was deleted successfully!",
+      showClose: true,
+      timeout: 3000,
+      theme: "material"
    };
-   @ViewChild(MatPaginator,{static: false}) paginator : MatPaginator;
-   @ViewChild(MatSort,{static: false}) sort: MatSort;
+   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
    dataSource = new MatTableDataSource<any>(this.invoiceList);
 
    // displayedColumns : string[] = ['position', 'invoiceId', 'name','Price', 'payment','status','action'];
    // displayedColumns : string[] = ['ClubName', 'Name','Type', 'FullName', 'StartRes','EndRes', 'Price','status','action'];
-   displayedColumns : string[] = ['Name','Type', 'FullName','StartRes','EndRes', 'Price','status','action'];
+   displayedColumns: string[] = ['Name', 'Type', 'FullName', 'StartRes', 'EndRes', 'Price', 'status', 'action'];
 
-   constructor(public service : AdminPanelServiceService,
+   constructor(public service: AdminPanelServiceService,
       private genericservice: AdminGenericService,
-      private reservationservice :ReservationService,
+      private reservationservice: ReservationService,
+      private account: AccountService,
       private toastyService: ToastaService,
-      ) {
-         this.getDataInfo()
-       }
-
-	ngOnInit() {
+   ) {
+      this.getDataInfo()
    }
-   
 
-   getReservations(){
-      this.genericservice.get(baseurl+'/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=Price,status,StartReservation,EndReservation,IdReservation')
-      .subscribe(
-         res=>{
-            this.reservations =res 
-         },
-         err=>
-            console.log(err))
+   ngOnInit() {
    }
-   getDataInfo(){
+
+
+   getReservations() {
+      if (this.account.getPayload().role == "SuperAdmin") {
+         this.genericservice.get(baseurl + '/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=Price,status,StartReservation,EndReservation,IdReservation')
+         .subscribe(
+            res => {
+               this.reservations = res;
+            },
+            err => console.log(err)
+         );
+      } else {
+         this.genericservice.get(baseurl + '/Reservations/GetReservationsByClubAdmin/' + this.account.getPayload().UserID + "?$select=StartReservation,EndReservation,status,Price&$expand=Client($select=FullName),Terrain($expand=club($select=ClubAdminId))")
+         .subscribe(
+            res => {
+               this.reservations = res;
+            },
+            err => console.log(err)
+         );
+      }
+   }
+   getDataInfo() {
       this.getReservations();
-      setTimeout(() => { 
+      setTimeout(() => {
          this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
       }, 2000);
    }
 
    //getInvoiceData method is used to get the invoice list data.
-   getInvoiceData(response){
+   getInvoiceData(response) {
       // this.invoiceList = response;
       this.reservations.forEach(el => {
-            let  invoice = {
-            IdReservation:el.IdReservation,
-            FullName : el.Client.FullName,
+         let invoice = {
+            IdReservation: el.IdReservation,
+            FullName: el.Client.FullName,
             Name: el.Terrain.Name,
             Type: el.Terrain.Type,
             // Price: el.Terrain.Price,
             IdClub: el.Terrain.IdClub,
-            status : el.status,
-            StartRes :el.StartReservation,
-            EndRes : el.EndReservation,
-            Price : el.Price
+            status: el.status,
+            StartRes: el.StartReservation,
+            EndRes: el.EndReservation,
+            Price: el.Price
          }
-   
+
          this.invoiceList.push(invoice);
       });
-   this.dataSource = new MatTableDataSource<any>(this.invoiceList);
+      this.dataSource = new MatTableDataSource<any>(this.invoiceList);
 
-      setTimeout(()=>{
+      setTimeout(() => {
          this.dataSource.paginator = this.paginator;
          this.dataSource.sort = this.sort;
-      },0)
- 
+      }, 0)
+
    }
 	/** 
      *onDelete method is used to open a delete dialog.
      */
-   onDelete(id,i){
+   onDelete(id, i) {
       this.service.deleteDialog("Are you sure you want to delete this invoice permanently?").
-         subscribe( res => {this.popUpDeleteUserResponse = res},
-                    err => console.log(err),
-                    ()  => this.getDeleteResponse(id,this.popUpDeleteUserResponse,i))
+         subscribe(res => { this.popUpDeleteUserResponse = res },
+            err => console.log(err),
+            () => this.getDeleteResponse(id, this.popUpDeleteUserResponse, i))
    }
 
    /**
      * getDeleteResponse method is used to delete a invoice from the invoice list.
      */
-   getDeleteResponse(id,response : string, i){
-      if(response == "yes"){
-         this.dataSource.data.splice(i,1);
+   getDeleteResponse(id, response: string, i) {
+      if (response == "yes") {
+         this.dataSource.data.splice(i, 1);
          this.reservationservice.DeleteReservation(id)
          this.dataSource = new MatTableDataSource(this.dataSource.data);
          this.dataSource.paginator = this.paginator;
@@ -118,7 +130,7 @@ export class InvoicesComponent implements OnInit {
    /**
      * onSeeDialog method is used to open a see dialog.
      */
-   onSeeDialog(){
+   onSeeDialog() {
       this.service.seeList();
    }
 
@@ -131,46 +143,48 @@ export class InvoicesComponent implements OnInit {
       }
    }
 
-   
-      /** 
-     * addNewUserDialog method is used to open a add new Reservation dialog.
-     */   
+
+   /** 
+  * addNewUserDialog method is used to open a add new Reservation dialog.
+  */
    addNewReservationDialog() {
       this.service.addNewReservationDialog().
-         subscribe( res => {this.popUpNewResResponse = res;
+         subscribe(res => {
+         this.popUpNewResResponse = res;
          },
-                    err => console.log(err),
-                     ()  => this.getAddResPopupResponse(this.popUpNewResResponse))
-                
+            err => console.log(err),
+            () => this.getAddResPopupResponse(this.popUpNewResResponse))
+
    }
 
-   getAddResPopupResponse(response: any){
-      if(response){
-      this.invoiceList = []
-      this.getDataInfo()
+   getAddResPopupResponse(response: any) {
+      if (response) {
+         this.invoiceList = []
+         this.getDataInfo()
       }
    }
- 
+
    EditReservationDialog(reservation) {
 
       this.service.putreservation(reservation.IdReservation)
-      
+
 
       this.service.EditReservationDialog().
-         subscribe( res => {this.popUpNewResResponse = res;
+         subscribe(res => {
+         this.popUpNewResResponse = res;
          },
-                    err => console.log(err),
-                     ()  => this.getResPopupResponse(this.popUpNewResResponse))
-                
-   }
-   getResPopupResponse(response: any){
-      if(response){
+            err => console.log(err),
+            () => this.getResPopupResponse(this.popUpNewResResponse))
 
-         
-            this.invoiceList = []
-            this.getDataInfo()
-            
-      
+   }
+   getResPopupResponse(response: any) {
+      if (response) {
+
+
+         this.invoiceList = []
+         this.getDataInfo()
+
+
       }
    }
 }

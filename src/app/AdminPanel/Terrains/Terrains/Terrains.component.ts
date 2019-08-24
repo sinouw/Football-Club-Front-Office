@@ -87,7 +87,9 @@ export class TerrainsComponent implements OnInit {
     if (type == 'list') {
       document.getElementById('list').classList.add("active");
       document.getElementById('grid').classList.remove('active');
-      this.terrainsList = new MatTableDataSource(this.terrainsGrid);
+
+        this.terrainsList = new MatTableDataSource(this.terrainsGrid);
+     
       setTimeout(() => {
         this.terrainsList.paginator = this.paginator;
         this.terrainsList.sort = this.sort;
@@ -172,11 +174,11 @@ export class TerrainsComponent implements OnInit {
 
   public list(request: string): any {
     console.log(request);
-    // if(this.accountService.getPayload().role == "SuperAdmin") {
+    if(this.accountService.getPayload().role == "SuperAdmin") {
       return this.terrainService.get(this.baseUrl + '/terrains' + request);
-    // } else {
-    //   return this.terrainService.get(this.baseUrl + '/ClubAdmin/' + this.accountService.getPayload().UserID);
-    // }
+    } else {
+      return this.terrainService.get(this.baseUrl + "/Terrains/GetTerrainsByClubAdmin/"+ this.accountService.getPayload().UserID+"?$select=IdTerrain,Name,Type,Free,Price&$expand=club($select=Name)");
+    }
   }
 
   /**

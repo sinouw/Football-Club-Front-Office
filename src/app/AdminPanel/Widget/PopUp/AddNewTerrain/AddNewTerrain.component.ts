@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { AdminGenericService } from 'src/app/AdminPanel/Service/AdminGeneric.service';
 import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
+import { AccountService } from 'src/app/AdminPanel/Service/account.service';
 
 @Component({
   selector: 'app-add-new-terrain',
@@ -20,6 +21,7 @@ export class AddNewTerrainComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private clubService: AdminGenericService,
+    private account: AccountService,
     public dialogRef: MatDialogRef<AddNewTerrainComponent>
     ) { }
 
@@ -44,7 +46,11 @@ export class AddNewTerrainComponent implements OnInit {
   }
 
   list(): any {
-    return this.clubService.get(baseurl + '/clubs');
+    if(this.account.getPayload().role == "SuperAdmin") {
+      return this.clubService.get(baseurl + '/clubs');
+    } else {
+      return this.clubService.get(baseurl + '/clubs/GetClubsByClubAdmin/' + this.account.getPayload().UserID);
+    }
   }
 
 
