@@ -24,7 +24,7 @@
                           </span>
                                 </a>
                             </mat-list-item>
-                            <mat-list-item role="listitem">
+                            <mat-list-item *ngIf="service.getPayload().role == 'SuperAdmin'" role="listitem">
                                 <a [routerLink]="['/admin-panel/account/collaboration']" routerLinkActive="tab-active">
                                     <i class="material-icons">location_on</i>
                                     <span>Users</span>

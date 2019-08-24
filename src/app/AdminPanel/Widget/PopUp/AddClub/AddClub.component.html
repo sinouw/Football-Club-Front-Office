@@ -55,8 +55,24 @@
                     <input matInput type="time" placeholder="Closing Time" formControlName="ClosingTime">
                     <mat-error *ngIf="addClubForm.get('ClosingTime').hasError('required') && addClubForm.get('ClosingTime').touched">
                         This field should not be empty.</mat-error>
+                        <mat-form-field class="w-100">
+                            <input matInput type="time" placeholder="Closing Time" formControlName="ClosingTime">
+                            <mat-error *ngIf="addClubForm.get('ClosingTime').hasError('required') && addClubForm.get('ClosingTime').touched">
+                                This field should not be empty.</mat-error>
 
                 </mat-form-field>
+
+                <!-- <mat-form-field class="w-100">
+                    <input matInput type="time" placeholder="Add lng" formControlName="ClosingTime">
+                    <mat-error *ngIf="addClubForm.get('ClosingTime').hasError('required') && addClubForm.get('ClosingTime').touched">
+                        This field should not be empty.</mat-error>
+                        <mat-form-field class="w-100">
+                            <input matInput type="time" placeholder="Closing Time" formControlName="ClosingTime">
+                            <mat-error *ngIf="addClubForm.get('ClosingTime').hasError('required') && addClubForm.get('ClosingTime').touched">
+                                This field should not be empty.</mat-error>
+
+                </mat-form-field> -->
+
                 <mat-form-field class="w-100">
                     <select matNativeControl formControlName="IsActive" placeholder="Club Status">
                         <option value="True">Active</option>

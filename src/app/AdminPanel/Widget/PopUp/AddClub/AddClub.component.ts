@@ -30,6 +30,8 @@ export class AddClubComponent implements OnInit {
       Email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       OpeningTime: [''],
       ClosingTime: [''],
+      lng: [''],
+      lat: [''],
       IsActive: ['', [Validators.required]],
     })
   }
@@ -45,6 +47,8 @@ export class AddClubComponent implements OnInit {
         Email: this.addClubForm.value.Email,
         OpeningTime: this.addClubForm.value.OpeningTime,
         ClosingTime: this.addClubForm.value.ClosingTime,
+        lng: this.addClubForm.value.lng,
+        lat: this.addClubForm.value.lat,
         IsActive: this.addClubForm.value.IsActive,
         ClubAdminId: this.accountService.getPayload().UserID,
       };
@@ -58,6 +62,8 @@ export class AddClubComponent implements OnInit {
         Email: this.addClubForm.value.Email,
         OpeningTime: this.addClubForm.value.OpeningTime,
         ClosingTime: this.addClubForm.value.ClosingTime,
+        lng: this.addClubForm.value.lng,
+        lat: this.addClubForm.value.lat,
         IsActive: this.addClubForm.value.IsActive,
         SuperAdminId: this.accountService.getPayload().UserID,
       };
