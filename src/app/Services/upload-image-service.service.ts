@@ -7,14 +7,7 @@ import { baseurl } from '../AdminPanel/Models/basurl.data';
 })
 export class UploadImageServiceService {
   idterrain
-  constructor(private http : HttpClient) { }
+  constructor() { }
 
-  postFile(caption: string, fileToUpload: File) {
-    const endpoint = baseurl+'/Images/upload/'+this.idterrain;
-    const formData: FormData = new FormData();
-    formData.append('Image', fileToUpload, fileToUpload.name);
-    formData.append('ImageCaption', caption);
-    return this.http
-      .post(endpoint, formData);
-  }
+  
 }
