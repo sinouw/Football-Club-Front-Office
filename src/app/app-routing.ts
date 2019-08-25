@@ -8,6 +8,7 @@ import { HomeTwoComponent } from './Pages/Home/HomeTwo/HomeTwo.component';
 import { HomeThreeComponent } from './Pages/Home/HomeThree/HomeThree.component';
 import { CartComponent } from './Pages/Cart/Cart.component';
 import { NotFoundComponent } from './Pages/NotFound/NotFound.component';
+import { ResCalendarComponent } from './Pages/calendar/res-calendar/res-calendar.component';
 
 export const AppRoutes : Routes = [
    {
@@ -35,6 +36,8 @@ export const AppRoutes : Routes = [
             path: 'cart',
             component: CartComponent
          },
+         { path : 'calendar',
+      component : ResCalendarComponent},
          {
             path: 'client',loadChildren: ()=>
             import('./Pages/Clubs/Clubs.module').then (m => m.ClubsModule)

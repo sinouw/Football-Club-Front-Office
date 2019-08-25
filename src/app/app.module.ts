@@ -75,6 +75,8 @@ import { AdminPanelModule } from './AdminPanel/admin-panel.module';
 import { UserMapService } from './Services/user-map.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 
+import {DemoCalendarModule} from './Pages/calendar/calendar.module'
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -110,6 +112,7 @@ export function createTranslateLoader(http: HttpClient) {
       RouterModule.forRoot(AppRoutes, {onSameUrlNavigation: 'reload'}),
       GlobalModule,
       TemplatesModule,
+      DemoCalendarModule,
       MatButtonModule, 
       FlexLayoutModule,
       MatCardModule, 
