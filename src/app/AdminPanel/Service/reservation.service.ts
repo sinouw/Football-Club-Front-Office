@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class ReservationService {
 reservations : any
 clubs : any
+  StartReservation: any;
   constructor(private http : HttpClient) { }
 
   getReservationInfo(){

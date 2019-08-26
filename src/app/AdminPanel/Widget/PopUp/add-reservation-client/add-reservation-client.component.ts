@@ -9,6 +9,8 @@ import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
 import { ReservationService } from 'src/app/AdminPanel/Service/reservation.service';
 import { AccountService } from 'src/app/AdminPanel/Service/account.service';
 import { EmbryoService } from 'src/app/Services/Embryo.service';
+import { ReservsationService } from 'src/app/Services/reservsation.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-reservation-client',
@@ -25,7 +27,7 @@ export class AddReservationClientComponent implements OnInit {
   clients;
   IdTerrain;
   type;
-
+  startreservation
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddReservationClientComponent>,
@@ -36,12 +38,17 @@ export class AddReservationClientComponent implements OnInit {
     private genericservice: AdminGenericService,
     private route: ActivatedRoute,
     private router: Router,
+    private resservice : ReservsationService,
+    public datePipe: DatePipe
+
   ) { }
 
   ngOnInit() {
-
+    this.startreservation = this.datePipe.transform(this.resservice.StartReservation,"yyyy-MM-ddThh:mm") 
+    console.log(this.startreservation);
+    
     this.addReservationForm = this.formBuilder.group({
-      StartReservation: ['', [Validators.required]],
+      StartReservation: [this.startreservation, [Validators.required]],
       Duration: ['', [Validators.required]],
     })
 
@@ -54,6 +61,9 @@ export class AddReservationClientComponent implements OnInit {
       this.type = res.type;
       this.IdTerrain = res.id;
       console.log(res.id);
+
+     
+
     });
 
 
@@ -67,22 +77,27 @@ export class AddReservationClientComponent implements OnInit {
 
   // onFormSubmit method is submit a add new user form.
   onFormSubmit() {
+
+    let endhours  = new Date(this.addReservationForm.value.StartReservation).getHours()+this.addReservationForm.value.Duration
+    let endRes = this.datePipe.transform(new Date(this.addReservationForm.value.StartReservation).setHours(endhours),"yyyy-MM-ddThh:mm")     
+
     const body = {
       IdClient: this.accountService.getPayload().UserID,
       IdTerrain: this.embryoService.IdTerrain,
       StartReservation: this.addReservationForm.value.StartReservation,
-      EndReservation: this.addReservationForm.value.Duration,
+      EndReservation: endRes,
       status: "Confirmed"
     }
-    console.log(body);
-    
-    // console.log(body);
 
-    // this.genericservice.post(baseurl + '/Reservations', body)
-    //   .subscribe(res => console.log('Added Successfully'),
-    //     err => console.log(err)
-    //   )
-    // this.dialogRef.close(this.addReservationForm.value);
+    console.log(body)
+    this.genericservice.post(baseurl + '/Reservations', body)
+      .subscribe(res => {
+        this.resservice.putEndStart(body.StartReservation,body.EndReservation)
+        console.log('Added Successfully')
+      },
+        err => console.log(err)
+      )
+    this.dialogRef.close(this.addReservationForm.value);
     // this.router.navigate(['/account/order-history']);
   }
 

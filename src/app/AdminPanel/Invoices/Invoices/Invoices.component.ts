@@ -76,7 +76,7 @@ export class InvoicesComponent implements OnInit {
       this.getReservations();
       setTimeout(() => {
          this.service.getInvoiceContent().valueChanges().subscribe(rest => this.getInvoiceData(rest));
-      }, 2000);
+      }, 3000);
    }
 
    //getInvoiceData method is used to get the invoice list data.
