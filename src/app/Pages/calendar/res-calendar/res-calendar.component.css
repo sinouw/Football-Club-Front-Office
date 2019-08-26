@@ -15,3 +15,9 @@ pre {
 .cal-disabled .cal-day-number {
     opacity: 0.1;
 }
+
+.btn-orange {
+    background: #ff5722;
+    color: white;
+    border: 1px black;
+}

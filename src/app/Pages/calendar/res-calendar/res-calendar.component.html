@@ -1,13 +1,13 @@
 <div class="row text-center">
     <div class="col-md-4">
         <div class="btn-group">
-            <div class="btn btn-dark" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+            <div class="btn btn-secondary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
                 Previous
             </div>
             <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
                 Today
             </div>
-            <div class="btn btn-dark" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+            <div class="btn btn-secondary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
                 Next
             </div>
         </div>
@@ -17,10 +17,10 @@
     </div>
     <div class="col-md-4">
         <div class="btn-group">
-            <div class="btn btn-dark" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+            <div class="btn btn-secondary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
                 Month
             </div>
-            <div class="btn btn-dark" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+            <div class="btn btn-secondary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
                 Week
             </div>
 
@@ -33,7 +33,7 @@
 
     </mwl-calendar-month-view>
 
-    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventTimesChanged)="eventTimesChanged($event)">
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (hourSegmentClicked)="HourClicked($event)" (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-week-view>
 
 </div>
@@ -43,6 +43,6 @@
 <br />
 
 
-<button class="btn btn-dark" (click)="addEvent()">
+<button class="btn btn-secondary" (click)="AddReservationPopup()">
     Add new
   </button>

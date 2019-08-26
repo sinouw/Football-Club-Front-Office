@@ -8,7 +8,7 @@ import {
   addWeeks,
   endOfMonth
 } from 'date-fns';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import {
   CalendarEvent,
   CalendarEventTimesChangedEvent,
@@ -16,6 +16,12 @@ import {
   CalendarUtils,
   CalendarMonthViewDay
 } from 'angular-calendar';
+import { HttpClient } from '@angular/common/http';
+import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
+import { EmbryoService } from 'src/app/Services/Embryo.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AdminGenericService } from 'src/app/AdminPanel/Service/AdminGeneric.service';
+import { ReservsationService } from 'src/app/Services/reservsation.service';
 
 
 const colors: any = {
@@ -39,11 +45,10 @@ const colors: any = {
   styleUrls: ['./res-calendar.component.css']
 })
 export class ResCalendarComponent implements OnInit {
-
   
+  IdTerrain : any
 
-  ngOnInit() {
-  }
+  reservations : any[]=[]
 
   clickedDate: Date;
 
@@ -55,31 +60,56 @@ export class ResCalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  constructor() {}
+  constructor(private http : HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
+    public embryoService: EmbryoService,
+    public service: AdminGenericService,
+    private resservice :ReservsationService) {
+     
 
-  events: CalendarEvent[] = [
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(startOfDay(new Date()), 4),
-      title: '',
-      color: colors.red,
-      actions: null,
-      resizable: {
-        beforeStart: false,
-        afterEnd: false
+      this.IdTerrain= this.resservice.idTerrain
+      console.log(this.IdTerrain)
+
+      // if(this.IdTerrain == null)
+      // this.router.navigateByUrl('/client/terrains');
+
+    this.getReservations()
+    .subscribe(
+      res=>{
+       this.reservations=res
+        this.reservations.forEach(e => {
+           var StartRes = new Date(e.StartReservation)
+           var EndRes = new Date(e.EndReservation)
+           console.log(StartRes,EndRes);    
+           this.addDbEvents(StartRes , EndRes)
+        });
       },
-      draggable: false
-    }
-  ];
+      err=>console.log(err))
+  }
+
+  ngOnInit() {
+    
+    
+  }
+
+  events: CalendarEvent[] = [];
+
+  getReservations() : Observable<any>{
+    return this.http.get<any>(baseurl+"/Reservations?$select=StartReservation,EndReservation,Duration&$filter=contains(status,'Confirmed')")
+  }
 
   dayClicked({ date }: { date: Date }): void {
     this.clickedDate = date
-    if (this.view === CalendarView.Month) 
+    let today = new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate())  
+    
+    if (this.view === CalendarView.Month && today<=date) 
     {
       this.viewDate = date; 
       this.view = CalendarView.Week;
     }   
   }
+
   eventTimesChanged({
     event,
     newStart,
@@ -99,13 +129,15 @@ export class ResCalendarComponent implements OnInit {
 
 
 
-  addEvent(): void {
+  addDbEvents(startRes , endRes): void {
+   
+    // addHours(startOfDay(new Date()), 2),
     this.events = [
       ...this.events,
       {
         title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
+        start: startRes,
+        end: endRes,
         color: colors.red,
         draggable: false,
         resizable: {
@@ -116,6 +148,11 @@ export class ResCalendarComponent implements OnInit {
     ];
   }
 
+  AddReservationPopup() {
+    this.embryoService.addNewReservationDialog(this.IdTerrain);
+  }
+
+
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter(event => event !== eventToDelete);
   }
@@ -124,5 +161,9 @@ export class ResCalendarComponent implements OnInit {
     this.view = view;
   }
 
+  HourClicked({ date }: { date: Date }){
+    console.log(date);
+    
+  }
 
 }

@@ -45,6 +45,10 @@
                             <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation End </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.EndRes}} </td>
                         </ng-container>
+                        <ng-container matColumnDef="Duration">
+                            <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Duration</th>
+                            <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> {{element?.Duration}} </td>
+                        </ng-container>
                         <ng-container matColumnDef="Price">
                             <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Reservation Price </th>
                             <td class="px-3 text-nowrap" mat-cell *matCellDef="let element"> ${{element.Price}} </td>

@@ -36,7 +36,7 @@ export class InvoicesComponent implements OnInit {
 
    // displayedColumns : string[] = ['position', 'invoiceId', 'name','Price', 'payment','status','action'];
    // displayedColumns : string[] = ['ClubName', 'Name','Type', 'FullName', 'StartRes','EndRes', 'Price','status','action'];
-   displayedColumns: string[] = ['Name', 'Type', 'FullName', 'StartRes', 'EndRes', 'Price', 'status', 'action'];
+   displayedColumns: string[] = ['Name', 'Type', 'FullName', 'StartRes', 'EndRes','Duration', 'Price', 'status', 'action'];
 
    constructor(public service: AdminPanelServiceService,
       private genericservice: AdminGenericService,
@@ -53,10 +53,12 @@ export class InvoicesComponent implements OnInit {
 
    getReservations() {
       if (this.account.getPayload().role == "SuperAdmin") {
-         this.genericservice.get(baseurl + '/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=Price,status,StartReservation,EndReservation,IdReservation')
+         this.genericservice.get(baseurl + '/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=Price,status,StartReservation,EndReservation,IdReservation,Duration')
          .subscribe(
             res => {
                this.reservations = res;
+               console.log(this.reservations);
+               
             },
             err => console.log(err)
          );
@@ -86,12 +88,12 @@ export class InvoicesComponent implements OnInit {
             FullName: el.Client.FullName,
             Name: el.Terrain.Name,
             Type: el.Terrain.Type,
-            // Price: el.Terrain.Price,
+            Duration: Math.round(el.Duration*100)/100,
             IdClub: el.Terrain.IdClub,
             status: el.status,
             StartRes: el.StartReservation,
             EndRes: el.EndReservation,
-            Price: el.Price
+            Price: Math.round(el.Price*100)/100
          }
 
          this.invoiceList.push(invoice);
