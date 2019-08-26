@@ -15,7 +15,7 @@ export const UserAccountRoutes : Routes = [
       path : '',
       component : AccountComponent,
       canActivate: [AuthGuard],
-      data: { roles: [Role.Client,Role.SuperAdmin] },
+      data: { roles: [Role.Client] },
       children: [ 
          {
             path: 'profile',

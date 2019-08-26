@@ -42,7 +42,7 @@ export class AddReservationClientComponent implements OnInit {
 
     this.addReservationForm = this.formBuilder.group({
       StartReservation: ['', [Validators.required]],
-      EndReservation: ['', [Validators.required]],
+      Duration: ['', [Validators.required]],
     })
 
     console.log(this.embryoService.IdTerrain);
@@ -71,18 +71,19 @@ export class AddReservationClientComponent implements OnInit {
       IdClient: this.accountService.getPayload().UserID,
       IdTerrain: this.embryoService.IdTerrain,
       StartReservation: this.addReservationForm.value.StartReservation,
-      EndReservation: this.addReservationForm.value.EndReservation,
-      status: "Waiting For Confirmation"
+      EndReservation: this.addReservationForm.value.Duration,
+      status: "Confirmed"
     }
-
     console.log(body);
+    
+    // console.log(body);
 
-    this.genericservice.post(baseurl + '/Reservations', body)
-      .subscribe(res => console.log('Added Successfully'),
-        err => console.log(err)
-      )
-    this.dialogRef.close(this.addReservationForm.value);
-    this.router.navigate(['/account/order-history']);
+    // this.genericservice.post(baseurl + '/Reservations', body)
+    //   .subscribe(res => console.log('Added Successfully'),
+    //     err => console.log(err)
+    //   )
+    // this.dialogRef.close(this.addReservationForm.value);
+    // this.router.navigate(['/account/order-history']);
   }
 
 }

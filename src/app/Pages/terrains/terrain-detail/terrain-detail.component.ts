@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnChanges, Renderer2, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationExtras } from '@angular/router';
 import { EmbryoService } from 'src/app/Services/Embryo.service';
 import { AdminGenericService } from 'src/app/AdminPanel/Service/AdminGeneric.service';
 import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
+import { ReservsationService } from 'src/app/Services/reservsation.service';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class TerrainDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     public embryoService: EmbryoService,
-    public service: AdminGenericService
+    public service: AdminGenericService,
+    private resservice :ReservsationService
   ) {
     // console.log(this.IdTerrain);
     
@@ -108,4 +110,8 @@ export class TerrainDetailComponent implements OnInit {
     this.router.navigate(['/checkout']);
   }
 
+  NavigateCalendar() {
+    this.resservice.putIdTerrain(this.IdTerrain)
+    this.router.navigate(['/calendar/']);
+  }
 }

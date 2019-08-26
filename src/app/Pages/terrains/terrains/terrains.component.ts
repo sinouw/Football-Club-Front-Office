@@ -141,4 +141,6 @@ export class TerrainsComponent implements OnInit {
     console.log(terrain,i);
   }
 
+    
+
 }
