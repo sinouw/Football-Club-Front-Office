@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatSelectModule,
 			MatInputModule, 
 			MatFormFieldModule,
@@ -91,6 +91,9 @@ import { AddReservationClientComponent } from './PopUp/add-reservation-client/ad
 	  AddReservationComponent,
 	  AddNewTerrainComponent
 
+   ],
+   providers: [
+	   DatePipe
    ]
 })
 export class WidgetModule { }
