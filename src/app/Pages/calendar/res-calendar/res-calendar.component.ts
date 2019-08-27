@@ -179,10 +179,21 @@ export class ResCalendarComponent implements OnInit {
 
   getAddResPopupResponse(response: any) {
     if (response) {
-      let body = this.resservice.getEndStart()
-      this.addDbEvents(new Date(body.start),new Date(body.end))
-      this.RefrechEvents()
-      this.refresh.next();
+      console.log('response : ',response)
+      // let body = this.resservice.getEndStart()
+      // this.addDbEvents(new Date(body.start),new Date(body.end))
+      // this.RefrechEvents()
+      // this.refresh.next();
+      this.getReservations()
+      .subscribe(
+        res => {
+          this.events = []
+          this.reservations = res
+          this.reservations.forEach(e => {
+            this.addDbEvents(new Date(e.StartReservation), new Date(e.EndReservation))
+          });
+        },
+        err => console.log(err))
     }
   }
 }

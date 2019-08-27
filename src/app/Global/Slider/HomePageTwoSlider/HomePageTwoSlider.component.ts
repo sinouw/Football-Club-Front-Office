@@ -82,6 +82,7 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
       this.start = "36.8481502,10.2695116";
       this.finish = "36.8583851,10.2731775";
       this.query = "";
+      
    }
 
 
@@ -120,6 +121,8 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
       // ... Initializing the router
       this.router = this.platform.getRoutingService();
 
+
+      
    }
 
 
@@ -176,11 +179,9 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
             this.addMarker(this.map, location);
          });
       }, 1000);
-
-
-
    }
 
+   
    // We’ll be using the ngOnChanges hook for when component attribute values change in realtime
    public ngOnChanges(changes: SimpleChanges) {
       // So if the start or finish coordinates change, this method will execute
