@@ -37,7 +37,7 @@ export const AppRoutes : Routes = [
             component: CartComponent
          },
          { path : 'calendar',
-      component : ResCalendarComponent},
+            component : ResCalendarComponent},
          {
             path: 'client',loadChildren: ()=>
             import('./Pages/Clubs/Clubs.module').then (m => m.ClubsModule)

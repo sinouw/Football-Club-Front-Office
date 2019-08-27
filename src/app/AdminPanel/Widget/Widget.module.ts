@@ -34,6 +34,7 @@ import { AddReservationComponent } from './PopUp/add-reservation/add-reservation
 import { AddNewTerrainComponent } from './PopUp/AddNewTerrain/AddNewTerrain.component';
 import { EditReservationComponent } from './PopUp/edit-reservation/edit-reservation.component';
 import { AddReservationClientComponent } from './PopUp/add-reservation-client/add-reservation-client.component';
+import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 
 @NgModule({
@@ -55,6 +56,8 @@ import { AddReservationClientComponent } from './PopUp/add-reservation-client/ad
 	],
 	imports: [
 		CommonModule,
+    DlDateTimeDateModule,  // <--- Determines the data type of the model
+    DlDateTimePickerModule,
 		MatSelectModule,
 		MatInputModule,
 		MatFormFieldModule,

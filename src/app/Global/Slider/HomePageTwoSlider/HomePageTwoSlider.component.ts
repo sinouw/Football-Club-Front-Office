@@ -175,7 +175,6 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
 
       setTimeout(() => {
          this.listOfLocations.forEach(location => {
-            console.log(location);
             this.addMarker(this.map, location);
          });
       }, 1000);
@@ -193,7 +192,6 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
    fillLocations(response: any) {
       response.map(location => { this.listOfLocations.push(location) });
       const productsToDisplay = this.listOfLocations.forEach(element => {
-         console.log(element)
       });
    }
 
@@ -248,17 +246,13 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
 
             if (this.duration < 60) {
                this.tunit = "Sec"
-               console.log(this.tunit)
             }
             else if (this.duration > 60 && this.duration < 3600) {
                this.duration = Math.round(this.duration / 60)
                this.tunit = "Min"
-               console.log(this.tunit)
             } else {
                this.duration = Math.round((this.duration / 3600) * 100) / 100
                this.tunit = "Hour"
-               console.log(this.tunit)
-
             }
 
             data = data.response.route[0];
@@ -366,7 +360,6 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
 
    // Adds a circle over a location with a radius of 1000 metres onto the map
    addCircleToMap(map, position) {
-      console.log("position", position);
       if (this.position != undefined) {
          map.addObject(new H.map.Circle(
             // The central point of the circle
@@ -393,7 +386,6 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
 
             this.locations = <Array<any>>result;
             this.locations = this.locations.filter(l => l.Location.Address.Country == "TUN");
-            console.log(this.locations);
 
             this.lat = this.locations[0].Location.DisplayPosition.Latitude;
             this.lng = this.locations[0].Location.DisplayPosition.Longitude;
@@ -413,7 +405,6 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
    }
 
    viewTerrain(id) {
-      console.log(id);
       this.rout.navigate(['/client/terrains',id]);
    }
 
