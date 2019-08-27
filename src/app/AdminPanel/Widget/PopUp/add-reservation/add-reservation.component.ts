@@ -36,7 +36,6 @@ export class AddReservationComponent implements OnInit {
       IdTerrain: ['', [Validators.required]],
       StartReservation: ['', [Validators.required]],
       EndReservation: ['', [Validators.required]],
-      status: ['', [Validators.required]],
     })
 
       
@@ -91,7 +90,7 @@ export class AddReservationComponent implements OnInit {
       IdTerrain: this.addReservationForm.value.IdTerrain,
       StartReservation: this.addReservationForm.value.StartReservation,
       EndReservation: this.addReservationForm.value.EndReservation,
-      status: this.addReservationForm.value.status
+      status: 'Confirmed'
     }
 
     this.genericservice.post(baseurl+'/Reservations',body)

@@ -46,18 +46,7 @@
                     <input matInput type="datetime-local" placeholder="Ending Time" formControlName="EndReservation">
                     <mat-error *ngIf="addReservationForm.get('EndReservation').hasError('required') && addReservationForm.get('EndReservation').touched">This field should not be empty.</mat-error>
                 </mat-form-field>
-                <mat-form-field class="w-100">
-                    <select matNativeControl formControlName="status" placeholder="Reservation Status">
-                        <option value="Confirmed">Confirmed</option>
-                        <option value="Waiting For Confirmation">Waiting For Confirmation</option>
-                        <option value="Reported">Reported</option>
-                    </select>
-                    <mat-error *ngIf="addReservationForm.controls['status'].touched && !addReservationForm.controls['status'].valid">
-                        <mat-error *ngIf="addReservationForm.controls['status'].hasError('required')" class="required alert-error">
-                            You must Select a Reservation Status.
-                        </mat-error>
-                    </mat-error>
-                </mat-form-field>
+               
             </div>
         </div>
     </mat-dialog-content>
