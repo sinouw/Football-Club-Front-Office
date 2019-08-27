@@ -11,9 +11,15 @@
                     <input matInput type="datetime-local" placeholder="Starting Time" formControlName="StartReservation" autocomplete="off">
                     <mat-error *ngIf="addReservationForm.get('StartReservation').hasError('required') && addReservationForm.get('StartReservation').touched">This field should not be empty.</mat-error>
                 </mat-form-field>
+
                 <mat-form-field class="w-100">
-                    <input matInput type="number" placeholder="Duration" formControlName="Duration" autocomplete="off">
+                    <input matInput type="time" placeholder="Duration" formControlName="Duration" autocomplete="off">
                     <mat-error *ngIf="addReservationForm.get('StartReservation').hasError('required') && addReservationForm.get('StartReservation').touched">This field should not be empty.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100">
+                    <input matInput type="time" placeholder="ExtraTime" formControlName="ExtraTime" autocomplete="off" min="00:00:00" max="00:30:00">
+                    <mat-error *ngIf="addReservationForm.get('ExtraTime').hasError('required') && addReservationForm.get('ExtraTime').touched">This field should not be empty.</mat-error>
                 </mat-form-field>
 
 

@@ -42,7 +42,12 @@
 
 <br />
 
-
-<!-- <button class="btn btn-secondary" (click)="AddReservationPopup()">
-    Add new
-  </button> -->
+<button *ngIf="accountservice.getPayload().role == 'Client'" class="btn btn-secondary" [routerLink]="['/account/order-history']">
+    View History
+</button>
+<!-- <button *ngIf="accountservice.getPayload().role == 'SuperAdmin'" class="btn btn-secondary" [routerLink]="['/account/order-history']">
+    View History
+</button>
+<button *ngIf="accountservice.getPayload().role == 'ClubAdmin'" class="btn btn-secondary" [routerLink]="['/account/order-history']">
+    View History
+</button> -->

@@ -26,8 +26,8 @@ export class AddReservationClientComponent implements OnInit {
   terrains: any[] = [];
   clients;
   IdTerrain;
-  type;
   startreservation
+
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddReservationClientComponent>,
@@ -44,30 +44,30 @@ export class AddReservationClientComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.startreservation = this.datePipe.transform(this.resservice.StartReservation,"yyyy-MM-ddThh:mm") 
-    console.log(this.startreservation);
     
+    let res = this.resservice.StartReservation
+    let d =([ res.getFullYear(), this.pad(res.getMonth() + 1), this.pad(res.getDate())].join('-'))+'T'+([this.pad(res.getHours())+':'+this.pad(res.getMinutes())]);
+    this.startreservation=d
+
+    console.log(this.startreservation);
+
+    // ---------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------
+
     this.addReservationForm = this.formBuilder.group({
       StartReservation: [this.startreservation, [Validators.required]],
       Duration: ['', [Validators.required]],
+      ExtraTime : ['', [Validators.required]]
     })
 
-    console.log(this.embryoService.IdTerrain);
     this.IdTerrain = this.embryoService.IdTerrain;
-    console.log(this.IdTerrain);
 
     this.route.params.subscribe(res => {
-      this.type = null;
-      this.type = res.type;
       this.IdTerrain = res.id;
-      console.log(res.id);
-
-     
-
     });
-
-
   }
+
+  pad(s) { return (s < 10) ? '0' + s : s; }
 
   myFilter = (d: Date): boolean => {
     const day = d.getDay();
@@ -77,15 +77,29 @@ export class AddReservationClientComponent implements OnInit {
 
   // onFormSubmit method is submit a add new user form.
   onFormSubmit() {
+    //Duree
+    let dur =this.addReservationForm.value.Duration
+    let extra = this.addReservationForm.value.ExtraTime
+    //To Add Hours
+    let ToAddhours  = new Date(this.addReservationForm.value.StartReservation).getHours()+Number(dur.split(":")[0])
+    let endRes = new Date(new Date(this.addReservationForm.value.StartReservation).setHours(ToAddhours))     
+    console.log("Duration"+this.addReservationForm.value.Duration);
+    //To Add Minutes
+     let ToAddMinutes  = new Date(endRes).getMinutes()+Number(dur.split(":")[1])+Number(extra.split(":")[1])
+    endRes = new Date(endRes.setMinutes(ToAddMinutes))         
+    // console.log("endRes: "+endRes);
+    
 
-    let endhours  = new Date(this.addReservationForm.value.StartReservation).getHours()+this.addReservationForm.value.Duration
-    let endRes = this.datePipe.transform(new Date(this.addReservationForm.value.StartReservation).setHours(endhours),"yyyy-MM-ddThh:mm")     
-
+    let d =([ endRes.getFullYear(), this.pad(endRes.getMonth() + 1), this.pad(endRes.getDate())].join('-'))+'T'+([this.pad(endRes.getHours())+':'+this.pad(endRes.getMinutes())]);
+    //  console.log("d : "+d)
+    
+    
+    
     const body = {
       IdClient: this.accountService.getPayload().UserID,
       IdTerrain: this.embryoService.IdTerrain,
       StartReservation: this.addReservationForm.value.StartReservation,
-      EndReservation: endRes,
+      EndReservation: d,
       status: "Confirmed"
     }
 
@@ -95,8 +109,7 @@ export class AddReservationClientComponent implements OnInit {
         this.resservice.putEndStart(body.StartReservation,body.EndReservation)
         console.log('Added Successfully')
       },
-        err => console.log(err)
-      )
+        err => console.log(err))
     this.dialogRef.close(this.addReservationForm.value);
     // this.router.navigate(['/account/order-history']);
   }

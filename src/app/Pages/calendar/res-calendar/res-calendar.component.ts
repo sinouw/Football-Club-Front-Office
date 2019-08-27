@@ -14,7 +14,9 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
   CalendarUtils,
-  CalendarMonthViewDay
+  CalendarMonthViewDay,
+  CalendarDateFormatter,
+  DateFormatterParams
 } from 'angular-calendar';
 import { HttpClient } from '@angular/common/http';
 import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
@@ -23,6 +25,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AdminGenericService } from 'src/app/AdminPanel/Service/AdminGeneric.service';
 import { ReservsationService } from 'src/app/Services/reservsation.service';
 import { timeout } from 'q';
+import { ToastOptions, ToastaService } from 'ngx-toasta';
+import { AccountService } from 'src/app/AdminPanel/Service/account.service';
 
 
 const colors: any = {
@@ -40,9 +44,25 @@ const colors: any = {
   }
 };
 
+
+export class CustomDateFormatter extends CalendarDateFormatter {
+  // you can override any of the methods defined in the parent class
+
+  public dayViewHour({date, locale}: DateFormatterParams): string {
+    // change this to return a different date format
+    return new Intl.DateTimeFormat(locale, {hour: 'numeric'}).format(date);
+  }
+}
+
 @Component({
   selector: 'app-res-calendar',
   templateUrl: './res-calendar.component.html',
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    }
+  ],
   styleUrls: ['./res-calendar.component.css']
 })
 export class ResCalendarComponent implements OnInit {
@@ -63,13 +83,23 @@ export class ResCalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
+  toastOption  : ToastOptions = {
+    title     : "Date Selection",
+    msg       : "This Date has been Passed!",
+    showClose : true,
+    timeout   : 2000,
+    theme     : "material"
+ };
+
   constructor(private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
     public embryoService: EmbryoService,
     public service: AdminGenericService,
     private resservice: ReservsationService,
-    public cdr: ChangeDetectorRef) {
+    public cdr: ChangeDetectorRef,
+    private toastyService: ToastaService,
+    private accountservice : AccountService) {
 
 
     this.IdTerrain = this.resservice.idTerrain
@@ -107,6 +137,8 @@ export class ResCalendarComponent implements OnInit {
     if (this.view === CalendarView.Month && today <= date) {
       this.viewDate = date;
       this.view = CalendarView.Week;
+    }else{
+      this.toastyService.error(this.toastOption);
     }
   }
 
@@ -167,23 +199,27 @@ export class ResCalendarComponent implements OnInit {
   }
 
   HourClicked({ date }: { date: Date }) {
-    this.resservice.putStartDate(date)
-    this.embryoService.addNewReservationDialog(this.IdTerrain)
-      .subscribe(res => {
-        this.popUpNewResResponse = res;
-      },
-        err => console.log(err),
-        () => this.getAddResPopupResponse(this.popUpNewResResponse))
+
+    // let today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
+    let today = new Date()
+    if (this.view === CalendarView.Week && today <= date) {
+      this.resservice.putStartDate(date)
+      this.embryoService.addNewReservationDialog(this.IdTerrain)
+        .subscribe(res => {
+          this.popUpNewResResponse = res;
+        },
+          err => {
+            console.log(err)
+          },
+          () => this.getAddResPopupResponse(this.popUpNewResResponse))
+    }else{
+      this.toastyService.error(this.toastOption);
+    }
   }
 
 
   getAddResPopupResponse(response: any) {
     if (response) {
-      console.log('response : ',response)
-      // let body = this.resservice.getEndStart()
-      // this.addDbEvents(new Date(body.start),new Date(body.end))
-      // this.RefrechEvents()
-      // this.refresh.next();
       this.getReservations()
       .subscribe(
         res => {

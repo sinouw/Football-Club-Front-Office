@@ -11,12 +11,12 @@
             </ng-container>
             <!-- id Column -->
             <ng-container matColumnDef="StartReservation">
-                <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Order Id </th>
+                <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> starting time </th>
                 <td class="px-3" mat-cell *matCellDef="let element"> {{element?.StartReservation}} </td>
             </ng-container>
             <!-- Name Column -->
             <ng-container matColumnDef="EndReservation">
-                <th class="px-3" mat-header-cell *matHeaderCellDef>Product Name </th>
+                <th class="px-3" mat-header-cell *matHeaderCellDef>Ending time </th>
                 <td class="px-3" mat-cell *matCellDef="let element"> {{element?.EndReservation}} </td>
             </ng-container>
             <!-- price Column -->
@@ -33,12 +33,7 @@
             <ng-container matColumnDef="action">
                 <th class="px-3" mat-header-cell *matHeaderCellDef> Action </th>
                 <td class="px-3" mat-cell *matCellDef="let element">
-                    <a href="javascript:void" (click)="confirmReservation(element)" class="accent-color">
-                        <i class="material-icons">
-                            check_circle
-                        </i>
-                    </a>
-                    <a href="javascript:void" (click)="cancelReservation(element)" class="accent-color">
+                    <a *ngIf="element.status != 'Cancelled'" href="javascript:void" (click)="cancelReservation(element)" class="accent-color">
                         <i class="material-icons">
                             cancel
                         </i>

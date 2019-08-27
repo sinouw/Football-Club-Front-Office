@@ -1,6 +1,8 @@
-import { NgModule }   from '@angular/core'; 
+import { NgModule, LOCALE_ID }   from '@angular/core'; 
 import { RouterModule } from '@angular/router';
-import { CommonModule }   from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { CommonModule,
+         registerLocaleData }   from '@angular/common';
 import { MatButtonModule, 
          MatBadgeModule,
          MatCardModule, 
@@ -25,7 +27,8 @@ import { MatButtonModule,
          MatSliderModule,
          MatRadioModule,
          MatDialogModule,
-         MatGridListModule
+         MatGridListModule,
+         MAT_DATE_LOCALE_PROVIDER
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BarRatingModule } from "ngx-bar-rating";
@@ -75,7 +78,7 @@ import { DownloadAppSectionComponent } from './DownloadAppSection/DownloadAppSec
 import { HomePageThreeSliderComponent } from './Slider/HomePageThreeSlider/HomePageThreeSlider.component';
 import { NewProductsCardComponent } from './NewProductsCard/NewProductsCard.component';
 
-
+registerLocaleData(localeFr, 'fr');
 @NgModule({
    imports: [
       CommonModule,
@@ -114,6 +117,7 @@ import { NewProductsCardComponent } from './NewProductsCard/NewProductsCard.comp
       FormsModule,
       ReactiveFormsModule,
       SlickCarouselModule
+      
    ],
    declarations: [
       BrandslogoComponent,
@@ -200,6 +204,10 @@ import { NewProductsCardComponent } from './NewProductsCard/NewProductsCard.comp
    entryComponents : [
       ReviewPopupComponent,
       ConfirmationPopupComponent
+   ],
+   providers: [
+      {provide: LOCALE_ID, useValue: 'fr' },
+      {provide: MAT_DATE_LOCALE_PROVIDER, useValue: 'fr' }
    ]
 })
 export class GlobalModule {}
