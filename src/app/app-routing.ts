@@ -9,6 +9,7 @@ import { HomeThreeComponent } from './Pages/Home/HomeThree/HomeThree.component';
 import { CartComponent } from './Pages/Cart/Cart.component';
 import { NotFoundComponent } from './Pages/NotFound/NotFound.component';
 import { ResCalendarComponent } from './Pages/calendar/res-calendar/res-calendar.component';
+import { UnauthorizedComponent } from './Pages/NotFound/unauthorized/unauthorized.component';
 
 export const AppRoutes : Routes = [
    {
@@ -58,6 +59,10 @@ export const AppRoutes : Routes = [
           path: 'not-found',
           component: NotFoundComponent
          },
+         {
+            path: 'unauthorized',
+            component: UnauthorizedComponent
+           },
          {
             path: 'checkout',loadChildren: ()=>
             import('./Pages/Checkout/Checkout.module').then (m => m.CheckoutModule)

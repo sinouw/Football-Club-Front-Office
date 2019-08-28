@@ -75,7 +75,8 @@ import { AdminPanelModule } from './AdminPanel/admin-panel.module';
 import { UserMapService } from './Services/user-map.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 
-import {DemoCalendarModule} from './Pages/calendar/calendar.module'
+import {DemoCalendarModule} from './Pages/calendar/calendar.module';
+import { UnauthorizedComponent } from './Pages/NotFound/unauthorized/unauthorized.component'
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -104,7 +105,8 @@ export function createTranslateLoader(http: HttpClient) {
       FooterTwoComponent,
       HomeThreeComponent,
       HeaderThreeComponent,
-      FixedHeaderComponent
+      FixedHeaderComponent,
+      UnauthorizedComponent
    ],
    imports: [
       BrowserModule.withServerTransition({appId: 'embryo-seo-pre'}),

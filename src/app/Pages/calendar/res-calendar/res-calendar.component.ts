@@ -113,6 +113,7 @@ export class ResCalendarComponent implements OnInit {
         res => {
           this.reservations = res
           this.reservations.forEach(e => {
+            if(e.status=="Confirmed")
             this.addDbEvents(new Date(e.StartReservation), new Date(e.EndReservation))
           });
         },
@@ -127,7 +128,7 @@ export class ResCalendarComponent implements OnInit {
   events: CalendarEvent[] = [];
 
   getReservations(): Observable<any> {
-    return this.http.get<any>(baseurl + "/Reservations?$select=StartReservation,EndReservation,Duration&$filter=contains(status,'Confirmed')")
+    return this.http.get<any>(baseurl + "/Reservations?$select=StartReservation,EndReservation,status&$select=IdTerrain&$filter=IdTerrain eq "+this.IdTerrain)
   }
 
   dayClicked({ date }: { date: Date }): void {
@@ -200,7 +201,6 @@ export class ResCalendarComponent implements OnInit {
 
   HourClicked({ date }: { date: Date }) {
 
-    // let today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
     let today = new Date()
     if (this.view === CalendarView.Week && today <= date) {
       this.resservice.putStartDate(date)
