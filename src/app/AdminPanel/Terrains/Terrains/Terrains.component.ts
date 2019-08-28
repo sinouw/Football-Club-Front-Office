@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { baseurl } from '../../Models/basurl.data';
 import { ToastaService } from 'ngx-toasta';
 import { AccountService } from '../../Service/account.service';
+import { EmbryoService } from 'src/app/Services/Embryo.service';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class TerrainsComponent implements OnInit {
     private terrainService: AdminGenericService,
     private accountService: AccountService,
     private http: HttpClient,
-    private toastyService: ToastaService
+    private toastyService: ToastaService,
+    private service : EmbryoService
   ) { 
 
   }
@@ -52,6 +54,7 @@ export class TerrainsComponent implements OnInit {
     });
 
     this.getTerrainBaseOnIdOrOnList();
+    this.service.ClubID=null
     
   }
 
@@ -65,10 +68,17 @@ export class TerrainsComponent implements OnInit {
         }
       });
     } else {
-      this.list("?$expand=club").subscribe( res => {
-        this.getTerrainResponse(res);
-        console.log(res);
-      });
+      if(this.accountService.getPayload().role == "ClubAdmin"){
+        this.list("?$filter=club/ClubAdminId eq "+this.accountService.getPayload().UserID).subscribe( res => {
+          this.getTerrainResponse(res);
+          console.log(res);
+        });
+      }else{
+        this.list("?$expand=club").subscribe( res => {
+          this.getTerrainResponse(res);
+          console.log(res);
+        });
+      }
     }
   }
 
@@ -76,8 +86,9 @@ export class TerrainsComponent implements OnInit {
     console.log("Request : "+request);
     // if(this.accountService.getPayload().role == "SuperAdmin") {
       return this.terrainService.get(this.baseUrl + '/terrains' + request);
+    // }
     // } else {
-      // return this.terrainService.get(this.baseUrl + "/Terrains/GetTerrainsByClubAdmin/"+ this.accountService.getPayload().UserID+"?$select=IdTerrain,Name,Type,Free,Price&$expand=club($select=Name)");
+      // return this.terrainService.get(this.baseUrl + "/Clubs/"+ this.accountService.getPayload().UserID+"?$select=IdTerrain,Name,Type,Free,Price&$expand=club($select=Name)");
     // }
   }
 
@@ -147,14 +158,21 @@ export class TerrainsComponent implements OnInit {
    *  
    */
   public create(terrain: any) {
+    if(this.clubId!=null){
+      this.service.putClubId(this.clubId)
+    }
     this.terrainService.addNewTerrainDialog().
     subscribe(res => { this.popUpNewTerrainResponse = res },
       err => console.log(err),
-      () =>{ this.getAddClubPopupResponse(this.popUpNewTerrainResponse) })
+      () =>{ 
+        this.getAddClubPopupResponse(this.popUpNewTerrainResponse)
+        
+        })
 
   }
 
   getAddClubPopupResponse(response: any) {
+    // this.service.ClubID=null
     if (response) {
       console.log(response);
       let addTerrain;

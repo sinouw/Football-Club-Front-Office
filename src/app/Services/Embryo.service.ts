@@ -29,7 +29,7 @@ export class EmbryoService {
 
    shipping  : number = 12.95;
    tax       : number = 27.95;
-
+   ClubID = null
    products  : AngularFireObject<any>;
 
    localStorageCartProducts : any;
@@ -68,6 +68,12 @@ export class EmbryoService {
       localStorage.setItem("cart_item", JSON.stringify(products));
       this.calculateLocalCartProdCounts();
    }
+
+   putClubId(clubId){
+      this.ClubID=clubId
+   }
+
+
 
    addNewReservationDialog(id){
 		let dialogRef : MatDialogRef<AddReservationClientComponent>;

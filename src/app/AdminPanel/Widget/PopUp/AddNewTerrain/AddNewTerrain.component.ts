@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material';
 import { AdminGenericService } from 'src/app/AdminPanel/Service/AdminGeneric.service';
 import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
 import { AccountService } from 'src/app/AdminPanel/Service/account.service';
+import { EmbryoService } from 'src/app/Services/Embryo.service';
 
 @Component({
   selector: 'app-add-new-terrain',
@@ -17,22 +18,36 @@ export class AddNewTerrainComponent implements OnInit {
   floatPattern: any = /^-?(0|[1-9]\d*)?.-?(0|[1-9]\d*)?$/;
 
   clubs: any;
-
   constructor(
     private formBuilder: FormBuilder,
     private clubService: AdminGenericService,
     private account: AccountService,
-    public dialogRef: MatDialogRef<AddNewTerrainComponent>
+    public dialogRef: MatDialogRef<AddNewTerrainComponent>,
+    private service : EmbryoService
     ) { }
 
   ngOnInit() {
-    this.addTerrainForm = this.formBuilder.group({
-      Name: ['', [Validators.required, Validators.pattern(this.namePattern)]],
-      Type: ['', [Validators.required]],
-      Free: ['', [Validators.required]],
-      Price: ['', [Validators.required, Validators.pattern(this.floatPattern)]],
-      IdClub: ['', [Validators.required]],
-    })
+
+    if (this.service.ClubID!=null){
+      console.log("Our Club id is not null : "+this.service.ClubID);
+      
+      this.addTerrainForm = this.formBuilder.group({
+        Name: ['', [Validators.required, Validators.pattern(this.namePattern)]],
+        Type: ['', [Validators.required]],
+        Free: ['', [Validators.required]],
+        Price: ['', [Validators.required, Validators.pattern(this.floatPattern)]],
+        IdClub: this.service.ClubID,
+      })
+    }else{
+      this.addTerrainForm = this.formBuilder.group({
+        Name: ['', [Validators.required, Validators.pattern(this.namePattern)]],
+        Type: ['', [Validators.required]],
+        Free: ['', [Validators.required]],
+        Price: ['', [Validators.required, Validators.pattern(this.floatPattern)]],
+        IdClub: ['', [Validators.required]],
+      })
+
+    }
 
     this.list().subscribe(result => {
       console.log(result);
@@ -42,7 +57,7 @@ export class AddNewTerrainComponent implements OnInit {
 
   // onFormSubmit method is submit a add new user form.
   onFormSubmit() {
-    this.dialogRef.close(this.addTerrainForm.value);
+    this.dialogRef.close(this.addTerrainForm.value);    
   }
 
   list(): any {
