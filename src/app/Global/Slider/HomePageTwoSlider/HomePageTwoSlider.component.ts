@@ -133,51 +133,56 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
    public ngAfterViewInit() {
       let defaultLayers = this.platform.createDefaultLayers();
 
-      // Step 2: initialize a map
-      this.map = new H.Map(
-         this.mapElement.nativeElement,
-         defaultLayers.normal.map,
-         {
-            zoom: 7,
-            center: new H.geo.Point(34.247835499999995, 10.267448199999999),
-            pixelRatio: window.devicePixelRatio || 1
-         }
-      );
-
-      // Add a resize listener to make sure that the map occupies the whole container
-      window.addEventListener('resize', () => this.map.getViewPort().resize());
-
-      // Step 3: make the map interactive
-      // MapEvents enables the event system
-      // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
-      var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
-
-      // Create the default UI components
-      this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
-
-      // Add event listener
-      this.map.addEventListener('tap', evt => {
-         if (this.choosing) {
-            var coord = this.map.screenToGeo(evt.currentPointer.viewportX, evt.currentPointer.viewportY);
-
-            // variables
-            this.start = coord.lat + "," + coord.lng
-            let coords = { latitude: coord.lat, longitude: coord.lng };
-            this.position = { coords: coords };
-
-            this.addCircleToMap(this.map, this.position);
-            this.route(this.start, this.finish);
-            // this.sendData.emit(this.start);
-            this.setPosition();
-            // this.toastr.success('Location Successfully Setted!', 'Setting Position', { timeOut: 1500 });
-         }
-      });
-
-      setTimeout(() => {
-         this.listOfLocations.forEach(location => {
-            this.addMarker(this.map, location);
+      // setTimeout(() => {
+         // Step 2: initialize a map
+         this.map = new H.Map(
+            this.mapElement.nativeElement,
+            defaultLayers.normal.map,
+            {
+               zoom: 7,
+               center: new H.geo.Point(34.247835499999995, 10.267448199999999),
+               pixelRatio: window.devicePixelRatio || 1
+            }
+         );
+   
+         // Add a resize listener to make sure that the map occupies the whole container
+         window.addEventListener('resize', () => this.map.getViewPort().resize());
+   
+         // Step 3: make the map interactive
+         // MapEvents enables the event system
+         // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+         var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
+   
+         // Create the default UI components
+         this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
+   
+         // Add event listener
+         this.map.addEventListener('tap', evt => {
+            if (this.choosing) {
+               var coord = this.map.screenToGeo(evt.currentPointer.viewportX, evt.currentPointer.viewportY);
+   
+               // variables
+               this.start = coord.lat + "," + coord.lng
+               let coords = { latitude: coord.lat, longitude: coord.lng };
+               this.position = { coords: coords };
+   
+               this.addCircleToMap(this.map, this.position);
+               this.route(this.start, this.finish);
+               // this.sendData.emit(this.start);
+               this.setPosition();
+               // this.toastr.success('Location Successfully Setted!', 'Setting Position', { timeOut: 1500 });
+            }
          });
-      }, 1000);
+   
+         setTimeout(() => {
+            this.listOfLocations.forEach(location => {
+               this.addMarker(this.map, location);
+            });
+             this.map.getViewPort().resize()
+         }, 1000);
+         
+      // }, 2000);
+
    }
 
    
