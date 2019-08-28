@@ -24,6 +24,16 @@
                         </mat-error>
                     </mat-error>
                 </mat-form-field>
+
+                <mat-form-field class="w-100">
+                    <input matInput type="text" formControlName="City" class="form-control" placeholder="City">
+                    <mat-error *ngIf="addClubForm.controls['City'].touched && !addClubForm.controls['City'].valid">
+                        <mat-error *ngIf="addClubForm.controls['City'].hasError('required')" class="required alert-error">
+                            You must include a City.
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+
                 <mat-form-field class="w-100">
                     <input matInput type="text" formControlName="Phone" class="form-control" placeholder="Phone">
                     <mat-error *ngIf="addClubForm.controls['Phone'].touched && !addClubForm.controls['Phone'].valid">
@@ -66,6 +76,28 @@
                         <mat-error *ngIf="addClubForm.controls['IsActive'].hasError('required')" class="required alert-error">
                             You must Select a Club Status.
                         </mat-error>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100">
+                    <input matInput type="text" formControlName="lat" class="form-control" placeholder="lattitude">
+                    <mat-error *ngIf="addClubForm.controls['lat'].touched && !addClubForm.controls['lat'].valid">
+                        <mat-error *ngIf="addClubForm.controls['lat'].hasError('required')" class="required alert-error">
+                            You must include a lattitude.
+                        </mat-error>
+                        <mat-error *ngIf="addClubForm.get('lat').hasError('pattern') && addClubForm.get('lat').touched">
+                            Please enter a valid lattitude.</mat-error>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100">
+                    <input matInput type="text" formControlName="lng" class="form-control" placeholder="langitude">
+                    <mat-error *ngIf="addClubForm.controls['lng'].touched && !addClubForm.controls['lng'].valid">
+                        <mat-error *ngIf="addClubForm.controls['lng'].hasError('required')" class="required alert-error">
+                            You must include a langitude.
+                        </mat-error>
+                        <mat-error *ngIf="addClubForm.get('lng').hasError('pattern') && addClubForm.get('lng').touched">
+                            Please enter a valid langitude.</mat-error>
                     </mat-error>
                 </mat-form-field>
 

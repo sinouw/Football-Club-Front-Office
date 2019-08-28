@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AdminGenericService } from '../../Service/AdminGeneric.service';
 import { url } from 'inspector';
 import { Club } from '../../Models/Club.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-club',
@@ -32,7 +33,9 @@ export class EditClubComponent implements OnInit {
     private clubService: AdminGenericService,
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _location: Location
+    
     ) { }
 
   ngOnInit() {
@@ -95,6 +98,10 @@ export class EditClubComponent implements OnInit {
      this.clubService.put(this.baseUrl+`/clubs/${this.clubId}`,addclub)
      .subscribe(res=>console.log(res),
       err=>console.log(err))
+  }
+
+  backClicked() {
+    this._location.back();
   }
 
 }

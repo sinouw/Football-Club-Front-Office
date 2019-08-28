@@ -56,8 +56,9 @@ export class TerrainsComponent implements OnInit {
   }
 
   public getTerrainBaseOnIdOrOnList() {
-    if(this.clubId) {
+    if(this.clubId != null) {
       this.list("?$expand=club&$filter=IdClub eq "+this.clubId).subscribe( res => {
+        
         if(res.length != 0) {
           this.getTerrainResponse(res);
           console.log(res);
@@ -69,6 +70,15 @@ export class TerrainsComponent implements OnInit {
         console.log(res);
       });
     }
+  }
+
+  public list(request: string): any {
+    console.log("Request : "+request);
+    // if(this.accountService.getPayload().role == "SuperAdmin") {
+      return this.terrainService.get(this.baseUrl + '/terrains' + request);
+    // } else {
+      // return this.terrainService.get(this.baseUrl + "/Terrains/GetTerrainsByClubAdmin/"+ this.accountService.getPayload().UserID+"?$select=IdTerrain,Name,Type,Free,Price&$expand=club($select=Name)");
+    // }
   }
 
   // getTerrainResponse method is used to get the response of all Terrains.
@@ -172,14 +182,7 @@ export class TerrainsComponent implements OnInit {
     return this.terrainService.get(this.baseUrl + '/terrains');
   }
 
-  public list(request: string): any {
-    console.log(request);
-    if(this.accountService.getPayload().role == "SuperAdmin") {
-      return this.terrainService.get(this.baseUrl + '/terrains' + request);
-    } else {
-      return this.terrainService.get(this.baseUrl + "/Terrains/GetTerrainsByClubAdmin/"+ this.accountService.getPayload().UserID+"?$select=IdTerrain,Name,Type,Free,Price&$expand=club($select=Name)");
-    }
-  }
+
 
   /**
    *  Delete Service
