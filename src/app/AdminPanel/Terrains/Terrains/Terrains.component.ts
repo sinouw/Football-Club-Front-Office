@@ -65,10 +65,17 @@ export class TerrainsComponent implements OnInit {
         }
       });
     } else {
-      this.list("?$expand=club").subscribe( res => {
-        this.getTerrainResponse(res);
-        console.log(res);
-      });
+      if(this.accountService.getPayload().role == "ClubAdmin"){
+        this.list("?$filter=club/ClubAdminId eq "+this.accountService.getPayload().UserID).subscribe( res => {
+          this.getTerrainResponse(res);
+          console.log(res);
+        });
+      }else{
+        this.list("?$expand=club").subscribe( res => {
+          this.getTerrainResponse(res);
+          console.log(res);
+        });
+      }
     }
   }
 
@@ -76,8 +83,9 @@ export class TerrainsComponent implements OnInit {
     console.log("Request : "+request);
     // if(this.accountService.getPayload().role == "SuperAdmin") {
       return this.terrainService.get(this.baseUrl + '/terrains' + request);
+    // }
     // } else {
-      // return this.terrainService.get(this.baseUrl + "/Terrains/GetTerrainsByClubAdmin/"+ this.accountService.getPayload().UserID+"?$select=IdTerrain,Name,Type,Free,Price&$expand=club($select=Name)");
+      // return this.terrainService.get(this.baseUrl + "/Clubs/"+ this.accountService.getPayload().UserID+"?$select=IdTerrain,Name,Type,Free,Price&$expand=club($select=Name)");
     // }
   }
 
