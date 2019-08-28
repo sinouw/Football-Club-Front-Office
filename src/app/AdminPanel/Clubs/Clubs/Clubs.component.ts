@@ -135,7 +135,7 @@ export class ClubsComponent implements OnInit {
     if(this.accountService.getPayload().role == "SuperAdmin") {
       return this.clubService.get(this.baseUrl + '/clubs');
     } else {
-      return this.clubService.get(this.baseUrl + '/clubs/GetClubsByClubAdmin/' + this.accountService.getPayload().UserID);
+      return this.clubService.get(this.baseUrl + '/clubs?$filter=ClubAdminId eq ' + this.accountService.getPayload().UserID);
     }
   }
 

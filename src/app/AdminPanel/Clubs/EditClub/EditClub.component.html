@@ -4,11 +4,11 @@
             <div fxLayout='row wrap' fxLayoutAlign="center center" class="col-gap">
                 <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md=90 fxFlex.lg="80" fxFlex.xl="90">
                     <div fxLayout='row wrap' class="col-gap position-relative">
-                        <!-- image --><!-- image -->
+                        <!-- image -->
+                        <!-- image -->
                         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md=50 fxFlex.lg="50" fxFlex.xl="50">
                             <div class="product-detail-content ml-3">
-                                <a class="primary-color font-medium" href="javascript:void(0)"
-                                    routerLink="/admin-panel/clubs">Back to clubs</a>
+                                <a class="primary-color font-medium" href="javascript:void(0)" routerLink="/admin-panel/clubs">Back to clubs</a>
                                 <h3 class="edit-text"><input matInput formControlName="Name" type="text"></h3>
                                 <!-- <div class="product-detail-price">
                             <h4 class="accent-color edit-text"><input matInput  formControlName="price" type="text"></h4>
@@ -29,18 +29,13 @@
                                     </li>
                                     <li class="edit-text" fxLayout="row wrap" fxLayoutAlign="start start">
                                         <span class="font-medium">Opening Time</span>:
-                                        <input matInput [matDatepicker]="picker" placeholder="Opening Time"
-                                            formControlName="OpeningTime">
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
+                                        <input type="time" placeholder="Opening Time" formControlName="OpeningTime">
+
 
                                     </li>
                                     <li class="edit-text" fxLayout="row wrap" fxLayoutAlign="start start">
                                         <span class="font-medium">Closing Time</span>:
-                                        <input matInput [matDatepicker]="picker1" placeholder="Closing Time"
-                                            formControlName="ClosingTime">
-                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker1></mat-datepicker>
+                                        <input type="time" placeholder="Closing Time" formControlName="ClosingTime">
 
                                     </li>
                                     <li class="edit-text" fxLayout="row wrap" fxLayoutAlign="start start">
@@ -54,8 +49,8 @@
                                 </ul>
                                 <div class="mb-5 detail-btns">
                                     <button mat-raised-button color="accent" class="button-lg mr-3">Save</button>
-                                    <button class="button-lg" mat-raised-button>Discard</button>
-                                 </div>
+                                    <button class="button-lg" mat-raised-button (click)="backClicked()">Discard</button>
+                                </div>
                             </div>
                             <!-- club-detail-content -->
                         </div>

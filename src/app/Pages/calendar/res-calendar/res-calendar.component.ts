@@ -167,7 +167,7 @@ export class ResCalendarComponent implements OnInit {
     this.events = [
       ...this.events,
       {
-        title: '',
+        title: 'Booked',
         start: startRes,
         end: endRes,
         color: colors.red,

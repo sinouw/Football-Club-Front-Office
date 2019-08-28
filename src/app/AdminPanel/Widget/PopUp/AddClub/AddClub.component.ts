@@ -15,7 +15,7 @@ export class AddClubComponent implements OnInit {
   emailPattern: string = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
   namePattern: any = /^[A-Za-z0-9_]*$/;
   numberPattern: any = /^-?(0|[1-9]\d*)?$/;
-
+  lnglatPattern: any = /^[0-9.]*$/;
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddClubComponent>,
@@ -26,12 +26,13 @@ export class AddClubComponent implements OnInit {
     this.addClubForm = this.formBuilder.group({
       Name: ['', [Validators.required, Validators.pattern(this.namePattern)]],
       Address: ['', [Validators.required]],
+      City: ['',[Validators.required]],
       Phone: ['', [Validators.required, Validators.pattern(this.numberPattern)]],
       Email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       OpeningTime: [''],
       ClosingTime: [''],
-      lng: [''],
-      lat: [''],
+      lat: ['',[Validators.required, Validators.pattern(this.lnglatPattern)]],
+      lng: ['',[Validators.required, Validators.pattern(this.lnglatPattern)]],
       IsActive: ['', [Validators.required]],
     })
   }
@@ -49,6 +50,7 @@ export class AddClubComponent implements OnInit {
         ClosingTime: this.addClubForm.value.ClosingTime,
         lng: this.addClubForm.value.lng,
         lat: this.addClubForm.value.lat,
+        City: this.addClubForm.value.lat,
         IsActive: this.addClubForm.value.IsActive,
         ClubAdminId: this.accountService.getPayload().UserID,
       };
