@@ -14,6 +14,7 @@ import { baseurl } from 'src/app/AdminPanel/Models/basurl.data';
 export class AddClubComponent implements OnInit {
   addClubForm: FormGroup;
   clubadmins
+  cities : any[]=[]
   // Patterns List
   emailPattern: string = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
   namePattern: any = /^[A-Za-z0-9_]*$/;
@@ -40,6 +41,15 @@ export class AddClubComponent implements OnInit {
     },
     err=>{console.log(err)})
 
+    this.service.get(baseurl+'/Addresses?$select=city')
+    .subscribe(res=>{
+      console.log(res);
+      res.map(c=> this.cities.push(c.city))
+    },
+    err=>{console.log(err)})
+
+
+
     if (this.accountService.getPayload().role == "ClubAdmin") {
       this.addClubForm = this.formBuilder.group({
         Name: ['', [Validators.required, Validators.pattern(this.namePattern)]],
@@ -49,8 +59,8 @@ export class AddClubComponent implements OnInit {
         Email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
         OpeningTime: [''],
         ClosingTime: [''],
-        lat: ['',[Validators.required, Validators.pattern(this.lnglatPattern)]],
-        lng: ['',[Validators.required, Validators.pattern(this.lnglatPattern)]],
+        lat: '',
+        lng: '',
         IsActive: ['', [Validators.required]],
       })
     }
@@ -64,8 +74,8 @@ export class AddClubComponent implements OnInit {
         Email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
         OpeningTime: [''],
         ClosingTime: [''],
-        lat: ['',[Validators.required, Validators.pattern(this.lnglatPattern)]],
-        lng: ['',[Validators.required, Validators.pattern(this.lnglatPattern)]],
+        lat: '',
+        lng: '',
         IsActive: ['', [Validators.required]],
       })
     }

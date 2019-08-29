@@ -7,6 +7,7 @@ import { url } from 'inspector';
 import { Club } from '../../Models/Club.model';
 import { Location } from '@angular/common';
 import { ToastaService } from 'ngx-toasta';
+import { baseurl } from '../../Models/basurl.data';
 
 @Component({
   selector: 'app-edit-club',
@@ -28,6 +29,7 @@ export class EditClubComponent implements OnInit {
   clubType: any;
   showStatus: boolean;
   form: FormGroup;
+  cities : any[]=[]
 
   constructor(
     private adminPanelService: AdminPanelServiceService,
@@ -39,7 +41,15 @@ export class EditClubComponent implements OnInit {
     private toastyService: ToastaService,
 
     
-    ) { }
+    ) { 
+      this.clubService.get(baseurl+'/Addresses?$select=city')
+      .subscribe(res=>{
+        console.log(res);
+        res.map(c=> this.cities.push(c.city))
+      },
+      err=>{console.log(err)})
+  
+    }
 
   ngOnInit() {
     this.route.params.subscribe(res => {
@@ -63,6 +73,7 @@ export class EditClubComponent implements OnInit {
 
     this.getClubDetail();
 
+  
   }
 
   public getClubDetail() {

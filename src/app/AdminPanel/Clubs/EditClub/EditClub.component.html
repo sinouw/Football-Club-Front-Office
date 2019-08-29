@@ -38,7 +38,9 @@
 
                                     <li class="edit-text" fxLayout="row wrap" fxLayoutAlign="start start">
                                         <span class="font-medium"> City </span>:
-                                        <input class="ml-2" matInput formControlName="City" type="text">
+                                        <select class="ml-2" matInput formControlName="City" type="text">
+                                            <option *ngFor="let city of cities">{{city}}</option>
+                                        </select>
                                         <!-- <mat-error *ngIf="form.get('City').hasError('required') && form.get('City').touched">This field should not be empty.</mat-error> -->
                                     </li>
                                     <li class="edit-text" fxLayout="row wrap" fxLayoutAlign="start start">
