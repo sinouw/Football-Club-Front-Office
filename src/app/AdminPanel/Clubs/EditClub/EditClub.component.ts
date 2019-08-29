@@ -6,6 +6,8 @@ import { AdminGenericService } from '../../Service/AdminGeneric.service';
 import { url } from 'inspector';
 import { Club } from '../../Models/Club.model';
 import { Location } from '@angular/common';
+import { ToastaService } from 'ngx-toasta';
+import { baseurl } from '../../Models/basurl.data';
 
 @Component({
   selector: 'app-edit-club',
@@ -16,7 +18,10 @@ export class EditClubComponent implements OnInit {
 
   private baseUrl: string = "https://localhost:44309/api";
 
-  emailPattern: string = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+  UserNamePattern:any =/^[A-Za-z0-9_]*$/
+  NamePattern:any =/^[A-Za-z]*$/
+  emailPattern : any = /\S+@\S+\.\S+/;
+  NumberPattern: any = /^-?(0|[1-9]\d*)?$/
 
   editClubDetail: any;
   mainImgPath: string;
@@ -24,9 +29,7 @@ export class EditClubComponent implements OnInit {
   clubType: any;
   showStatus: boolean;
   form: FormGroup;
-  colorsArray: string[] = ["Red", "Blue", "Yellow", "Green"];
-  sizeArray: number[] = [36, 38, 40, 42, 44, 46, 48];
-  quantityArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  cities : any[]=[]
 
   constructor(
     private adminPanelService: AdminPanelServiceService,
@@ -34,9 +37,19 @@ export class EditClubComponent implements OnInit {
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private _location: Location
+    private _location: Location,
+    private toastyService: ToastaService,
+
     
-    ) { }
+    ) { 
+      this.clubService.get(baseurl+'/Addresses?$select=city')
+      .subscribe(res=>{
+        console.log(res);
+        res.map(c=> this.cities.push(c.city))
+      },
+      err=>{console.log(err)})
+  
+    }
 
   ngOnInit() {
     this.route.params.subscribe(res => {
@@ -46,10 +59,13 @@ export class EditClubComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       IdClub: [''], 
-      Name: ['', [Validators.required]],
+      Name: ['', [Validators.required, Validators.pattern(this.NamePattern)]],
       Address: ['', [Validators.required]],
-      Phone: ['', [Validators.required]],
+      Phone: ['', [Validators.required, Validators.pattern(this.NumberPattern)]],
       Email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+      City: ['', [Validators.required]],
+      lat: ['', [Validators.required]],
+      lng: ['', [Validators.required]],
       OpeningTime: [''],
       ClosingTime: [''],
       IsActive: ['', [Validators.required]],
@@ -57,6 +73,7 @@ export class EditClubComponent implements OnInit {
 
     this.getClubDetail();
 
+  
   }
 
   public getClubDetail() {
@@ -68,6 +85,9 @@ export class EditClubComponent implements OnInit {
           Address: result.Address,
           Phone: result.Phone,
           Email: result.Email,
+          City : result.City,
+          lat : result.lat,
+          lng : result.lng,
           OpeningTime: result.OpeningTime,
           ClosingTime: result.ClosingTime,
           IsActive: result.IsActive
@@ -75,11 +95,7 @@ export class EditClubComponent implements OnInit {
         console.log(result);
       }, error => {
         console.log(error);
-      }
-    );
-
-    console.log();
-    
+      });
   }
 
   updateClub() {
@@ -89,6 +105,9 @@ export class EditClubComponent implements OnInit {
       Address : this.form.value.Address,
       Phone : this.form.value.Phone,
       Email : this.form.value.Email,
+      City : this.form.value.City,
+      lat : this.form.value.lat,
+      lng : this.form.value.lng,
       OpeningTime : this.form.value.OpeningTime,
       ClosingTime : this.form.value.ClosingTime,
       IsActive : this.form.value.IsActive
@@ -96,8 +115,24 @@ export class EditClubComponent implements OnInit {
    console.log(addclub);
    
      this.clubService.put(this.baseUrl+`/clubs/${this.clubId}`,addclub)
-     .subscribe(res=>console.log(res),
-      err=>console.log(err))
+     .subscribe(res=>{
+      this.toastyService.success({
+        title: "Edit Club",
+        msg: "Club has been Edited successfully!",
+        showClose: true,
+        timeout: 3000,
+        theme: "material"
+      }); 
+      console.log(res)},
+      err=>{
+        this.toastyService.error({
+          title: "Edit Club",
+          msg: "Error in the Editing of the Club!",
+          showClose: true,
+          timeout: 3000,
+          theme: "material"
+        });
+        console.log(err)})
   }
 
   backClicked() {

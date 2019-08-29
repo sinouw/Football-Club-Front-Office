@@ -66,6 +66,7 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
    public lng;
 
    public IdClub;
+   mapobjects: any=null
 
 
    /**
@@ -133,7 +134,7 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
    public ngAfterViewInit() {
       let defaultLayers = this.platform.createDefaultLayers();
 
-      // setTimeout(() => {
+       setTimeout(() => {
          // Step 2: initialize a map
          this.map = new H.Map(
             this.mapElement.nativeElement,
@@ -178,10 +179,10 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
             this.listOfLocations.forEach(location => {
                this.addMarker(this.map, location);
             });
-             this.map.getViewPort().resize()
+            
          }, 1000);
-         
-      // }, 2000);
+         this.map.getViewPort().resize()
+      }, 2000);
 
    }
 
@@ -215,16 +216,18 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
          "waypoint1": "geo!" + this.finish,
          "representation": "display",
       }
+         setTimeout(() => {
+            this.map.removeObjects(this.map.getObjects());
+            this.addCircleToMap(this.map, this.position);
+            
+            
+            // Add the Circle to the current position
+                  this.listOfLocations.forEach(location => {
+                     this.addMarker(this.map, location);
+                  });
+            
+         }, 2000);
 
-      this.map.removeObjects(this.map.getObjects());
-
-      // Add the Circle to the current position
-      this.addCircleToMap(this.map, this.position);
-
-
-      this.listOfLocations.forEach(location => {
-         this.addMarker(this.map, location);
-      });
 
       this.router.calculateRoute(params, data => {
          if (data.response) {
@@ -278,9 +281,12 @@ export class HomePageTwoSliderComponent implements OnInit, OnChanges {
                lat: this.finish.split(",")[0],
                lng: this.finish.split(",")[1]
             });
-            this.map.addObjects([routeLine, startMarker, finishMarker]);
-            //    this.map.addObjects([startMarker]);
-            this.map.setViewBounds(routeLine.getBounds());
+            setTimeout(() => {
+               this.map.addObjects([routeLine, startMarker, finishMarker]);
+               //    this.map.addObjects([startMarker]);
+               this.map.setViewBounds(routeLine.getBounds());
+               
+            }, 3000);
          }
       }, error => {
          console.error(error);

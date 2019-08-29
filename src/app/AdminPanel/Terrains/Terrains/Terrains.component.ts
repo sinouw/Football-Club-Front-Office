@@ -192,9 +192,9 @@ export class TerrainsComponent implements OnInit {
     }
   }
 
-  public update(terrain: any, id: string): Observable<any> {
-    return this.terrainService.put(this.baseUrl + '/terrains/' + id, terrain);
-  }
+  // public update(terrain: any, id: string): Observable<any> {
+  //   return this.terrainService.put(this.baseUrl + '/terrains/' + id, terrain);
+  // }
 
   public read(id: string): Observable<any> {
     return this.terrainService.get(this.baseUrl + '/terrains');
@@ -255,4 +255,8 @@ export class TerrainsComponent implements OnInit {
     }
   }
 
+  onEditProduct(id){
+    console.log(id);
+    this.router.navigate(['/admin-panel/terrain-edit',id]);
+	}
 }
