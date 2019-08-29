@@ -25,11 +25,12 @@ import { MatSidenavModule,
 import { TranslateModule } from '@ngx-translate/core';
 import { GlobalModule } from 'src/app/Global/Global.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditTerrainComponent } from './edit-terrain/edit-terrain.component';
 
 
 
 @NgModule({
-  declarations: [TerrainsComponent],
+  declarations: [TerrainsComponent, EditTerrainComponent],
   imports: [
     CommonModule,
     

@@ -26,7 +26,7 @@ export class ClubsComponent implements OnInit {
   clubsGrid: any;
   popUpDeleteClubResponse: any;
   showType: string = 'list';
-  displayedClubColumns: string[] = ['Name', 'Address', 'Phone', 'Email', 'OpeningTime', 'ClosingTime', 'IsActive', 'action'];
+  displayedClubColumns: string[] = ['Name', 'Address', 'Phone', 'Email', 'OpeningTime', 'ClosingTime','City','lat','lng','IsActive', 'action'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 

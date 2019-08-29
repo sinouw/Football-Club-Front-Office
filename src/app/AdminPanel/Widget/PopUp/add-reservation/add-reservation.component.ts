@@ -64,13 +64,6 @@ export class AddReservationComponent implements OnInit {
         })
     }
          	
-      myFilter = (d: Date): boolean => {
-        const day = d.getDay();
-        // Prevent Saturday and Sunday from being selected.
-        return day>d.getDate() 
-      }
-    
-
     getTerrains(){
       this.listTerrain()
       .subscribe(res=>{

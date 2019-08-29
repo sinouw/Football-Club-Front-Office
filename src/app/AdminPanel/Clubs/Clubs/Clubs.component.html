@@ -58,49 +58,71 @@
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             Name</th>
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
-                                            <span>{{element.Name}}</span></td>
+                                            <span>{{element?.Name}}</span></td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="Address">
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             Address</th>
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
-                                            <span>{{element.Address}}</span></td>
+                                            <span>{{element?.Address}}</span></td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="Phone">
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             Phone</th>
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
-                                            <span>{{element.Phone}}</span></td>
+                                            <span>{{element?.Phone}}</span></td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="Email">
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             Email</th>
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
-                                            <span>{{element.Email}}</span></td>
+                                            <span>{{element?.Email}}</span></td>
                                     </ng-container>
+
+                                    <ng-container matColumnDef="City">
+                                        <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            City</th>
+                                        <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
+                                            <span>{{element?.City}}</span></td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="lat">
+                                        <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            lattitude</th>
+                                        <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
+                                            <span>{{element?.lat}}</span></td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="lng">
+                                        <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            longitude</th>
+                                        <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
+                                            <span>{{element?.lng}}</span></td>
+                                    </ng-container>
+
 
                                     <ng-container matColumnDef="OpeningTime">
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             OpeningTime</th>
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
-                                            <span>{{element.OpeningTime}}</span></td>
+                                            <span>{{element?.OpeningTime}}</span></td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="ClosingTime">
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             ClosingTime</th>
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
-                                            <span>{{element.ClosingTime}}</span></td>
+                                            <span>{{element?.ClosingTime}}</span></td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="IsActive">
                                         <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>
                                             IsActive</th>
                                         <td class="text-nowrap product-name" mat-cell *matCellDef="let element">
-                                            <span>{{element.IsActive}}</span></td>
+                                            <span>{{element?.IsActive}}</span></td>
                                     </ng-container>
 
 
@@ -108,13 +130,13 @@
                                     <ng-container matColumnDef="action">
                                         <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Action </th>
                                         <td class="px-3 text-nowrap" mat-cell *matCellDef="let element;let i = index;">
-                                            <button mat-icon-button (click)="listTerrains(element.IdClub)" color="primary">
+                                            <button mat-icon-button (click)="listTerrains(element?.IdClub)" color="primary">
                                                 <i class="material-icons">list</i>
                                             </button>
-                                            <button mat-icon-button (click)="onEditProduct(element,element.IdClub)" color="primary">
+                                            <button mat-icon-button (click)="onEditProduct(element,element?.IdClub)" color="primary">
                                                 <i class="material-icons">edit</i>
                                             </button>
-                                            <button color="warn" mat-icon-button (click)="delete(element.IdClub,i)">
+                                            <button color="warn" mat-icon-button (click)="delete(element?.IdClub,i)">
                                                 <mat-icon class="">delete</mat-icon>
                                             </button>
                                         </td>
