@@ -19,8 +19,7 @@
                 <mat-form-field class="w-100">
                     <select matNativeControl formControlName="status" placeholder="Reservation Status">
                         <option value="Confirmed">Confirmed</option>
-                        <option value="Waiting For Confirmation">Waiting For Confirmation</option>
-                        <option value="Reported">Reported</option>
+                        <option value="Cancelled">Cancelled</option>
                     </select>
                     <mat-error *ngIf="EditReservationForm.controls['status'].touched && !EditReservationForm.controls['status'].valid">
                         <mat-error *ngIf="EditReservationForm.controls['status'].hasError('required')" class="required alert-error">

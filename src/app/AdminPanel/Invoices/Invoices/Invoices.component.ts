@@ -34,9 +34,7 @@ export class InvoicesComponent implements OnInit {
 
    dataSource = new MatTableDataSource<any>(this.invoiceList);
 
-   // displayedColumns : string[] = ['position', 'invoiceId', 'name','Price', 'payment','status','action'];
-   // displayedColumns : string[] = ['ClubName', 'Name','Type', 'FullName', 'StartRes','EndRes', 'Price','status','action'];
-   displayedColumns: string[] = ['Name', 'Type', 'FullName', 'StartRes', 'EndRes','Duration', 'Price', 'status', 'action'];
+   displayedColumns: string[] = ['Name', 'Type', 'FullName','Email', 'StartRes', 'EndRes','Duration', 'Price', 'status', 'action'];
 
    constructor(public service: AdminPanelServiceService,
       private genericservice: AdminGenericService,
@@ -53,7 +51,7 @@ export class InvoicesComponent implements OnInit {
 
    getReservations() {
       if (this.account.getPayload().role == "SuperAdmin") {
-         this.genericservice.get(baseurl + '/Reservations?$select=Client&$expand=Client($select=FullName)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=Price,status,StartReservation,EndReservation,IdReservation,Duration')
+         this.genericservice.get(baseurl + '/Reservations?$select=Client&$expand=Client($select=FullName,Email)&$expand=terrain($select=Name,Type,Price,IdClub)&$select=Price,status,StartReservation,EndReservation,IdReservation,Duration')
          .subscribe(
             res => {
                this.reservations = res;
@@ -63,7 +61,7 @@ export class InvoicesComponent implements OnInit {
             err => console.log(err)
          );
       } else {
-         this.genericservice.get(baseurl + '/Reservations/GetReservationsByClubAdmin/' + this.account.getPayload().UserID + "?$select=StartReservation,EndReservation,status,Price&$expand=Client($select=FullName),Terrain($expand=club($select=ClubAdminId))")
+         this.genericservice.get(baseurl + '/Reservations/GetReservationsByClubAdmin/' + this.account.getPayload().UserID + "?$select=StartReservation,EndReservation,status,Price&$expand=Client($select=FullName,Email),Terrain($expand=club($select=ClubAdminId))")
          .subscribe(
             res => {
                this.reservations = res;
@@ -86,6 +84,7 @@ export class InvoicesComponent implements OnInit {
          let invoice = {
             IdReservation: el.IdReservation,
             FullName: el.Client.FullName,
+            Email: el.Client.Email,
             Name: el.Terrain.Name,
             Type: el.Terrain.Type,
             Duration: Math.round(el.Duration*100)/100,
